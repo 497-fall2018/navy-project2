@@ -11,7 +11,7 @@ let mongo_uri;
 if (process.env.NODE_ENV === 'DEVELOPMENT') {
 	mongo_uri = 'mongodb://localhost:27017/navy';
 } else {
-	mongo_uri = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}navy`;
+	mongo_uri = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/navy`;
 }
 //connect to database
 mongoose.connect(mongo_uri).then(() => console.log('Connected to navy database.'))
