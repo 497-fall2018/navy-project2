@@ -27,15 +27,16 @@ function Post(props) {
     <Card className={classes.card}>
       <CardContent>
         <Typography variant="h5">
-          benevolent
+          {props.name}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          adjective
+          {props.location}
+        </Typography>
+        <Typography className={classes.pos} color="textSecondary">
+          {props.date}
         </Typography>
         <Typography component="p">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
+          {props.description}
         </Typography>
       </CardContent>
       <CardActions>
