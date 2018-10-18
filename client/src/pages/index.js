@@ -1,3 +1,3 @@
 export * from './Home';
 export * from './PostForm';
-export * from './Posts';
+export * from './PostInfo';

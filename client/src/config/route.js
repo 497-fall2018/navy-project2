@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {
     Home,
     PostForm,
-    Posts,
+    PostInfo,
 } from '../pages';
 
 const AppNavigator = () => (
@@ -11,7 +11,7 @@ const AppNavigator = () => (
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/postform" component={PostForm} />
-        <Route exact path="/posts" component={Posts} />
+        <Route exact path="/postinfo" component={PostInfo} />
       </Switch>
     </Router>
 );
