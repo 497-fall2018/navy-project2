@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import {
     Header,
+    Posts
 } from '../../components';
 import {
 } from '../../ducks/post';
