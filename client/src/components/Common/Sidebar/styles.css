@@ -1,0 +1,11 @@
+.sidebar {
+    float: left;
+    width: 20vw;
+    height: 100vh;
+    background: lightgrey;
+    border-right: 1px solid black;
+}
+
+.sidebar div form {
+    padding: 10px;
+}
