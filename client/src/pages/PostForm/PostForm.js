@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {IconButton, Button, TextField, Grid} from '@material-ui/core';
 import {AddAPhoto} from '@material-ui/icons';
-import { createMuiTheme } from '@material-ui/core/styles';
+import { Route } from 'react-router-dom';
 
 import {
 	change_author,
@@ -83,7 +83,9 @@ class PostFormComponent extends Component {
 						</Grid>
 						<Grid item>
 							<br/>
-							<Button style={{background: '#4054AC', color: 'white'}}  onClick={this.handlePostFormSubmit}>Submit</Button>
+							<Route render={({ history}) => (
+								<Button style={{background: '#4054AC', color: 'white'}}  onClick={() => {history.push('/')}}>Submit</Button>
+							)}/>
 						</Grid>
 					</Grid>
 					
