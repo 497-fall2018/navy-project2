@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import {
     Header,
-    Posts
+    PostList,
 } from '../../components';
 import {
 } from '../../ducks/post';
@@ -16,6 +16,7 @@ class HomeComponent extends Component {
         return (
             <div>
                 <Header />
+                <PostList />
             </div>
         );
 
