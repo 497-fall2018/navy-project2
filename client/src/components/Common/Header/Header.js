@@ -9,16 +9,15 @@ class Header extends Component {
         const landingUrl = "lostnfound.mmorderell.com";
         return (
         <div className="header">
-            <div className="innerHeader">
-                <h2>Lost & Found</h2>
-                <div className={window.innerWidth > 425 ? "topRight" : "hideTopRight"}>
-                    <a href={landingUrl} className="topRightLink">
-                        Lost
-                    </a>
-                    <a href={landingUrl} className="topRightLink">
-                        Found
-                    </a>
-                </div>
+            <span>Lost & Found</span>
+
+            <div className="headerLinks">
+                <a href={landingUrl} className="topRightLink">
+                    Lost
+                </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href={landingUrl} className="topRightLink">
+                    Found
+                </a>
             </div>
         </div>);
     }
