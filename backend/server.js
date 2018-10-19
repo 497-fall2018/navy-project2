@@ -9,12 +9,12 @@ mongoose.Promise = global.Promise;
 
 let mongo_uri;
 if (process.env.NODE_ENV === 'DEVELOPMENT') {
-	mongo_uri = 'mongodb://localhost:27017/navy';
+	mongo_uri = 'mongodb://localhost:27017/lostnfound';
 } else {
-	mongo_uri = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/navy`;
+	mongo_uri = `mongodb://mmoderwell.com:27018/lostnfound`;
 }
 //connect to database
-mongoose.connect(mongo_uri).then(() => console.log('Connected to navy database.'))
+mongoose.connect('mongodb://mmoderwell.com:27018/lostnfound').then(() => console.log('Connected to lostnfound database.'))
 	.catch((e) => {
 		console.error('Connection to mongodb failed.');
 	});
