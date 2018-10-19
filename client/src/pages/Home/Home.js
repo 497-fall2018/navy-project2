@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {Add} from '@material-ui/icons';
 import {Button} from '@material-ui/core';
-import { Route } from 'react-router-dom';
 
 import {
     Header,
@@ -16,14 +15,13 @@ class HomeComponent extends Component {
 
 
     render() {
+        const landingUrl = "postform";
         return (
             <div>
                 <Header />
-                <Route render={({ history}) => (
-                    <Button variant="fab" style={{background: '#4054AC', color: 'white'}} aria-label="Add" onClick={() => {history.push('/postform')}}>
-                        <Add/>
-                    </Button>
-                )}/>
+                <Button variant="fab" style={{background: '#4054AC', color: 'white', marginLeft: '80%'}} aria-label="Add">
+                    <a href={landingUrl} style={{color: "white"}}><Add/></a>
+                </Button>
             </div>
         );
 

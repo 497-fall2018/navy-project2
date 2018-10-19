@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {IconButton, Button, TextField, Grid} from '@material-ui/core';
 import {AddAPhoto} from '@material-ui/icons';
-import { Route } from 'react-router-dom';
 
 import {
 	change_author,
@@ -30,6 +29,7 @@ class PostFormComponent extends Component {
 	}
 
 	render() {
+		const landingUrl = "/";
 		return (
 			<div>
 				<Header />
@@ -83,9 +83,8 @@ class PostFormComponent extends Component {
 						</Grid>
 						<Grid item>
 							<br/>
-							<Route render={({ history}) => (
-								<Button style={{background: '#4054AC', color: 'white'}}  onClick={() => {history.push('/')}}>Submit</Button>
-							)}/>
+							<Button style={{background: '#4054AC', color: 'white'}}><a href={landingUrl} style={{color: "white"}}>Submit</a></Button>
+							
 						</Grid>
 					</Grid>
 					
