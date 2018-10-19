@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import './styles.css';
 
@@ -6,9 +6,9 @@ import './styles.css';
 class Header extends Component {
 
     render() {
-        const landingUrl = "lostnfound.mmorderell.com";
+        const landingUrl = "lostnfound.mmoderwell.com";
         return (
-        <div className="header">
+            <div className="header">
             <div className="innerHeader">
                 <h2>Lost & Found</h2>
                 <div className={window.innerWidth > 425 ? "topRight" : "hideTopRight"}>
