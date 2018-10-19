@@ -19,6 +19,7 @@ export const HANDLE_DELETE_POST = "petstagram/post/HANDLE_DELETE_POST";
 export const HANDLE_DELETE_POST_SUCCESS = "petstagram/post/HANDLE_DELETE_POST_SUCCESS";
 export const HANDLE_DELETE_POST_FAILURE = "petstagram/post/HANDLE_DELETE_POST_FAILURE";
 export const HANDLE_UPDATE_POST = "petstagram/post/HANDLE_UPDATE_POST";
+export const HANDLE_SCHOOL_CHANGE = "petstagram/post/HANDLE_SCHOOL_CHANGE";
 
 
 const INITIAL_STATE = {
@@ -37,11 +38,17 @@ const INITIAL_STATE = {
     updateId: null,
     pollInterval: null,
     error_message: "",
+    school: "Northwestern University",
 };
 
 //Reducers
 export default function reducer(state = INITIAL_STATE, action) {
     switch (action.type){
+        case HANDLE_SCHOOL_CHANGE:
+            return {
+                ...state,
+                school: action.payload,
+            }
         case CHANGE_ITEM_PREVIEW:
             return {
                 ...state,
@@ -193,6 +200,14 @@ export default function reducer(state = INITIAL_STATE, action) {
 
 
 //Action Creators
+export const handle_school_change = (school) => {
+    return (dispatch) => {
+        dispatch({
+            type: HANDLE_SCHOOL_CHANGE,
+            payload: school,
+        })
+    }
+}
 export const change_item_preview = (file) => {
     return (dispatch) => {
         dispatch({

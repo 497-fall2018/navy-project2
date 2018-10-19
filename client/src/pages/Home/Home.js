@@ -5,7 +5,8 @@ import {Button} from '@material-ui/core';
 
 import {
     Header,
-    Posts
+    Sidebar,
+    PostList,
 } from '../../components';
 import {
 } from '../../ducks/post';
@@ -19,6 +20,11 @@ class HomeComponent extends Component {
         return (
             <div>
                 <Header />
+                <br/>
+                <div className="bodyContainer">
+                    <Sidebar />
+                    <PostList />
+                </div>
                 <Button variant="fab" style={{background: '#4054AC', color: 'white', marginLeft: '80%'}} aria-label="Add">
                     <a href={landingUrl} style={{color: "white"}}><Add/></a>
                 </Button>
