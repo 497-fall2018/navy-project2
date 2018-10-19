@@ -11,7 +11,7 @@ class HeaderComponent extends Component {
         this.props.handle_school_change(event.target.value);
     }
     render() {
-        const landingUrl = "lostnfound.mmorderell.com";
+        const landingUrl = "";
         return (
         <div className="header">
             <span>Lost & Found</span>
