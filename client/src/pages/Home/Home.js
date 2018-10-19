@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import {
     Header,
+    Sidebar,
     Posts
 } from '../../components';
 import {
@@ -16,6 +17,8 @@ class HomeComponent extends Component {
         return (
             <div>
                 <Header />
+                <br/>
+                <Sidebar />
             </div>
         );
 
