@@ -33,7 +33,7 @@ class PostFormComponent extends Component {
 		return (
 			<div>
 				<Header />
-				<form style={{padding: "0 20%"}}>
+				<form style={{padding: "0 20%", paddingTop: "5%"}}>
 					<TextField
 						label="Item"
 						fullWidth
