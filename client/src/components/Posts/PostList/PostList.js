@@ -30,20 +30,22 @@ class PostList extends React.Component {
     const { spacing } = this.state;
 
     return (
-      <Grid container className={classes.root} spacing={16}>
-        <Grid item xs={12}>
-          <Grid container className={classes.demo} justify="center" spacing={Number(spacing)}>
-            {[0, 1, 2, 3, 4, 5, 6].map(value => (
-              <Grid key={value} item>
-                <Post name="Phone" location="tech" date="today" description="The iPhone is a line of smartphones produced by Apple Inc. While the feature list of an iPhone is continually changing with each new model, it is best known for its touch screen that allows quick response to single or multiple finger strokes. It runs on the iOS mobile operating system."
-                 ></Post>
+        <div className="postlist">
+          <Grid container className={classes.root} spacing={16}>
+            <Grid item xs={12}>
+              <Grid container className={classes.demo} justify="center" spacing={Number(spacing)}>
+                {[0, 1, 2, 3, 4, 5, 6].map(value => (
+                  <Grid key={value} item>
+                    <Post name="Phone" location="tech" date="today" description="The iPhone is a line of smartphones produced by Apple Inc. While the feature list of an iPhone is continually changing with each new model, it is best known for its touch screen that allows quick response to single or multiple finger strokes. It runs on the iOS mobile operating system."
+                     ></Post>
+                  </Grid>
+                ))}
               </Grid>
-            ))}
+            </Grid>
+            <Grid item xs={12}>
+            </Grid>
           </Grid>
-        </Grid>
-        <Grid item xs={12}>
-        </Grid>
-      </Grid>
+        </div>
     );
   }
 }

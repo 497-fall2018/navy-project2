@@ -3,12 +3,8 @@ import { connect } from 'react-redux';
 
 import {
     Header,
-<<<<<<< HEAD
     Sidebar,
-    Posts
-=======
     PostList,
->>>>>>> 3f79547a11a14b1bd2e16a305a65726d407a3b70
 } from '../../components';
 import {
 } from '../../ducks/post';
@@ -21,12 +17,11 @@ class HomeComponent extends Component {
         return (
             <div>
                 <Header />
-<<<<<<< HEAD
                 <br/>
-                <Sidebar />
-=======
-                <PostList />
->>>>>>> 3f79547a11a14b1bd2e16a305a65726d407a3b70
+                <div className="bodyContainer">
+                    <Sidebar />
+                    <PostList />
+                </div>
             </div>
         );
 
