@@ -13,7 +13,7 @@ export const SUBMIT_NEW_POST_SUCCESS = "petstagram/post/SUBMIT_NEW_POST_SUCCESS"
 export const SUBMIT_UPDATED_POST = "petstagram/post/SUBMIT_UPDATED_POST_SUCCESS";
 export const SUBMIT_UPDATED_POST_FAILURE = "petstagram/post/SUBMIT_UPDATED_POST_FAILURE";
 export const SUBMIT_UPDATED_POST_SUCCESS = "petstagram/post/SUBMIT_UPDATED_POST_SUCCESS";
-export const HANDLE_CHANGE = "petstagram/post/HANDLE_CHANGE";
+export const CHANGE_ITEM_PREVIEW = "petstagram/post/CHANGE_ITEM_PREVIEW";
 export const HANDLE_IMAGE_CHANGE = "petstagram/post/HANDLE_IMAGE_CHANGE";
 export const HANDLE_DELETE_POST = "petstagram/post/HANDLE_DELETE_POST";
 export const HANDLE_DELETE_POST_SUCCESS = "petstagram/post/HANDLE_DELETE_POST_SUCCESS";
@@ -42,7 +42,7 @@ const INITIAL_STATE = {
 //Reducers
 export default function reducer(state = INITIAL_STATE, action) {
     switch (action.type){
-        case HANDLE_CHANGE:
+        case CHANGE_ITEM_PREVIEW:
             return {
                 ...state,
                 file: action.payload,
@@ -193,10 +193,10 @@ export default function reducer(state = INITIAL_STATE, action) {
 
 
 //Action Creators
-export const handle_change = (file) => {
+export const change_item_preview = (file) => {
     return (dispatch) => {
         dispatch({
-            type: HANDLE_CHANGE,
+            type: CHANGE_ITEM_PREVIEW,
             payload: file,
         })
     }
