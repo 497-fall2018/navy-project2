@@ -13,6 +13,6 @@ const foundSchema = new Schema({
 	password: String
 });
 
-const found = mongoose.model('found', foundSchema);
+const foundItem = mongoose.model('found', foundSchema);
 
-module.exports = found;
+module.exports = foundItem;
