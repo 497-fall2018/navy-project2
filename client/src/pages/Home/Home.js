@@ -20,7 +20,7 @@ class HomeComponent extends Component {
         return (
             <div>
                 <Header />
-                <Button variant="fab" style={{background: '#4054AC', color: 'white', marginLeft: '80%'}} aria-label="Add">
+                <Button variant="fab" style={{background: '#4054AC', color: 'white', position: 'absolute', top: '4vh', right: '2vw'}} aria-label="Add">
                     <a href={landingUrl} style={{color: "white"}}><Add/></a>
                 </Button>
                 <br/>
