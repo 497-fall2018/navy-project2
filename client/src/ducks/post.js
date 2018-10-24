@@ -20,6 +20,9 @@ export const HANDLE_DELETE_POST_SUCCESS = "petstagram/post/HANDLE_DELETE_POST_SU
 export const HANDLE_DELETE_POST_FAILURE = "petstagram/post/HANDLE_DELETE_POST_FAILURE";
 export const HANDLE_UPDATE_POST = "petstagram/post/HANDLE_UPDATE_POST";
 export const HANDLE_SCHOOL_CHANGE = "petstagram/post/HANDLE_SCHOOL_CHANGE";
+export const HANDLE_CLICK_SHOW_PASSWORD = "petstagram/post/HANDLE_CLICK_SHOW_PASSWORD";
+export const HANDLE_PASSWORD_CHANGE = "petstagram/post/HANDLE_PASSWORD_CHANGE";
+export const HANDLE_FORM_TYPE_CHANGE = "petstagram/post/HANDLE_FORM_TYPE_CHANGE";
 
 
 const INITIAL_STATE = {
@@ -39,6 +42,9 @@ const INITIAL_STATE = {
     pollInterval: null,
     error_message: "",
     school: "Northwestern University",
+    showPassword: false,
+    password: '',
+    showQuestions: true,
 };
 
 //Reducers
@@ -190,6 +196,22 @@ export default function reducer(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 error_message: "Something went wrong while loading the result.",
+            }
+        case HANDLE_CLICK_SHOW_PASSWORD:
+            return {
+                ...state,
+                showPassword: !state.showPassword
+
+            }
+        case HANDLE_PASSWORD_CHANGE:
+            return {
+                ...state,
+                password: action.payload
+            }
+        case HANDLE_FORM_TYPE_CHANGE:
+            return {
+                ...state,
+                showQuestions: action.payload === "found" ? true : false
             }
         default:
             return {
@@ -378,4 +400,30 @@ export const handle_delete_post_failure = (dispatch, error) => {
     dispatch({
         type: HANDLE_DELETE_POST_FAILURE,
     });
+}
+
+export const handle_click_show_password = () => {
+    return (dispatch) => {
+        dispatch({
+            type: HANDLE_CLICK_SHOW_PASSWORD,
+        });
+    }
+}
+
+export const handle_password_change = (password) => {
+    return (dispatch) => {
+        dispatch({
+            type: HANDLE_PASSWORD_CHANGE,
+            payload: password,
+        });
+    }
+}
+
+export const handle_form_type_change = (showquestion) => {
+    return (dispatch) => {
+        dispatch({
+            type: HANDLE_FORM_TYPE_CHANGE,
+            payload: showquestion,
+        });
+    }
 }
