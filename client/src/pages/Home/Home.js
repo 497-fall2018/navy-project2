@@ -23,7 +23,6 @@ class HomeComponent extends Component {
                 <Button variant="fab" style={{background: '#4054AC', color: 'white', position: 'absolute', top: '4vh', right: '2vw'}} aria-label="Add">
                     <a href={landingUrl} style={{color: "white"}}><Add/></a>
                 </Button>
-                <br/>
                 <div className="bodyContainer">
                     <Sidebar />
                     <PostList />

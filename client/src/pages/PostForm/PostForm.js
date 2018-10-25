@@ -47,7 +47,7 @@ class PostFormComponent extends Component {
 				<Header />
 				<form style={{padding: "0 20%", paddingTop: "5%"}}>
 					<FormControl component="fieldset">
-						<FormLabel component="legend">Do you find/lose the item?</FormLabel>
+						<FormLabel component="legend">Did you find/lose the item?</FormLabel>
 						<RadioGroup
 							aria-label="FormType"
 							value={this.props.showQuestions ? "found" : "lost"}
