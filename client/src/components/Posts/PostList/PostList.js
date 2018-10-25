@@ -28,7 +28,7 @@ class PostList extends React.Component {
 
     return (
         <div className="postlist" style={{padding:16}}>
-          <Grid container className={classes.root} spacing={16} >
+          <Grid container spacing={16} >
             <Grid item xs={12}>
               <Grid container className={classes.demo} justify="flex-start" spacing={Number(spacing)}>
                 {[0, 1, 2, 3, 4, 5, 6].map(value => (

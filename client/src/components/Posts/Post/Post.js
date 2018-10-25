@@ -20,30 +20,32 @@ const styles = {
   },
 };
 
-function Post(props) {
-  const { classes } = props;
 
-  return (
-    <Card className={classes.card}>
-      <CardContent>
-        <Typography variant="h5">
-          {props.name}
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          {props.location}
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          {props.date}
-        </Typography>
-        <Typography component="p">
-          {props.description}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card>
-  );
+class Post extends React.Component {
+
+  render(){
+    return (
+      <Card className={styles.card}>
+        <CardContent>
+          <Typography variant="h5">
+            {this.props.name}
+          </Typography>
+          <Typography  color="textSecondary">
+            {this.props.location}
+          </Typography>
+          <Typography color="textSecondary">
+            {this.props.date}
+          </Typography>
+          <Typography component="p">
+            {this.props.description}
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <Button size="small">Learn More</Button>
+        </CardActions>
+      </Card>
+    );
+  }
 }
 
 Post.propTypes = {
