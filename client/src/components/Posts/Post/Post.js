@@ -6,6 +6,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { CardMedia } from '@material-ui/core';
 
 const styles = {
   card: {
@@ -18,14 +19,23 @@ const styles = {
   pos: {
     marginBottom: 12,
   },
+  media: {
+    height: 200,
+  },
+  // spec: {
+  //   display: 'flex',
+  // }
 };
 
 
 class Post extends React.Component {
 
   render(){
+    const {classes} = this.props;
     return (
-      <Card className={styles.card}>
+      <Card className={classes.card}>
+        <CardMedia className={classes.media} image={this.props.image}/>
+
         <CardContent>
           <Typography variant="h5">
             {this.props.name}
@@ -41,7 +51,7 @@ class Post extends React.Component {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">Learn More</Button>
+          <Button size="small" >More Info</Button>
         </CardActions>
       </Card>
     );

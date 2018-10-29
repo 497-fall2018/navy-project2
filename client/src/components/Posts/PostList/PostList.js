@@ -3,6 +3,7 @@ import {Post} from '../Post';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import phoneimage from './phone.jpeg'
 
 
 const styles = theme => ({
@@ -16,11 +17,11 @@ class PostList extends React.Component {
     spacing: '16',
   };
 
-  handleChange = key => (event, value) => {
-    this.setState({
-      [key]: value,
-    });
-  };
+  // handleChange = key => (event, value) => {
+  //   this.setState({
+  //     [key]: value,
+  //   });
+  // };
 
   render() {
     const { classes } = this.props;
@@ -33,7 +34,8 @@ class PostList extends React.Component {
               <Grid container className={classes.demo} justify="flex-start" spacing={Number(spacing)}>
                 {[0, 1, 2, 3, 4, 5, 6].map(value => (
                   <Grid key={value} item>
-                    <Post name="Phone" location="tech" date="today" description="The iPhone is a line of smartphones produced by Apple Inc. While the feature list of an iPhone is continually changing with each new model, it is best known for its touch screen that allows quick response to single or multiple finger strokes. It runs on the iOS mobile operating system."
+                    <Post name="iPhone 5S" location="tech" date="today" description="Last seen in LG51. Black rubber case."
+                          image={phoneimage} spec="$10"
                      ></Post>
                   </Grid>
                 ))}
