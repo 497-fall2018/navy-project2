@@ -42,10 +42,11 @@ class PostFormComponent extends Component {
 
 	render() {
 		const landingUrl = "/";
+
 		return (
 			<div>
 				<Header />
-				<form style={{padding: "0 20%", paddingTop: "5%"}}>
+				<form style={{padding: "5% 20%"}}>
 					<FormControl component="fieldset">
 						<FormLabel component="legend">Did you find/lose the item?</FormLabel>
 						<RadioGroup
@@ -58,54 +59,77 @@ class PostFormComponent extends Component {
 						</RadioGroup>
 					</FormControl>
 					<TextField
+						required
 						label="Item"
 						fullWidth
 						variant="outlined"
 						onChange={this.handleNameChange}
+						InputLabelProps={{
+							shrink: true
+						}}
 					/><br/><br/>
 					<TextField
+						required
 						label="Location"
 						fullWidth
 						variant="outlined"
+						helperText={"Location where " + (this.props.showQuestions ? "you find it" :  "you probably lose it")}
 						onChange={this.handleNameChange}
+						InputLabelProps={{
+							shrink: true
+						}}
 					/><br/><br/>
 					<TextField
+						required
 						label="Email"
 						fullWidth
 						variant="outlined"
+						InputLabelProps={{
+							shrink: true
+						}}
 					/><br/><br/>
 					<TextField
+						required
 						label="Description"
 						fullWidth
 						variant="outlined"
 						multiline
 						rows="8"
+						InputLabelProps={{
+							shrink: true
+						}}
 					/><br/><br/>
 					<TextField
-						label="School"
-						fullWidth
-						variant="outlined"
-					/><br/><br/>
-					<TextField
+						required
 						label="Reward"
 						fullWidth
 						variant="outlined"
 						style={{display: this.props.showQuestions ? 'none' : ""}}
+						InputLabelProps={{
+							shrink: true
+						}}
 					/>
 					<TextField
+						required
 						label="Questions"
 						fullWidth
 						variant="outlined"
+						helperText="Questions for identification of the owner"
 						style={{display: this.props.showQuestions ? "" : 'none'}}
+						InputLabelProps={{
+							shrink: true
+						}}
 					/>
 					<br/><br/>
 					<TextField
+						required
 						variant="outlined"
 						fullWidth
 						type={this.props.showPassword ? 'text' : 'password'}
 						label="Password"
 						value={this.props.password}
 						onChange={this.handlePasswordChange}
+						helperText="Password will be required when you delete this post later"
 						InputProps={{
 							endAdornment: (
 								<InputAdornment position="end">
@@ -117,6 +141,9 @@ class PostFormComponent extends Component {
 									</IconButton>
 								</InputAdornment>
 							),
+						}}
+						InputLabelProps={{
+							shrink: true
 						}}
 					/><br/><br/>
 					<input style={{display: 'none'}} accept="image/*" onChange={this.handleItemPreviewChange} id="icon-button-file" type="file"/>
