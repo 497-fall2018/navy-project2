@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {IconButton, Button, TextField, Grid, InputAdornment, FormControlLabel, FormControl, FormLabel, RadioGroup, Radio} from '@material-ui/core';
+import {IconButton, Button, TextField, Grid, InputAdornment, FormControlLabel, FormControl, FormLabel, RadioGroup, Radio, Tooltip} from '@material-ui/core';
 import {AddAPhoto, Visibility, VisibilityOff} from '@material-ui/icons';
 
 import {
@@ -58,16 +58,14 @@ class PostFormComponent extends Component {
 							<FormControlLabel value="lost" control={<Radio style={{color: '#4054AC'}} />} label="Lost" />
 						</RadioGroup>
 					</FormControl>
+					<br/><br/>
 					<TextField
 						required
 						label="Item"
 						fullWidth
 						variant="outlined"
 						onChange={this.handleNameChange}
-						InputLabelProps={{
-							shrink: true
-						}}
-					/><br/><br/>
+					/><br/><br/><br/>
 					<TextField
 						required
 						label="Location"
@@ -75,19 +73,13 @@ class PostFormComponent extends Component {
 						variant="outlined"
 						helperText={"Location where " + (this.props.showQuestions ? "you find it" :  "you probably lose it")}
 						onChange={this.handleNameChange}
-						InputLabelProps={{
-							shrink: true
-						}}
 					/><br/><br/>
 					<TextField
 						required
 						label="Email"
 						fullWidth
 						variant="outlined"
-						InputLabelProps={{
-							shrink: true
-						}}
-					/><br/><br/>
+					/><br/><br/><br/>
 					<TextField
 						required
 						label="Description"
@@ -95,19 +87,13 @@ class PostFormComponent extends Component {
 						variant="outlined"
 						multiline
 						rows="8"
-						InputLabelProps={{
-							shrink: true
-						}}
-					/><br/><br/>
+					/><br/><br/><br/>
 					<TextField
 						required
 						label="Reward"
 						fullWidth
 						variant="outlined"
 						style={{display: this.props.showQuestions ? 'none' : ""}}
-						InputLabelProps={{
-							shrink: true
-						}}
 					/>
 					<TextField
 						required
@@ -116,9 +102,6 @@ class PostFormComponent extends Component {
 						variant="outlined"
 						helperText="Questions for identification of the owner"
 						style={{display: this.props.showQuestions ? "" : 'none'}}
-						InputLabelProps={{
-							shrink: true
-						}}
 					/>
 					<br/><br/>
 					<TextField
@@ -142,16 +125,12 @@ class PostFormComponent extends Component {
 								</InputAdornment>
 							),
 						}}
-						InputLabelProps={{
-							shrink: true
-						}}
 					/><br/><br/>
 					<input style={{display: 'none'}} accept="image/*" onChange={this.handleItemPreviewChange} id="icon-button-file" type="file"/>
-					<img style={{border: '0px'}} src={this.props.file} alt={this.props.file} style={{width: "50%"}}/><br/>
-					<Grid
-						justify="space-between"
-						container
-					>
+					<Grid style={{border: "0.5px solid rgba(0, 0, 0, 0.2)", borderRadius: '4px', boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)'}}>						
+						<Grid item style={{minHeight: "100px"}}>
+							<img src={this.props.file} alt={this.props.file} style={{border: '0px', width: "50%", padding: "2% 3%"}}/><br/>
+						</Grid>
 						<Grid item>
 							<label htmlFor="icon-button-file">
 								<IconButton color="primary" component="span">
@@ -159,11 +138,9 @@ class PostFormComponent extends Component {
 								</IconButton> <span/>
 							</label>
 						</Grid>
-						<Grid item>
-							<br/>
-							<Button style={{background: '#4054AC', color: 'white'}}><a href={landingUrl} style={{color: "white"}}>Submit</a></Button>
-						</Grid>
 					</Grid>
+					<br/><br/>
+					<Button style={{background: '#4054AC', color: 'white'}}><a href={landingUrl} style={{color: "white"}}>Submit</a></Button>
 				</form>
 			</div>
 		)
