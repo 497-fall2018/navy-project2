@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import { Radio } from '@material-ui/core';
+import _ from 'lodash';
 
 import './styles.css';
+import {
+    change_location_search
+} from '../../../ducks/post';
 
-
-class Sidebar extends Component {
+class SidebarComponent extends Component {
     state = {
         query: '',
     }
@@ -13,37 +18,60 @@ class Sidebar extends Component {
             query: this.search.value
         })
     }
-    
+
+    handleLocationSearchChange = (event) => {
+        this.props.change_location_search(event.target.value);
+    };
+
+    populateLocations = () => {
+        return _.map(this.props.locations, (item, index)=> {
+            return (
+                <div className="locationRadio" key={index}>
+                    <Radio
+                        checked={this.props.location_search === item[0]}
+                        onChange={this.handleLocationSearchChange}
+                        value={item[0]}
+                        name="location-picker"
+                        color="primary"
+                    />
+                    {item[0]} ({item[1]})
+                </div>
+            )
+        });
+    }
+
     render() {
-        const landingUrl = "lostnfound.mmorderell.com";
         return (
             <div className="sidebar">
                 <div className="innerSidebar">
                     <form>
                         <input
+                            type="search"
+                            fullWidth="true"
                             placeholder="Search for..."
                             ref={input => this.search = input}
                             onChange={this.handleInputChange}
-                        />  
+                        />
                     </form>
-                    
-                    <form>
-                        <br/>
-                        <input type="radio"/> Tech (25)<br/>
-                        <input type="radio"/> Norris (15)<br/>
-                        <input type="radio"/> Plex (4)<br/>
-                        <input type="radio"/> Sheridan Rd (1)<br/>
-                        <input type="radio"/> Hinman (1)<br/>
-                        <input type="radio"/> Annenberg (1)<br/>
-                        <input type="radio"/> SPAC (1)<br/>
-                    </form>
-
+                    {this.populateLocations()}
                 </div>
             </div>
         );
     }
 }
 
-export {
-    Sidebar
+export { SidebarComponent };
+
+const mapStateToProps = (state, ownProps) => {
+	const { post } = state;
+	const { location_search, locations } = post;
+	return {
+		...ownProps,
+        location_search,
+		locations,
+	};
 };
+
+export const Sidebar = connect(mapStateToProps, {
+    change_location_search,
+})(SidebarComponent);

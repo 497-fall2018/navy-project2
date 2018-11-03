@@ -71,7 +71,7 @@ class PostFormComponent extends Component {
 						label="Location"
 						fullWidth
 						variant="outlined"
-						helperText={"Location where " + (this.props.showQuestions ? "you find it" :  "you probably lose it")}
+						helperText={"Location where " + (this.props.showQuestions ? "you found it" :  "you probably lost it")}
 						onChange={this.handleNameChange}
 					/><br/><br/>
 					<TextField
@@ -127,7 +127,7 @@ class PostFormComponent extends Component {
 						}}
 					/><br/><br/>
 					<input style={{display: 'none'}} accept="image/*" onChange={this.handleItemPreviewChange} id="icon-button-file" type="file"/>
-					<Grid style={{border: "0.5px solid rgba(0, 0, 0, 0.2)", borderRadius: '4px', boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)'}}>						
+					<Grid style={{border: "0.5px solid rgba(0, 0, 0, 0.2)", borderRadius: '4px', boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)'}}>
 						<Grid item style={{minHeight: "100px"}}>
 							<img src={this.props.file} alt={this.props.file} style={{border: '0px', width: "50%", padding: "2% 3%"}}/><br/>
 						</Grid>
