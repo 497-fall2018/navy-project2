@@ -1,11 +1,13 @@
 .sidebar {
     float: left;
     width: 20vw;
-    height: 100vh;
-    background: whitesmoke;
+    background: lightgrey;
     border-right: 1px solid black;
 }
 
 .sidebar div form {
     padding: 10px;
+}
+.locationRadio {
+    line-height: 1.5rem;
 }

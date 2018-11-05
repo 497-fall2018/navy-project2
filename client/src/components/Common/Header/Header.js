@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { MenuItem, Select } from '@material-ui/core';
 import './styles.css';
 import {
 } from '../../../ducks/post';
@@ -34,8 +33,8 @@ export {
 
 
 const mapStateToProps = (state, ownProps) => {
-    const { post } = state;
-    const {  } = post;
+    // const { post } = state;
+    // const {  } = post;
     return {
         ...ownProps,
     };

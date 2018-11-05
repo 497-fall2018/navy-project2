@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {IconButton, Button, TextField, Grid, InputAdornment, FormControlLabel, FormControl, FormLabel, RadioGroup, Radio} from '@material-ui/core';
+import {IconButton, Button, TextField, Grid, InputAdornment, FormControlLabel, FormControl, FormLabel, RadioGroup, Radio, Tooltip} from '@material-ui/core';
 import {AddAPhoto, Visibility, VisibilityOff} from '@material-ui/icons';
 
 import {
@@ -42,12 +42,13 @@ class PostFormComponent extends Component {
 
 	render() {
 		const landingUrl = "/";
+
 		return (
 			<div>
 				<Header />
-				<form style={{padding: "0 20%", paddingTop: "5%"}}>
+				<form style={{padding: "5% 20%"}}>
 					<FormControl component="fieldset">
-						<FormLabel component="legend">Do you find/lose the item?</FormLabel>
+						<FormLabel component="legend">Did you find/lose the item?</FormLabel>
 						<RadioGroup
 							aria-label="FormType"
 							value={this.props.showQuestions ? "found" : "lost"}
@@ -57,55 +58,61 @@ class PostFormComponent extends Component {
 							<FormControlLabel value="lost" control={<Radio style={{color: '#4054AC'}} />} label="Lost" />
 						</RadioGroup>
 					</FormControl>
+					<br/><br/>
 					<TextField
+						required
 						label="Item"
 						fullWidth
 						variant="outlined"
 						onChange={this.handleNameChange}
-					/><br/><br/>
+					/><br/><br/><br/>
 					<TextField
+						required
 						label="Location"
 						fullWidth
 						variant="outlined"
+						helperText={"Location where " + (this.props.showQuestions ? "you found it" :  "you probably lost it")}
 						onChange={this.handleNameChange}
 					/><br/><br/>
 					<TextField
+						required
 						label="Email"
 						fullWidth
 						variant="outlined"
-					/><br/><br/>
+					/><br/><br/><br/>
 					<TextField
+						required
 						label="Description"
 						fullWidth
 						variant="outlined"
 						multiline
 						rows="8"
-					/><br/><br/>
+					/><br/><br/><br/>
 					<TextField
-						label="School"
-						fullWidth
-						variant="outlined"
-					/><br/><br/>
-					<TextField
+						required
 						label="Reward"
 						fullWidth
 						variant="outlined"
 						style={{display: this.props.showQuestions ? 'none' : ""}}
 					/>
 					<TextField
+						required
 						label="Questions"
 						fullWidth
 						variant="outlined"
+						helperText="Questions for identification of the owner"
 						style={{display: this.props.showQuestions ? "" : 'none'}}
 					/>
 					<br/><br/>
 					<TextField
+						required
 						variant="outlined"
 						fullWidth
 						type={this.props.showPassword ? 'text' : 'password'}
 						label="Password"
 						value={this.props.password}
 						onChange={this.handlePasswordChange}
+						helperText="Password will be required when you delete this post later"
 						InputProps={{
 							endAdornment: (
 								<InputAdornment position="end">
@@ -120,11 +127,10 @@ class PostFormComponent extends Component {
 						}}
 					/><br/><br/>
 					<input style={{display: 'none'}} accept="image/*" onChange={this.handleItemPreviewChange} id="icon-button-file" type="file"/>
-					<img style={{border: '0px'}} src={this.props.file} alt={this.props.file} style={{width: "50%"}}/><br/>
-					<Grid
-						justify="space-between"
-						container
-					>
+					<Grid style={{border: "0.5px solid rgba(0, 0, 0, 0.2)", borderRadius: '4px', boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)'}}>
+						<Grid item style={{minHeight: "100px"}}>
+							<img src={this.props.file} alt={this.props.file} style={{border: '0px', width: "50%", padding: "2% 3%"}}/><br/>
+						</Grid>
 						<Grid item>
 							<label htmlFor="icon-button-file">
 								<IconButton color="primary" component="span">
@@ -132,11 +138,9 @@ class PostFormComponent extends Component {
 								</IconButton> <span/>
 							</label>
 						</Grid>
-						<Grid item>
-							<br/>
-							<Button style={{background: '#4054AC', color: 'white'}}><a href={landingUrl} style={{color: "white"}}>Submit</a></Button>
-						</Grid>
 					</Grid>
+					<br/><br/>
+					<Button style={{background: '#4054AC', color: 'white'}}><a href={landingUrl} style={{color: "white"}}>Submit</a></Button>
 				</form>
 			</div>
 		)
