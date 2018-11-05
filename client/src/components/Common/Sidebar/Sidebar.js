@@ -45,11 +45,7 @@ class SidebarComponent extends Component {
             <div className="sidebar">
                 <div className="innerSidebar">
                     <form>
-<<<<<<< HEAD
-                        <Input
-=======
                         <input
->>>>>>> e8e931861a97bbc3ab5d3f920adde7f2dc093309
                             type="search"
                             fullWidth="true"
                             placeholder="Search for..."
@@ -57,23 +53,7 @@ class SidebarComponent extends Component {
                             onChange={this.handleInputChange}
                         />
                     </form>
-<<<<<<< HEAD
-                    
-                    <form>
-                        {/* <RadioGroup> */}
-                            <Radio/> Tech (25)<br/>
-                            <Radio type="radio"/> Norris (15)<br/>
-                            <Radio type="radio"/> Plex (4)<br/>
-                            <Radio type="radio"/> Sheridan Rd (1)<br/>
-                            <Radio type="radio"/> Hinman (1)<br/>
-                            <Radio type="radio"/> Annenberg (1)<br/>
-                            <Radio type="radio"/> SPAC (1)<br/>
-                        {/* </RadioGroup> */}
-                    </form>
-
-=======
                     {this.populateLocations()}
->>>>>>> e8e931861a97bbc3ab5d3f920adde7f2dc093309
                 </div>
             </div>
         );
