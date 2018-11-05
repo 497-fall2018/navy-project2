@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Radio } from '@material-ui/core';
+import Input from '@material-ui/core/Input';
 import _ from 'lodash';
 
 import './styles.css';
@@ -45,7 +46,7 @@ class SidebarComponent extends Component {
             <div className="sidebar">
                 <div className="innerSidebar">
                     <form>
-                        <input
+                        <Input
                             type="search"
                             fullWidth="true"
                             placeholder="Search for..."
