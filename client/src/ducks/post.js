@@ -36,6 +36,38 @@ const INITIAL_STATE = {
         "_id": "0",
         "updatedAt": ""
     }],
+    lost: [
+        {
+            "name": "iPhone 5S",
+            "location": "Tech",
+            "email": "yulkim2019@u.northwestern.edu",
+            "date": "11-06-2018 16:38",//new Date().format('m-d-Y h:i:s'),
+            "description": "Last seen in LG51. Black rubber case.",
+            "photo": "/posts/phone.jpeg",
+            "reward": "$10",
+            "password": "xxx1"
+        },
+        {
+            "name": "Wild Card",
+            "location": "Norris",
+            "email": "yulkim2019@u.northwestern.edu",
+            "date": "11-05-2018 12:30",//new Date().format('m-d-Y h:i:s'),
+            "description": "I left it in Norbucks.",
+            "photo": "/posts/wildcard.jpg",
+            "reward": "$5",
+            "password": "xxx2",
+        }
+    ],
+    found: [{
+        "name": "Wallet",
+        "location": "Norris",
+        "email": "yulkim2019@u.northwestern.edu",
+        "date": "11-05-2018 12:30",//new Date().format('m-d-Y h:i:s'),
+        "description": "It is a brown wallet with pink stitching. Found outside of Norris.",
+        "photo": "/posts/wallet.jpg",
+        "question": "How much money do you have in your wallet?",
+        "password": "ooo1",
+    }],
     error: null,
     author: '',
     description: '',

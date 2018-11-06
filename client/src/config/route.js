@@ -9,7 +9,9 @@ import {
 const AppNavigator = () => (
     <Router>
       <Switch>
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" render={()=> <Home lorf={"found"} />} />
+        <Route exact path="/lost" render={()=> <Home lorf={"lost"} />} />
+        <Route exact path="/found" render={()=> <Home lorf={"found"} />}/>
         <Route exact path="/postform" component={PostForm} />
         <Route exact path="/postinfo" component={PostInfo} />
       </Switch>
