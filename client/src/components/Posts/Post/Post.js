@@ -22,9 +22,6 @@ const styles = {
   media: {
     height: 200,
   },
-  // spec: {
-  //   display: 'flex',
-  // }
 };
 
 
@@ -49,8 +46,17 @@ class Post extends React.Component {
           <Typography component="p">
             {this.props.description}
           </Typography>
+          <Typography id='reward' style={{"display": "inline",
+    "float": "right",
+    "position": "relative",
+    "right": "15px",
+    "top": "-40px",
+    "font-size": "20px"
+    }}>
+            $10
+          </Typography>
         </CardContent>
-        <CardActions>
+        <CardActions >
           <Button size="small" >More Info</Button>
         </CardActions>
       </Card>
