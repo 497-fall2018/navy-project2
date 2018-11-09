@@ -7,6 +7,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { CardMedia } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
+import deepOrange from '@material-ui/core/colors/deepOrange';
 
 const styles = {
   card: {
@@ -21,6 +23,11 @@ const styles = {
   },
   media: {
     height: 200,
+  },
+  orangeAvatar: {
+    margin: 10,
+    color: '#fff',
+    backgroundColor: '#3a93f2',
   },
 };
 
@@ -46,15 +53,18 @@ class Post extends React.Component {
           <Typography component="p">
             {this.props.description}
           </Typography>
-          <Typography id='reward' style={{"display": "inline",
-    "float": "right",
-    "position": "relative",
-    "right": "15px",
-    "top": "-40px",
-    "font-size": "20px"
-    }}>
-            $10
-          </Typography>
+          <Avatar className={classes.orangeAvatar} 
+              style={{
+                //"display": "inline",
+              "float": "right",
+              "position": "relative",
+              "right": "15px",
+              "top": "5px",
+              // "font-size": "10px"
+              }}
+              >
+              $10
+          </Avatar>
         </CardContent>
         <CardActions >
           <Button size="small" >More Info</Button>
