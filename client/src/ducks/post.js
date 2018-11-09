@@ -4,6 +4,7 @@ import axios from 'axios';
 export const TOGGLE_MODAL = "petstagram/post/TOGGLE_MODAL";
 export const CHANGE_DESCRIPTION = "petstagram/post/CHANGE_DESCRIPTION";
 export const CHANGE_AUTHOR = "petstagram/post/CHANGE_AUTHOR";
+export const CHANGE_LOCATION_SEARCH = "petstagram/post/CHANGE_LOCATION_SEARCH";
 export const LOAD_POSTS = "petstagram/post/LOAD_POSTS";
 export const LOAD_POSTS_FAILURE = "petstagram/post/LOAD_POSTS_FAILURE";
 export const LOAD_POSTS_SUCCESS = "petstagram/post/LOAD_POSTS_SUCCESS";
@@ -24,6 +25,7 @@ export const HANDLE_PASSWORD_CHANGE = "petstagram/post/HANDLE_PASSWORD_CHANGE";
 export const HANDLE_FORM_TYPE_CHANGE = "petstagram/post/HANDLE_FORM_TYPE_CHANGE";
 
 
+
 const INITIAL_STATE = {
     modal_open: false,
     file: null,
@@ -34,6 +36,38 @@ const INITIAL_STATE = {
         "_id": "0",
         "updatedAt": ""
     }],
+    lost: [
+        {
+            "name": "iPhone 5S",
+            "location": "Tech",
+            "email": "yulkim2019@u.northwestern.edu",
+            "date": "11-06-2018 16:38",//new Date().format('m-d-Y h:i:s'),
+            "description": "Last seen in LG51. Black rubber case.",
+            "photo": "/posts/phone.jpeg",
+            "reward": "$10",
+            "password": "xxx1"
+        },
+        {
+            "name": "Wild Card",
+            "location": "Norris",
+            "email": "yulkim2019@u.northwestern.edu",
+            "date": "11-05-2018 12:30",//new Date().format('m-d-Y h:i:s'),
+            "description": "I left it in Norbucks.",
+            "photo": "/posts/wildcard.jpg",
+            "reward": "$5",
+            "password": "xxx2",
+        }
+    ],
+    found: [{
+        "name": "Wallet",
+        "location": "Norris",
+        "email": "yulkim2019@u.northwestern.edu",
+        "date": "11-05-2018 12:30",//new Date().format('m-d-Y h:i:s'),
+        "description": "It is a brown wallet with pink stitching. Found outside of Norris.",
+        "photo": "/posts/wallet.jpg",
+        "question": "How much money do you have in your wallet?",
+        "password": "ooo1",
+    }],
     error: null,
     author: '',
     description: '',
@@ -43,6 +77,9 @@ const INITIAL_STATE = {
     showPassword: false,
     password: '',
     showQuestions: true,
+    lost_locations: [["Tech", 25], ["Norris", 15], ["Plex", 4], ["Sheridan Rd", 1], ["Annenberg", 1], ["SPAC", 1]],
+    found_locations: [["Norris", 10], ["Plex", 4], ["Sheridan Rd", 1], ["SPAC", 1]],
+    location_search: "",
 };
 
 //Reducers
@@ -52,6 +89,11 @@ export default function reducer(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 file: action.payload,
+            }
+        case CHANGE_LOCATION_SEARCH:
+            return {
+                ...state,
+                location_search: action.payload,
             }
         case HANDLE_IMAGE_CHANGE:
             return {
@@ -220,6 +262,14 @@ export const change_item_preview = (file) => {
         dispatch({
             type: CHANGE_ITEM_PREVIEW,
             payload: file,
+        })
+    }
+}
+export const change_location_search = (loc) => {
+    return (dispatch) => {
+        dispatch({
+            type: CHANGE_LOCATION_SEARCH,
+            payload: loc,
         })
     }
 }

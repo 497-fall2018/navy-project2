@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { MenuItem, Select } from '@material-ui/core';
 import './styles.css';
 import {
 } from '../../../ducks/post';
@@ -14,15 +13,15 @@ class HeaderComponent extends Component {
         const landingUrl = "";
         return (
         <div className="header">
-            <Link to="" className="logo">LstnFnd</Link>
+            <Link to="found" className="logo">LstnFnd</Link>
 
             <div className="headerLinks">
-                <a href={landingUrl} className="topRightLink">
+                <Link to="lost" className={(this.props.lorf === "lost") ? "topRightSelected":"topRightNotSelected"}>
                     Lost
-                </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href={landingUrl} className="topRightLink">
+                </Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <Link to="found" className={(this.props.lorf === "found") ? "topRightSelected":"topRightNotSelected"}>
                     Found
-                </a>
+                </Link>
             </div>
         </div>);
     }
@@ -34,8 +33,8 @@ export {
 
 
 const mapStateToProps = (state, ownProps) => {
-    const { post } = state;
-    const {  } = post;
+    // const { post } = state;
+    // const {  } = post;
     return {
         ...ownProps,
     };
