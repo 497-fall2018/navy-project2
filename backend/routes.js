@@ -81,6 +81,26 @@ module.exports = (app) => {
 		});
 	});
 
+	//get all of the lost locations in use and their frequency
+	//returns a locations object which keys being the location and value the frequency
+	app.get('/api/lost/locations', (req, res) => {
+		Lost.find((err, items) => {
+			if (err) return res.json({ success: false, error: err });
+			let locations = {}
+			console.log(items)
+			for (let i = 0; i < items.length; i++) {
+				if (!(items[i].location in locations)) {
+					console.log('New item')
+					locations[items[i].location] = 1;
+				} else {
+					locations[items[i].location] = locations[items[i].location] + 1;
+				}
+			}
+			console.log(locations);
+			return res.json({ success: true, data: locations });
+		});
+	});
+
 	// found items routes //
 
 	//route to add new found item to DB
@@ -155,6 +175,26 @@ module.exports = (app) => {
 		Found.find((err, items) => {
 			if (err) return res.json({ success: false, error: err });
 			return res.json({ success: true, data: items });
+		});
+	});
+
+	//get all of the found locations in use and their frequency
+	//returns a locations object which keys being the location and value the frequency
+	app.get('/api/found/locations', (req, res) => {
+		Found.find((err, items) => {
+			if (err) return res.json({ success: false, error: err });
+			let locations = {}
+			console.log(items)
+			for (let i = 0; i < items.length; i++) {
+				if (!(items[i].location in locations)) {
+					console.log('New item')
+					locations[items[i].location] = 1;
+				} else {
+					locations[items[i].location] = locations[items[i].location] + 1;
+				}
+			}
+			console.log(locations);
+			return res.json({ success: true, data: locations });
 		});
 	});
 
