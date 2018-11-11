@@ -12,9 +12,15 @@ export const CHANGE_REWARD = "lstnfnd/post/CHANGE_REWARD";
 export const CHANGE_PASSWORD = "lstnfnd/post/CHANGE_PASSWORD";
 
 export const CHANGE_LOCATION_SEARCH = "lstnfnd/post/CHANGE_LOCATION_SEARCH";
-export const LOAD_POSTS = "lstnfnd/post/LOAD_POSTS";
-export const LOAD_POSTS_FAILURE = "lstnfnd/post/LOAD_POSTS_FAILURE";
-export const LOAD_POSTS_SUCCESS = "lstnfnd/post/LOAD_POSTS_SUCCESS";
+export const LOAD_FOUND_POSTS = "lstnfnd/post/LOAD_FOUND_POSTS";
+export const LOAD_FOUND_POSTS_FAILURE = "lstnfnd/post/LOAD_FOUND_POSTS_FAILURE";
+export const LOAD_FOUND_POSTS_SUCCESS = "lstnfnd/post/LOAD_FOUND_POSTS_SUCCESS";
+export const LOAD_LOST_POSTS = "lstnfnd/post/LOAD_LOST_POSTS";
+export const LOAD_LOST_POSTS_FAILURE = "lstnfnd/post/LOAD_LOST_POSTS_FAILURE";
+export const LOAD_LOST_POSTS_SUCCESS = "lstnfnd/post/LOAD_LOST_POSTS_SUCCESS";
+export const SUBMIT_NEW_FOUND_POST = "lstnfnd/post/SUBMIT_NEW_FOUND_POST_SUCCESS";
+export const SUBMIT_NEW_FOUND_POST_FAILURE = "lstnfnd/post/SUBMIT_NEW_FOUND_POST_FAILURE";
+export const SUBMIT_NEW_FOUND_POST_SUCCESS = "lstnfnd/post/SUBMIT_NEW_FOUND_POST_SUCCESS";
 export const SUBMIT_NEW_LOST_POST = "lstnfnd/post/SUBMIT_NEW_LOST_POST_SUCCESS";
 export const SUBMIT_NEW_LOST_POST_FAILURE = "lstnfnd/post/SUBMIT_NEW_LOST_POST_FAILURE";
 export const SUBMIT_NEW_LOST_POST_SUCCESS = "lstnfnd/post/SUBMIT_NEW_LOST_POST_SUCCESS";
@@ -57,17 +63,17 @@ const INITIAL_STATE = {
             "reward": "$10",
             "password": "xxx1"
         },
-        {
-            "_id": "",
-            "name": "Wild Card",
-            "location": "Norris",
-            "email": "yulkim2019@u.northwestern.edu",
-            "created": "11-05-2018 12:30",//new Date().format('m-d-Y h:i:s'),
-            "description": "I left it in Norbucks.",
-            "photo": "/posts/wildcard.jpg",
-            "reward": "$5",
-            "password": "xxx2",
-        }
+        // {
+        //     "_id": "",
+        //     "name": "Wild Card",
+        //     "location": "Norris",
+        //     "email": "yulkim2019@u.northwestern.edu",
+        //     "created": "11-05-2018 12:30",//new Date().format('m-d-Y h:i:s'),
+        //     "description": "I left it in Norbucks.",
+        //     "photo": "/posts/wildcard.jpg",
+        //     "reward": "$5",
+        //     "password": "xxx2",
+        // }
     ],
     found: [{
         "_id": "",
@@ -173,26 +179,88 @@ export default function reducer(state = INITIAL_STATE, action) {
                 ...state,
                 formType: action.payload,
             }
-        case LOAD_POSTS:
-        case LOAD_POSTS_SUCCESS:
+        case LOAD_FOUND_POSTS:
+        case LOAD_FOUND_POSTS_SUCCESS:
             if(action.payload) {
+                console.log(action.payload);
+                var locations = [];
+                for (var key in action.payload[1].data){
+                    locations.push([key, action.payload[1].data[key]]);
+                }
                 return {
                     ...state,
                     error_message: "",
-                    data: action.payload.data,
+                    found: action.payload[0].data,
+                    found_locations: locations
                 }
             }
             return {
                 ...state,
                 error_message: ""
             }
-        case LOAD_POSTS_FAILURE:
+        case LOAD_FOUND_POSTS_FAILURE:
             /*
             if the quiz load fails, need to lead them to a 500 page.
             */
             return {
                 ...state,
-                error_message: "Something went wrong while loading the quiz. ",
+                error_message: "Something went wrong while loading the found posts. ",
+            }
+        case LOAD_LOST_POSTS:
+        case LOAD_LOST_POSTS_SUCCESS:
+            if(action.payload) {
+                console.log(action.payload);
+                var locations = [];
+                for (var key in action.payload[1].data){
+                    locations.push([key, action.payload[1].data[key]]);
+                }
+                return {
+                    ...state,
+                    error_message: "",
+                    lost: action.payload[0].data,
+                    lost_locations: locations
+                }
+            }
+            return {
+                ...state,
+                error_message: ""
+            }
+        case LOAD_LOST_POSTS_FAILURE:
+            /*
+            if the quiz load fails, need to lead them to a 500 page.
+            */
+            return {
+                ...state,
+                error_message: "Something went wrong while loading the lost posts. ",
+            }
+        case SUBMIT_NEW_FOUND_POST:
+        case SUBMIT_NEW_FOUND_POST_SUCCESS:
+            if(action.payload){
+                return {
+                    ...state,
+                    error_message: "",
+                    name: "",
+                    location: "",
+                    email: "",
+                    reward: "",
+                    question: "",
+                    password: "",
+                    description: "",
+                    image: null,
+                }
+            } else {
+                return {
+                    ...state,
+                }
+            }
+
+        case SUBMIT_NEW_FOUND_POST_FAILURE:
+            /*
+            if the posting fails, need to lead them to a 500 page.
+            */
+            return {
+                ...state,
+                error_message: "Something went wrong while submitting the found item post.",
             }
         case SUBMIT_NEW_LOST_POST:
         case SUBMIT_NEW_LOST_POST_SUCCESS:
@@ -398,28 +466,58 @@ export const change_password = (password) => {
         });
     }
 }
-export const load_posts = () => {
-    const url = `/api/comments`;
+export const load_found_posts = () => {
+    const url = `/api/found`;
     return (dispatch) => {
         dispatch({
-            type: LOAD_POSTS,
+            type: LOAD_FOUND_POSTS,
         });
-        axios.get(url)
-          .then((response) => load_posts_success(dispatch, response))
-          .catch((error) => load_posts_failure(dispatch, error))
+        axios.all([
+            axios.get(url),
+            axios.get(url+`/locations`)
+        ])
+          .then(axios.spread((foundRes, locRes) => load_found_posts_success(dispatch, [foundRes.data, locRes.data])))
+          .catch((error) => load_found_posts_failure(dispatch, error))
     }
 }
 
-export const load_posts_success = (dispatch, response) => {
+export const load_found_posts_success = (dispatch, response) => {
     dispatch({
-        type: LOAD_POSTS_SUCCESS,
-        payload: response.data,
+        type: LOAD_FOUND_POSTS_SUCCESS,
+        payload: response,
     });
 }
 
-export const load_posts_failure = (dispatch, error) => {
+export const load_found_posts_failure = (dispatch, error) => {
     dispatch({
-        type: LOAD_POSTS_FAILURE,
+        type: LOAD_FOUND_POSTS_FAILURE,
+    });
+}
+export const load_lost_posts = () => {
+    const url = `/api/lost`;
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_LOST_POSTS,
+        });
+        axios.all([
+            axios.get(url),
+            axios.get(url+`/locations`)
+        ])
+          .then(axios.spread((lostRes, locRes) => load_lost_posts_success(dispatch, [lostRes.data, locRes.data])))
+          .catch((error) => load_lost_posts_failure(dispatch, error))
+    }
+}
+
+export const load_lost_posts_success = (dispatch, response) => {
+    dispatch({
+        type: LOAD_LOST_POSTS_SUCCESS,
+        payload: response,
+    });
+}
+
+export const load_lost_posts_failure = (dispatch, error) => {
+    dispatch({
+        type: LOAD_LOST_POSTS_FAILURE,
     });
 }
 export const submit_updated_post = (author, description, file, updateId) => {
@@ -459,13 +557,63 @@ export const submit_updated_post_failure = (dispatch, error) => {
     });
 }
 
-export const submit_new_lost_post = (name, location, email, description, reward, password) => {
+export const submit_new_found_post = (name, location, email, description, question, password) => {
+    console.log("new_found_post called")
     var formData = new FormData();
     formData.append('name', name);
     formData.append('location', location);
     formData.append('email', email);
     formData.append('description', description);
-    formData.append('reward', reward);
+    formData.append('question', question);
+    formData.append('password', password);
+    // formData.append('frame', file, file.name);
+    const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
+    for (var pair of formData.entries()) {
+        console.log(pair[0]+ ', ' + pair[1]);
+    }
+    return (dispatch) => {
+        dispatch({
+            type: SUBMIT_NEW_FOUND_POST,
+        });
+        axios.post(`/api/found/create`, //formData, config      <-- used when image is in the json as well
+            {
+                "name": name,
+                "location": location,
+                "email": email,
+                "description": description,
+                "question": question,
+                "password": password
+            }
+        )
+          .then((response) => submit_new_found_post_success(dispatch, response))
+          .catch((error) => submit_new_found_post_failure(dispatch, error))
+    }
+}
+
+export const submit_new_found_post_success = (dispatch, response) => {
+    dispatch({
+        type: SUBMIT_NEW_FOUND_POST_SUCCESS,
+        payload: response.data,
+    });
+}
+
+export const submit_new_found_post_failure = (dispatch, error) => {
+    dispatch({
+        type: SUBMIT_NEW_FOUND_POST_FAILURE,
+    });
+}
+export const submit_new_lost_post = (name, location, email, description, reward, password) => {
+    console.log("new_lost_post called")
+    var formData = new FormData();
+    formData.append('name', name);
+    formData.append('location', location);
+    formData.append('email', email);
+    formData.append('description', description);
+    formData.append('reward', parseFloat(reward));
     formData.append('password', password);
     // formData.append('frame', file, file.name);
     const config = {
@@ -480,7 +628,16 @@ export const submit_new_lost_post = (name, location, email, description, reward,
         dispatch({
             type: SUBMIT_NEW_LOST_POST,
         });
-        axios.post(`/api/lost`, formData, config)
+        axios.post(`/api/lost/create`, //formData, config      <-- used when image is in the json as well
+            {
+                "name": name,
+                "location": location,
+                "email": email,
+                "description": description,
+                "reward": reward,
+                "password": password
+            }
+        )
           .then((response) => submit_new_lost_post_success(dispatch, response))
           .catch((error) => submit_new_lost_post_failure(dispatch, error))
     }

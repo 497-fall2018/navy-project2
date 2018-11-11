@@ -14,6 +14,8 @@ import {
 	change_question,
 	change_reward,
 	handle_click_show_password,
+	submit_new_found_post,
+	submit_new_lost_post,
 } from '../../ducks/post';
 import {
     Header
@@ -51,7 +53,7 @@ class PostFormComponent extends Component {
 	}
 
 	handlePostFormSubmit = () => {
-		if (this.props.type_form === "lost") {
+		if (this.props.form_type === "lost") {
 			this.props.submit_new_lost_post(this.props.name, this.props.location, this.props.email, this.props.description, this.props.reward, this.props.password);
 		}
 		else {
@@ -66,7 +68,6 @@ class PostFormComponent extends Component {
 
 	render() {
 		const landingUrl = "/";
-
 		return (
 			<div>
 				<Header />
@@ -88,6 +89,7 @@ class PostFormComponent extends Component {
 						label="Item"
 						fullWidth
 						variant="outlined"
+						value={this.props.name}
 						onChange={this.handleNameChange}
 					/><br/><br/><br/>
 					<TextField
@@ -96,19 +98,24 @@ class PostFormComponent extends Component {
 						fullWidth
 						variant="outlined"
 						helperText={"Location where " + (this.props.form_type === "found" ? "you found it" :  "you probably lost it")}
-						onChange={this.handleNameChange}
+						value={this.props.location}
+						onChange={this.handleLocationChange}
 					/><br/><br/>
 					<TextField
 						required
 						label="Email"
 						fullWidth
 						variant="outlined"
+						value={this.props.email}
+						onChange={this.handleEmailChange}
 					/><br/><br/><br/>
 					<TextField
 						required
 						label="Description"
 						fullWidth
 						variant="outlined"
+						value={this.props.description}
+						onChange={this.handleDescriptionChange}
 						multiline
 						rows="8"
 					/><br/><br/><br/>
@@ -117,6 +124,8 @@ class PostFormComponent extends Component {
 						label="Reward"
 						fullWidth
 						variant="outlined"
+						value={this.props.reward}
+						onChange={this.handleRewardChange}
 						style={{display: this.props.form_type === "found" ? 'none' : ""}}
 					/>
 					<TextField
@@ -124,6 +133,8 @@ class PostFormComponent extends Component {
 						label="Questions"
 						fullWidth
 						variant="outlined"
+						value={this.props.question}
+						onChange={this.handleQuestionChange}
 						helperText="Questions for identification of the owner"
 						style={{display: this.props.form_type === "found" ? "" : 'none'}}
 					/>
@@ -164,7 +175,7 @@ class PostFormComponent extends Component {
 						</Grid>
 					</Grid>
 					<br/><br/>
-					<Button style={{background: '#4054AC', color: 'white'}} onClick={()=>this.handlePostFormSubmit()} disabled={this.props.name==="" ||
+					<Button variant="contained" color="primary" onClick={()=>this.handlePostFormSubmit()} disabled={this.props.name==="" ||
 						this.props.location==="" || this.props.description==="" || this.props.email==="" ||
 						(this.props.reward==="" && this.props.question==="") || this.props.password==="" }>
 						<a href={landingUrl} style={{color: "white", textDecoration:"none"}}>
@@ -208,4 +219,6 @@ export const PostForm = connect(mapStateToProps, {
 	change_question,
 	change_reward,
 	handle_click_show_password,
+	submit_new_found_post,
+	submit_new_lost_post
 })(PostFormComponent);
