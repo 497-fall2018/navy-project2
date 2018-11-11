@@ -39,20 +39,16 @@ module.exports = (app) => {
 		if (!item_id) {
 			return res.json({ success: false, error: 'No id provided' });
 		}
-		item_fields = [name, location, email, description, school, reward, password];
-		console.log('h');
+		const item_fields = ['name', 'location', 'email', 'description', 'school', 'reward', 'password'];
 		Lost.findById(item_id, (error, item) => {
-			console.log('l');
 			if (error) return res.json({ success: false, error });
-			if (item.password !== password) {
+			if (item.password != password) {
 				return res.json({ success: false, error: 'Incorrect password' });
 			}
-			console.log(body);
 			//check to see which fields we got from frontend and update only those
 			for (let i = 0; i < item_fields.length; i++) {
-				if (body[i]) {
-					item[i] = body[i];
-					console.log('fixed');
+				if (body[item_fields[i]]) {
+					item[item_fields[i]] = body[item_fields[i]];
 				}
 			}
 			item.save(error => {
@@ -65,8 +61,16 @@ module.exports = (app) => {
 	app.delete('/api/lost/delete/:id/:password', (req, res) => {
 		const item_id = req.params.id;
 		const password = req.params.password;
+		let item_password;
 		if (!item_id) {
 			return res.json({ success: false, error: 'No id provided' });
+		}
+		Lost.findById(req.params.id, (error, item) => {
+			if (error) return res.json({ success: false, error });
+			item_password = item.password;
+		});
+		if (item_password !== password) {
+			return res.json({ success: false, error: 'Incorrect password' });
 		}
 		Lost.remove({ _id: item_id }, (error, item) => {
 			if (error) return res.json({ success: false, error });
@@ -87,16 +91,13 @@ module.exports = (app) => {
 		Lost.find((err, items) => {
 			if (err) return res.json({ success: false, error: err });
 			let locations = {}
-			console.log(items)
 			for (let i = 0; i < items.length; i++) {
 				if (!(items[i].location in locations)) {
-					console.log('New item')
 					locations[items[i].location] = 1;
 				} else {
-					locations[items[i].location] = locations[items[i].location] + 1;
+					locations[items[i].location] += 1;
 				}
 			}
-			console.log(locations);
 			return res.json({ success: true, data: locations });
 		});
 	});
@@ -133,23 +134,21 @@ module.exports = (app) => {
 	});
 	//update a found item given you have the password for it
 	app.put('/api/found/update/:id/:password', (req, res) => {
-		const _id = req.params.id;
+		const id = req.params.id;
 		const password = req.params.password;
 		const { body } = req;
 
-		item_fields = [name, location, email, description, school, question, password];
+		const item_fields = ['name', 'location', 'email', 'description', 'school', 'question', 'password'];
 
-		Found.find({ _id: req.params.id }, (error, item) => {
+		Found.findById(req.params.id, (error, item) => {
 			if (error) return res.json({ success: false, error });
 			if (item.password !== password) {
 				return res.json({ success: false, error: 'Incorrect password' });
 			}
-			console.log(body);
 			//check to see which fields we got from frontend and update only those
 			for (let i = 0; i < item_fields.length; i++) {
-				if (body[i]) {
-					item[i] = body[i];
-					console.log('fixed');
+				if (body[item_fields[i]]) {
+					item[item_fields[i]] = body[item_fields[i]];
 				}
 			}
 			item.save(error => {
@@ -162,12 +161,20 @@ module.exports = (app) => {
 	app.delete('/api/found/delete/:id/:password', (req, res) => {
 		const item_id = req.params.id;
 		const password = req.params.password;
+		let item_password;
 		if (!item_id) {
 			return res.json({ success: false, error: 'No id provided' });
 		}
-		Found.remove({ _id: item_id }, (error, item) => {
+		Found.findById(req.params.id, (error, item) => {
 			if (error) return res.json({ success: false, error });
-			return res.json({ success: true });
+			item_password = item.password;
+			if (item_password !== password) {
+				return res.json({ success: false, error: 'Incorrect password' });
+			}
+			Found.remove({ _id: item_id }, (error, item) => {
+				if (error) return res.json({ success: false, error });
+				return res.json({ success: true });
+			});
 		});
 	});
 	//get list of found items
@@ -187,10 +194,9 @@ module.exports = (app) => {
 			console.log(items)
 			for (let i = 0; i < items.length; i++) {
 				if (!(items[i].location in locations)) {
-					console.log('New item')
 					locations[items[i].location] = 1;
 				} else {
-					locations[items[i].location] = locations[items[i].location] + 1;
+					locations[items[i].location] += 1;
 				}
 			}
 			console.log(locations);
