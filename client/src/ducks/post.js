@@ -1,28 +1,33 @@
 import axios from 'axios';
 
 //Action Types
-export const TOGGLE_MODAL = "petstagram/post/TOGGLE_MODAL";
-export const CHANGE_DESCRIPTION = "petstagram/post/CHANGE_DESCRIPTION";
-export const CHANGE_AUTHOR = "petstagram/post/CHANGE_AUTHOR";
-export const CHANGE_LOCATION_SEARCH = "petstagram/post/CHANGE_LOCATION_SEARCH";
-export const LOAD_POSTS = "petstagram/post/LOAD_POSTS";
-export const LOAD_POSTS_FAILURE = "petstagram/post/LOAD_POSTS_FAILURE";
-export const LOAD_POSTS_SUCCESS = "petstagram/post/LOAD_POSTS_SUCCESS";
-export const SUBMIT_NEW_POST = "petstagram/post/SUBMIT_NEW_POST_SUCCESS";
-export const SUBMIT_NEW_POST_FAILURE = "petstagram/post/SUBMIT_NEW_POST_FAILURE";
-export const SUBMIT_NEW_POST_SUCCESS = "petstagram/post/SUBMIT_NEW_POST_SUCCESS";
-export const SUBMIT_UPDATED_POST = "petstagram/post/SUBMIT_UPDATED_POST_SUCCESS";
-export const SUBMIT_UPDATED_POST_FAILURE = "petstagram/post/SUBMIT_UPDATED_POST_FAILURE";
-export const SUBMIT_UPDATED_POST_SUCCESS = "petstagram/post/SUBMIT_UPDATED_POST_SUCCESS";
-export const CHANGE_ITEM_PREVIEW = "petstagram/post/CHANGE_ITEM_PREVIEW";
-export const HANDLE_IMAGE_CHANGE = "petstagram/post/HANDLE_IMAGE_CHANGE";
-export const HANDLE_DELETE_POST = "petstagram/post/HANDLE_DELETE_POST";
-export const HANDLE_DELETE_POST_SUCCESS = "petstagram/post/HANDLE_DELETE_POST_SUCCESS";
-export const HANDLE_DELETE_POST_FAILURE = "petstagram/post/HANDLE_DELETE_POST_FAILURE";
-export const HANDLE_UPDATE_POST = "petstagram/post/HANDLE_UPDATE_POST";
-export const HANDLE_CLICK_SHOW_PASSWORD = "petstagram/post/HANDLE_CLICK_SHOW_PASSWORD";
-export const HANDLE_PASSWORD_CHANGE = "petstagram/post/HANDLE_PASSWORD_CHANGE";
-export const HANDLE_FORM_TYPE_CHANGE = "petstagram/post/HANDLE_FORM_TYPE_CHANGE";
+export const TOGGLE_MODAL = "lstnfnd/post/TOGGLE_MODAL";
+export const CHANGE_FORM_TYPE = "lstnfnd/post/CHANGE_FORM_TYPE";
+export const CHANGE_NAME = "lstnfnd/post/CHANGE_NAME";
+export const CHANGE_LOCATION_FORM = "lstnfnd/post/CHANGE_LOCATION_FORM";
+export const CHANGE_EMAIL = "lstnfnd/post/CHANGE_EMAIL";
+export const CHANGE_DESCRIPTION = "lstnfnd/post/CHANGE_DESCRIPTION";
+export const CHANGE_QUESTION = "lstnfnd/post/CHANGE_QUESTION";
+export const CHANGE_REWARD = "lstnfnd/post/CHANGE_REWARD";
+export const CHANGE_PASSWORD = "lstnfnd/post/CHANGE_PASSWORD";
+
+export const CHANGE_LOCATION_SEARCH = "lstnfnd/post/CHANGE_LOCATION_SEARCH";
+export const LOAD_POSTS = "lstnfnd/post/LOAD_POSTS";
+export const LOAD_POSTS_FAILURE = "lstnfnd/post/LOAD_POSTS_FAILURE";
+export const LOAD_POSTS_SUCCESS = "lstnfnd/post/LOAD_POSTS_SUCCESS";
+export const SUBMIT_NEW_LOST_POST = "lstnfnd/post/SUBMIT_NEW_LOST_POST_SUCCESS";
+export const SUBMIT_NEW_LOST_POST_FAILURE = "lstnfnd/post/SUBMIT_NEW_LOST_POST_FAILURE";
+export const SUBMIT_NEW_LOST_POST_SUCCESS = "lstnfnd/post/SUBMIT_NEW_LOST_POST_SUCCESS";
+export const SUBMIT_UPDATED_POST = "lstnfnd/post/SUBMIT_UPDATED_POST_SUCCESS";
+export const SUBMIT_UPDATED_POST_FAILURE = "lstnfnd/post/SUBMIT_UPDATED_POST_FAILURE";
+export const SUBMIT_UPDATED_POST_SUCCESS = "lstnfnd/post/SUBMIT_UPDATED_POST_SUCCESS";
+export const CHANGE_ITEM_PREVIEW = "lstnfnd/post/CHANGE_ITEM_PREVIEW";
+export const HANDLE_IMAGE_CHANGE = "lstnfnd/post/HANDLE_IMAGE_CHANGE";
+export const HANDLE_DELETE_POST = "lstnfnd/post/HANDLE_DELETE_POST";
+export const HANDLE_DELETE_POST_SUCCESS = "lstnfnd/post/HANDLE_DELETE_POST_SUCCESS";
+export const HANDLE_DELETE_POST_FAILURE = "lstnfnd/post/HANDLE_DELETE_POST_FAILURE";
+export const HANDLE_UPDATE_POST = "lstnfnd/post/HANDLE_UPDATE_POST";
+export const HANDLE_CLICK_SHOW_PASSWORD = "lstnfnd/post/HANDLE_CLICK_SHOW_PASSWORD";
 
 
 
@@ -38,20 +43,22 @@ const INITIAL_STATE = {
     }],
     lost: [
         {
+            "_id": "",
             "name": "iPhone 5S",
             "location": "Tech",
             "email": "yulkim2019@u.northwestern.edu",
-            "date": "11-06-2018 16:38",//new Date().format('m-d-Y h:i:s'),
+            "created": "11-06-2018 16:38",//new Date().format('m-d-Y h:i:s'),
             "description": "Last seen in LG51. Black rubber case.",
             "photo": "/posts/phone.jpeg",
             "reward": "$10",
             "password": "xxx1"
         },
         {
+            "_id": "",
             "name": "Wild Card",
             "location": "Norris",
             "email": "yulkim2019@u.northwestern.edu",
-            "date": "11-05-2018 12:30",//new Date().format('m-d-Y h:i:s'),
+            "created": "11-05-2018 12:30",//new Date().format('m-d-Y h:i:s'),
             "description": "I left it in Norbucks.",
             "photo": "/posts/wildcard.jpg",
             "reward": "$5",
@@ -59,24 +66,29 @@ const INITIAL_STATE = {
         }
     ],
     found: [{
+        "_id": "",
         "name": "Wallet",
         "location": "Norris",
         "email": "yulkim2019@u.northwestern.edu",
-        "date": "11-05-2018 12:30",//new Date().format('m-d-Y h:i:s'),
+        "created": "11-05-2018 12:30",//new Date().format('m-d-Y h:i:s'),
         "description": "It is a brown wallet with pink stitching. Found outside of Norris.",
         "photo": "/posts/wallet.jpg",
-        "question": "How much money do you have in your wallet?",
+        "question": "How much money is in the wallet?",
         "password": "ooo1",
     }],
     error: null,
-    author: '',
-    description: '',
+    form_type: "",
+    description: "",
+    email: "",
+    location: "",
+    name: "",
+    question: "",
+    reward: "",
     updateId: null,
     pollInterval: null,
     error_message: "",
     showPassword: false,
     password: '',
-    showQuestions: true,
     lost_locations: [["Tech", 25], ["Norris", 15], ["Plex", 4], ["Sheridan Rd", 1], ["Annenberg", 1], ["SPAC", 1]],
     found_locations: [["Norris", 10], ["Plex", 4], ["Sheridan Rd", 1], ["SPAC", 1]],
     location_search: "",
@@ -104,19 +116,58 @@ export default function reducer(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 modal_open: !state.modal_open,
-                author: "",
-                description: "",
-                file: null,
             }
-        case CHANGE_AUTHOR:
+        // ----------------------------post form--------------------------------
+        case CHANGE_FORM_TYPE:
             return {
                 ...state,
-                author: action.payload,
+                form_type: action.payload,
+            }
+        case CHANGE_NAME:
+            return {
+                ...state,
+                name: action.payload,
+            }
+        case CHANGE_LOCATION_FORM:
+            return {
+                ...state,
+                location: action.payload,
+            }
+        case CHANGE_EMAIL:
+            return {
+                ...state,
+                email: action.payload,
             }
         case CHANGE_DESCRIPTION:
             return {
                 ...state,
                 description: action.payload,
+            }
+        case CHANGE_QUESTION:
+            return {
+                ...state,
+                question: action.payload,
+            }
+        case CHANGE_REWARD:
+            return {
+                ...state,
+                reward: action.payload,
+            }
+        case HANDLE_CLICK_SHOW_PASSWORD:
+            return {
+                ...state,
+                showPassword: !state.showPassword
+
+            }
+        case CHANGE_PASSWORD:
+            return {
+                ...state,
+                password: action.payload
+            }
+        case CHANGE_FORM_TYPE:
+            return {
+                ...state,
+                formType: action.payload,
             }
         case LOAD_POSTS:
         case LOAD_POSTS_SUCCESS:
@@ -139,8 +190,8 @@ export default function reducer(state = INITIAL_STATE, action) {
                 ...state,
                 error_message: "Something went wrong while loading the quiz. ",
             }
-        case SUBMIT_NEW_POST:
-        case SUBMIT_NEW_POST_SUCCESS:
+        case SUBMIT_NEW_LOST_POST:
+        case SUBMIT_NEW_LOST_POST_SUCCESS:
             if(action.payload){
                 var prev = state.data;
                 var aut = state.author;
@@ -162,7 +213,7 @@ export default function reducer(state = INITIAL_STATE, action) {
                 }
             }
 
-        case SUBMIT_NEW_POST_FAILURE:
+        case SUBMIT_NEW_LOST_POST_FAILURE:
             /*
             if the posting fails, need to lead them to a 500 page.
             */
@@ -232,22 +283,6 @@ export default function reducer(state = INITIAL_STATE, action) {
                 ...state,
                 error_message: "Something went wrong while loading the result.",
             }
-        case HANDLE_CLICK_SHOW_PASSWORD:
-            return {
-                ...state,
-                showPassword: !state.showPassword
-
-            }
-        case HANDLE_PASSWORD_CHANGE:
-            return {
-                ...state,
-                password: action.payload
-            }
-        case HANDLE_FORM_TYPE_CHANGE:
-            return {
-                ...state,
-                showQuestions: action.payload === "found" ? true : false
-            }
         default:
             return {
                 ...state
@@ -288,16 +323,39 @@ export const toggle_modal = () => {
         });
     };
 };
-
-export const change_author = (author) => {
+// ---------------------------------post form-----------------------------------
+export const change_form_type = (formType) => {
     return (dispatch) => {
         dispatch({
-            type: CHANGE_AUTHOR,
-            payload: author,
+            type: CHANGE_FORM_TYPE,
+            payload: formType,
+        });
+    }
+}
+export const change_name = (name) => {
+    return (dispatch) => {
+        dispatch({
+                type: CHANGE_NAME,
+            payload: name,
         })
     }
 }
-
+export const change_location_form = (loc) => {
+    return (dispatch) => {
+        dispatch({
+                type: CHANGE_LOCATION_FORM,
+            payload: loc,
+        })
+    }
+}
+export const change_email = (email) => {
+    return (dispatch) => {
+        dispatch({
+            type: CHANGE_EMAIL,
+            payload: email,
+        })
+    }
+}
 export const change_description = (desc) => {
     return (dispatch) => {
         dispatch({
@@ -306,7 +364,38 @@ export const change_description = (desc) => {
         })
     }
 }
+export const change_question = (q) => {
+    return (dispatch) => {
+        dispatch({
+            type: CHANGE_QUESTION,
+            payload: q,
+        })
+    }
+}
+export const change_reward = (reward) => {
+    return (dispatch) => {
+        dispatch({
+            type: CHANGE_REWARD,
+            payload: reward,
+        })
+    }
+}
+export const handle_click_show_password = () => {
+    return (dispatch) => {
+        dispatch({
+            type: HANDLE_CLICK_SHOW_PASSWORD,
+        });
+    }
+}
 
+export const change_password = (password) => {
+    return (dispatch) => {
+        dispatch({
+            type: CHANGE_PASSWORD,
+            payload: password,
+        });
+    }
+}
 export const load_posts = () => {
     const url = `/api/comments`;
     return (dispatch) => {
@@ -368,7 +457,7 @@ export const submit_updated_post_failure = (dispatch, error) => {
     });
 }
 
-export const submit_new_post = (author, description, file) => {
+export const submit_new_lost_post = (author, description, file) => {
     var formData = new FormData();
     formData.append('author', author);
     formData.append('description', description);
@@ -383,24 +472,24 @@ export const submit_new_post = (author, description, file) => {
     }
     return (dispatch) => {
         dispatch({
-            type: SUBMIT_NEW_POST,
+            type: SUBMIT_NEW_LOST_POST,
         });
         axios.post(`/api/comments`, formData, config)
-          .then((response) => submit_new_post_success(dispatch, response))
-          .catch((error) => submit_new_post_failure(dispatch, error))
+          .then((response) => submit_new_lost_post_success(dispatch, response))
+          .catch((error) => submit_new_lost_post_failure(dispatch, error))
     }
 }
 
-export const submit_new_post_success = (dispatch, response) => {
+export const submit_new_lost_post_success = (dispatch, response) => {
     dispatch({
-        type: SUBMIT_NEW_POST_SUCCESS,
+        type: SUBMIT_NEW_LOST_POST_SUCCESS,
         payload: response.data,
     });
 }
 
-export const submit_new_post_failure = (dispatch, error) => {
+export const submit_new_lost_post_failure = (dispatch, error) => {
     dispatch({
-        type: SUBMIT_NEW_POST_FAILURE,
+        type: SUBMIT_NEW_LOST_POST_FAILURE,
     });
 }
 
@@ -435,30 +524,4 @@ export const handle_delete_post_failure = (dispatch, error) => {
     dispatch({
         type: HANDLE_DELETE_POST_FAILURE,
     });
-}
-
-export const handle_click_show_password = () => {
-    return (dispatch) => {
-        dispatch({
-            type: HANDLE_CLICK_SHOW_PASSWORD,
-        });
-    }
-}
-
-export const handle_password_change = (password) => {
-    return (dispatch) => {
-        dispatch({
-            type: HANDLE_PASSWORD_CHANGE,
-            payload: password,
-        });
-    }
-}
-
-export const handle_form_type_change = (showquestion) => {
-    return (dispatch) => {
-        dispatch({
-            type: HANDLE_FORM_TYPE_CHANGE,
-            payload: showquestion,
-        });
-    }
 }

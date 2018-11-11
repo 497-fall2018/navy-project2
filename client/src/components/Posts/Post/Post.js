@@ -19,16 +19,23 @@ const styles = {
     fontSize: 14,
   },
   pos: {
-    marginBottom: 12,
+    marginBottom: 0,
   },
   media: {
     height: 200,
   },
   orangeAvatar: {
-    margin: 10,
+    marginTop: 10,
     color: '#fff',
     backgroundColor: '#3a93f2',
+    float: "right",
+    position: "relative",
+    top: "5px",
   },
+  foundQuestion: {
+    color: 'navy',
+    marginTop: '0.5rem',
+  }
 };
 
 
@@ -48,23 +55,20 @@ class Post extends React.Component {
             {this.props.location}
           </Typography>
           <Typography color="textSecondary">
-            {this.props.date}
+            {this.props.created}
           </Typography>
           <Typography component="p">
             {this.props.description}
           </Typography>
-          <Avatar className={classes.orangeAvatar} 
-              style={{
-                //"display": "inline",
-              "float": "right",
-              "position": "relative",
-              "right": "15px",
-              "top": "5px",
-              // "font-size": "10px"
-              }}
-              >
-              $10
-          </Avatar>
+          {(this.props.lorf==="lost") ?
+            <Avatar className={classes.orangeAvatar} >
+              {this.props.reward}
+            </Avatar>
+          :
+            <Typography component="p" className={classes.foundQuestion}>
+              <b>Q: </b>{this.props.question}
+            </Typography>
+          }
         </CardContent>
         <CardActions >
           <Button size="small" >More Info</Button>
