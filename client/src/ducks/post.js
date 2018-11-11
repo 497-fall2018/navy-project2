@@ -36,10 +36,14 @@ const INITIAL_STATE = {
     file: null,
     image: null,
     data: [{
-        "author":"a" ,
-        "description": "b",
         "_id": "0",
-        "updatedAt": ""
+        "name": "iPhone",
+        "location": "Tech",
+        "email": "yulkim2019@u.northwestern.edu",
+        "created": "11-06-2018 16:38",//new Date().format('m-d-Y h:i:s'),
+        "description": "Last seen in LG51.",
+        "photo": "/posts/phone.jpeg",
+        "password": "xxx0"
     }],
     lost: [
         {
@@ -193,19 +197,17 @@ export default function reducer(state = INITIAL_STATE, action) {
         case SUBMIT_NEW_LOST_POST:
         case SUBMIT_NEW_LOST_POST_SUCCESS:
             if(action.payload){
-                var prev = state.data;
-                var aut = state.author;
-                var des = state.description;
-                var img = state.image;
-                const new_data = [...prev, { "author": aut, "description": des, "image": img, _id: Date.now().toString() }];
                 return {
                     ...state,
                     error_message: "",
-                    modal_open: !state.modal_open,
-                    author: "",
+                    name: "",
+                    location: "",
+                    email: "",
+                    reward: "",
+                    question: "",
+                    password: "",
                     description: "",
                     image: null,
-                    data: new_data
                 }
             } else {
                 return {
@@ -219,7 +221,7 @@ export default function reducer(state = INITIAL_STATE, action) {
             */
             return {
                 ...state,
-                error_message: "Something went wrong while loading the result.",
+                error_message: "Something went wrong while submitting the lost item post.",
             }
         case HANDLE_UPDATE_POST://when user clicks on "update"
             return {
@@ -457,11 +459,15 @@ export const submit_updated_post_failure = (dispatch, error) => {
     });
 }
 
-export const submit_new_lost_post = (author, description, file) => {
+export const submit_new_lost_post = (name, location, email, description, reward, password) => {
     var formData = new FormData();
-    formData.append('author', author);
+    formData.append('name', name);
+    formData.append('location', location);
+    formData.append('email', email);
     formData.append('description', description);
-    formData.append('frame', file, file.name);
+    formData.append('reward', reward);
+    formData.append('password', password);
+    // formData.append('frame', file, file.name);
     const config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -474,7 +480,7 @@ export const submit_new_lost_post = (author, description, file) => {
         dispatch({
             type: SUBMIT_NEW_LOST_POST,
         });
-        axios.post(`/api/comments`, formData, config)
+        axios.post(`/api/lost`, formData, config)
           .then((response) => submit_new_lost_post_success(dispatch, response))
           .catch((error) => submit_new_lost_post_failure(dispatch, error))
     }
