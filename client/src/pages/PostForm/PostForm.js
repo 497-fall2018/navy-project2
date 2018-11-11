@@ -4,13 +4,18 @@ import {IconButton, Button, TextField, Grid, InputAdornment, FormControlLabel, F
 import {AddAPhoto, Visibility, VisibilityOff} from '@material-ui/icons';
 
 import {
-	change_author,
 	change_description,
+	change_email,
+	change_form_type,
 	change_item_preview,
-	submit_new_post,
+	change_location_form,
+	change_name,
+	change_password,
+	change_question,
+	change_reward,
 	handle_click_show_password,
-	handle_password_change,
-	handle_form_type_change
+	submit_new_found_post,
+	submit_new_lost_post,
 } from '../../ducks/post';
 import {
     Header
@@ -18,31 +23,51 @@ import {
 import './styles.css';
 
 class PostFormComponent extends Component {
+	handleFormTypeChange = (event) => {
+		this.props.change_form_type(event.target.value);
+	}
 	handleNameChange = (event) => {
-		this.props.change_author(event.target.value);
+		this.props.change_name(event.target.value);
+	}
+	handleLocationChange = (event) => {
+		this.props.change_location_form(event.target.value);
+	}
+	handleEmailChange = (event) => {
+		this.props.change_email(event.target.value);
 	}
 	handleDescriptionChange = (event) => {
 		this.props.change_description(event.target.value);
 	}
+	handleQuestionChange = (event) => {
+		this.props.change_question(event.target.value);
+	}
+	handleRewardChange = (event) => {
+		this.props.change_reward(event.target.value);
+	}
+	handlePasswordChange = (event) => {
+		this.props.change_password(event.target.value);
+	}
+
 	handleItemPreviewChange = (event) => {
 		this.props.change_item_preview(URL.createObjectURL(event.target.files[0]));
 	}
+
 	handlePostFormSubmit = () => {
-		this.props.submit_new_post(this.props.author,this.props.description);
+		if (this.props.form_type === "lost") {
+			this.props.submit_new_lost_post(this.props.name, this.props.location, this.props.email, this.props.description, this.props.reward, this.props.password);
+		}
+		else {
+			this.props.submit_new_found_post(this.props.name,this.props.location, this.props.email, this.props.description, this.props.question, this.props.password);
+		}
+
+
 	}
 	handleClickShowPassword = () => {
 		this.props.handle_click_show_password();
 	}
-	handlePasswordChange = (event) => {
-		this.props.handle_password_change(event.target.value);
-	}
-	handleFormTypeChange = (event) => {
-		this.props.handle_form_type_change(event.target.value);
-	}
 
 	render() {
 		const landingUrl = "/";
-
 		return (
 			<div>
 				<Header />
@@ -51,7 +76,7 @@ class PostFormComponent extends Component {
 						<FormLabel component="legend">Did you find/lose the item?</FormLabel>
 						<RadioGroup
 							aria-label="FormType"
-							value={this.props.showQuestions ? "found" : "lost"}
+							value={this.props.form_type}
 							onChange={this.handleFormTypeChange}
 						>
 							<FormControlLabel value="found" control={<Radio style={{color: '#4054AC'}} />} label="Found" />
@@ -64,6 +89,7 @@ class PostFormComponent extends Component {
 						label="Item"
 						fullWidth
 						variant="outlined"
+						value={this.props.name}
 						onChange={this.handleNameChange}
 					/><br/><br/><br/>
 					<TextField
@@ -71,20 +97,25 @@ class PostFormComponent extends Component {
 						label="Location"
 						fullWidth
 						variant="outlined"
-						helperText={"Location where " + (this.props.showQuestions ? "you found it" :  "you probably lost it")}
-						onChange={this.handleNameChange}
+						helperText={"Location where " + (this.props.form_type === "found" ? "you found it" :  "you probably lost it")}
+						value={this.props.location}
+						onChange={this.handleLocationChange}
 					/><br/><br/>
 					<TextField
 						required
 						label="Email"
 						fullWidth
 						variant="outlined"
+						value={this.props.email}
+						onChange={this.handleEmailChange}
 					/><br/><br/><br/>
 					<TextField
 						required
 						label="Description"
 						fullWidth
 						variant="outlined"
+						value={this.props.description}
+						onChange={this.handleDescriptionChange}
 						multiline
 						rows="8"
 					/><br/><br/><br/>
@@ -93,15 +124,19 @@ class PostFormComponent extends Component {
 						label="Reward"
 						fullWidth
 						variant="outlined"
-						style={{display: this.props.showQuestions ? 'none' : ""}}
+						value={this.props.reward}
+						onChange={this.handleRewardChange}
+						style={{display: this.props.form_type === "found" ? 'none' : ""}}
 					/>
 					<TextField
 						required
 						label="Questions"
 						fullWidth
 						variant="outlined"
+						value={this.props.question}
+						onChange={this.handleQuestionChange}
 						helperText="Questions for identification of the owner"
-						style={{display: this.props.showQuestions ? "" : 'none'}}
+						style={{display: this.props.form_type === "found" ? "" : 'none'}}
 					/>
 					<br/><br/>
 					<TextField
@@ -140,7 +175,13 @@ class PostFormComponent extends Component {
 						</Grid>
 					</Grid>
 					<br/><br/>
-					<Button style={{background: '#4054AC', color: 'white'}}><a href={landingUrl} style={{color: "white"}}>Submit</a></Button>
+					<Button variant="contained" color="primary" onClick={()=>this.handlePostFormSubmit()} disabled={this.props.name==="" ||
+						this.props.location==="" || this.props.description==="" || this.props.email==="" ||
+						(this.props.reward==="" && this.props.question==="") || this.props.password==="" }>
+						<a href={landingUrl} style={{color: "white", textDecoration:"none"}}>
+							Submit
+						</a>
+					</Button>
 				</form>
 			</div>
 		)
@@ -151,21 +192,33 @@ export { PostFormComponent };
 
 const mapStateToProps = (state, ownProps) => {
 	const { post } = state;
-	const { file, showPassword, password, showQuestions } = post;
+	const { description, email, file, form_type, location, name, password, question, reward, showPassword, } = post;
 	return {
 		...ownProps,
+		description,
+		email,
 		file,
-		showPassword,
+		form_type,
+		location,
+		name,
 		password,
-		showQuestions
+		question,
+		reward,
+		showPassword,
 	};
 };
 
 export const PostForm = connect(mapStateToProps, {
-	change_author,
 	change_description,
+	change_email,
+	change_form_type,
 	change_item_preview,
+	change_location_form,
+	change_name,
+	change_password,
+	change_question,
+	change_reward,
 	handle_click_show_password,
-	handle_password_change,
-	handle_form_type_change
+	submit_new_found_post,
+	submit_new_lost_post
 })(PostFormComponent);

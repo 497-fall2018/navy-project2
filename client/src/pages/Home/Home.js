@@ -9,11 +9,22 @@ import {
     PostList,
 } from '../../components';
 import {
+    load_found_posts,
+    load_lost_posts,
 } from '../../ducks/post';
 import './styles.css';
 
 class HomeComponent extends Component {
-
+    componentDidMount() {
+        if (this.props.lorf === "lost") {
+            this.props.load_lost_posts();
+            this.props.load_found_posts();
+        }
+        else {
+            this.props.load_found_posts();
+            this.props.load_lost_posts();
+        }
+    }
 
     render() {
         const landingUrl = "postform";
@@ -45,5 +56,6 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export const Home = connect(mapStateToProps, {
-
+    load_found_posts,
+    load_lost_posts,
 })(HomeComponent);

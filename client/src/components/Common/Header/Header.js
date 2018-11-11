@@ -13,7 +13,7 @@ class HeaderComponent extends Component {
         const landingUrl = "";
         return (
         <div className="header">
-            <Link to="found" className="logo">LstnFnd</Link>
+            <Link to="lost" className="logo">LstnFnd</Link>
 
             <div className="headerLinks">
                 <Link to="lost" className={(this.props.lorf === "lost") ? "topRightSelected":"topRightNotSelected"}>

@@ -13,8 +13,8 @@ class PostListComponent extends Component {
       return _.map((this.props.lorf==="lost") ? this.props.lost : this.props.found, (item, index)=> {
           return (
               <Grid key={index} item>
-                <Post name={item['name']} location={item['location']} date={item['date']} description={item['description']}
-                      image={item['photo']} spec={(this.props.lorf==="lost") ? item['reward'] : item['question']}
+                <Post name={item['name']} location={item['location']} created={item['created']} description={item['description']}
+                      image={item['photo']} lorf={this.props.lorf} reward={item['reward']} question={item['question']}
                  ></Post>
               </Grid>
           )

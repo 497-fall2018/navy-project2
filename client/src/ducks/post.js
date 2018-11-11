@@ -1,28 +1,39 @@
 import axios from 'axios';
 
 //Action Types
-export const TOGGLE_MODAL = "petstagram/post/TOGGLE_MODAL";
-export const CHANGE_DESCRIPTION = "petstagram/post/CHANGE_DESCRIPTION";
-export const CHANGE_AUTHOR = "petstagram/post/CHANGE_AUTHOR";
-export const CHANGE_LOCATION_SEARCH = "petstagram/post/CHANGE_LOCATION_SEARCH";
-export const LOAD_POSTS = "petstagram/post/LOAD_POSTS";
-export const LOAD_POSTS_FAILURE = "petstagram/post/LOAD_POSTS_FAILURE";
-export const LOAD_POSTS_SUCCESS = "petstagram/post/LOAD_POSTS_SUCCESS";
-export const SUBMIT_NEW_POST = "petstagram/post/SUBMIT_NEW_POST_SUCCESS";
-export const SUBMIT_NEW_POST_FAILURE = "petstagram/post/SUBMIT_NEW_POST_FAILURE";
-export const SUBMIT_NEW_POST_SUCCESS = "petstagram/post/SUBMIT_NEW_POST_SUCCESS";
-export const SUBMIT_UPDATED_POST = "petstagram/post/SUBMIT_UPDATED_POST_SUCCESS";
-export const SUBMIT_UPDATED_POST_FAILURE = "petstagram/post/SUBMIT_UPDATED_POST_FAILURE";
-export const SUBMIT_UPDATED_POST_SUCCESS = "petstagram/post/SUBMIT_UPDATED_POST_SUCCESS";
-export const CHANGE_ITEM_PREVIEW = "petstagram/post/CHANGE_ITEM_PREVIEW";
-export const HANDLE_IMAGE_CHANGE = "petstagram/post/HANDLE_IMAGE_CHANGE";
-export const HANDLE_DELETE_POST = "petstagram/post/HANDLE_DELETE_POST";
-export const HANDLE_DELETE_POST_SUCCESS = "petstagram/post/HANDLE_DELETE_POST_SUCCESS";
-export const HANDLE_DELETE_POST_FAILURE = "petstagram/post/HANDLE_DELETE_POST_FAILURE";
-export const HANDLE_UPDATE_POST = "petstagram/post/HANDLE_UPDATE_POST";
-export const HANDLE_CLICK_SHOW_PASSWORD = "petstagram/post/HANDLE_CLICK_SHOW_PASSWORD";
-export const HANDLE_PASSWORD_CHANGE = "petstagram/post/HANDLE_PASSWORD_CHANGE";
-export const HANDLE_FORM_TYPE_CHANGE = "petstagram/post/HANDLE_FORM_TYPE_CHANGE";
+export const TOGGLE_MODAL = "lstnfnd/post/TOGGLE_MODAL";
+export const CHANGE_FORM_TYPE = "lstnfnd/post/CHANGE_FORM_TYPE";
+export const CHANGE_NAME = "lstnfnd/post/CHANGE_NAME";
+export const CHANGE_LOCATION_FORM = "lstnfnd/post/CHANGE_LOCATION_FORM";
+export const CHANGE_EMAIL = "lstnfnd/post/CHANGE_EMAIL";
+export const CHANGE_DESCRIPTION = "lstnfnd/post/CHANGE_DESCRIPTION";
+export const CHANGE_QUESTION = "lstnfnd/post/CHANGE_QUESTION";
+export const CHANGE_REWARD = "lstnfnd/post/CHANGE_REWARD";
+export const CHANGE_PASSWORD = "lstnfnd/post/CHANGE_PASSWORD";
+
+export const CHANGE_LOCATION_SEARCH = "lstnfnd/post/CHANGE_LOCATION_SEARCH";
+export const LOAD_FOUND_POSTS = "lstnfnd/post/LOAD_FOUND_POSTS";
+export const LOAD_FOUND_POSTS_FAILURE = "lstnfnd/post/LOAD_FOUND_POSTS_FAILURE";
+export const LOAD_FOUND_POSTS_SUCCESS = "lstnfnd/post/LOAD_FOUND_POSTS_SUCCESS";
+export const LOAD_LOST_POSTS = "lstnfnd/post/LOAD_LOST_POSTS";
+export const LOAD_LOST_POSTS_FAILURE = "lstnfnd/post/LOAD_LOST_POSTS_FAILURE";
+export const LOAD_LOST_POSTS_SUCCESS = "lstnfnd/post/LOAD_LOST_POSTS_SUCCESS";
+export const SUBMIT_NEW_FOUND_POST = "lstnfnd/post/SUBMIT_NEW_FOUND_POST_SUCCESS";
+export const SUBMIT_NEW_FOUND_POST_FAILURE = "lstnfnd/post/SUBMIT_NEW_FOUND_POST_FAILURE";
+export const SUBMIT_NEW_FOUND_POST_SUCCESS = "lstnfnd/post/SUBMIT_NEW_FOUND_POST_SUCCESS";
+export const SUBMIT_NEW_LOST_POST = "lstnfnd/post/SUBMIT_NEW_LOST_POST_SUCCESS";
+export const SUBMIT_NEW_LOST_POST_FAILURE = "lstnfnd/post/SUBMIT_NEW_LOST_POST_FAILURE";
+export const SUBMIT_NEW_LOST_POST_SUCCESS = "lstnfnd/post/SUBMIT_NEW_LOST_POST_SUCCESS";
+export const SUBMIT_UPDATED_POST = "lstnfnd/post/SUBMIT_UPDATED_POST_SUCCESS";
+export const SUBMIT_UPDATED_POST_FAILURE = "lstnfnd/post/SUBMIT_UPDATED_POST_FAILURE";
+export const SUBMIT_UPDATED_POST_SUCCESS = "lstnfnd/post/SUBMIT_UPDATED_POST_SUCCESS";
+export const CHANGE_ITEM_PREVIEW = "lstnfnd/post/CHANGE_ITEM_PREVIEW";
+export const HANDLE_IMAGE_CHANGE = "lstnfnd/post/HANDLE_IMAGE_CHANGE";
+export const HANDLE_DELETE_POST = "lstnfnd/post/HANDLE_DELETE_POST";
+export const HANDLE_DELETE_POST_SUCCESS = "lstnfnd/post/HANDLE_DELETE_POST_SUCCESS";
+export const HANDLE_DELETE_POST_FAILURE = "lstnfnd/post/HANDLE_DELETE_POST_FAILURE";
+export const HANDLE_UPDATE_POST = "lstnfnd/post/HANDLE_UPDATE_POST";
+export const HANDLE_CLICK_SHOW_PASSWORD = "lstnfnd/post/HANDLE_CLICK_SHOW_PASSWORD";
 
 
 
@@ -31,52 +42,63 @@ const INITIAL_STATE = {
     file: null,
     image: null,
     data: [{
-        "author":"a" ,
-        "description": "b",
         "_id": "0",
-        "updatedAt": ""
+        "name": "iPhone",
+        "location": "Tech",
+        "email": "yulkim2019@u.northwestern.edu",
+        "created": "11-06-2018 16:38",//new Date().format('m-d-Y h:i:s'),
+        "description": "Last seen in LG51.",
+        "photo": "/posts/phone.jpeg",
+        "password": "xxx0"
     }],
     lost: [
         {
+            "_id": "",
             "name": "iPhone 5S",
             "location": "Tech",
             "email": "yulkim2019@u.northwestern.edu",
-            "date": "11-06-2018 16:38",//new Date().format('m-d-Y h:i:s'),
+            "created": "11-06-2018 16:38",//new Date().format('m-d-Y h:i:s'),
             "description": "Last seen in LG51. Black rubber case.",
             "photo": "/posts/phone.jpeg",
             "reward": "$10",
             "password": "xxx1"
         },
-        {
-            "name": "Wild Card",
-            "location": "Norris",
-            "email": "yulkim2019@u.northwestern.edu",
-            "date": "11-05-2018 12:30",//new Date().format('m-d-Y h:i:s'),
-            "description": "I left it in Norbucks.",
-            "photo": "/posts/wildcard.jpg",
-            "reward": "$5",
-            "password": "xxx2",
-        }
+        // {
+        //     "_id": "",
+        //     "name": "Wild Card",
+        //     "location": "Norris",
+        //     "email": "yulkim2019@u.northwestern.edu",
+        //     "created": "11-05-2018 12:30",//new Date().format('m-d-Y h:i:s'),
+        //     "description": "I left it in Norbucks.",
+        //     "photo": "/posts/wildcard.jpg",
+        //     "reward": "$5",
+        //     "password": "xxx2",
+        // }
     ],
     found: [{
+        "_id": "",
         "name": "Wallet",
         "location": "Norris",
         "email": "yulkim2019@u.northwestern.edu",
-        "date": "11-05-2018 12:30",//new Date().format('m-d-Y h:i:s'),
+        "created": "11-05-2018 12:30",//new Date().format('m-d-Y h:i:s'),
         "description": "It is a brown wallet with pink stitching. Found outside of Norris.",
         "photo": "/posts/wallet.jpg",
-        "question": "How much money do you have in your wallet?",
+        "question": "How much money is in the wallet?",
         "password": "ooo1",
     }],
     error: null,
-    author: '',
-    description: '',
+    form_type: "",
+    description: "",
+    email: "",
+    location: "",
+    name: "",
+    question: "",
+    reward: "",
     updateId: null,
     pollInterval: null,
     error_message: "",
     showPassword: false,
     password: '',
-    showQuestions: true,
     lost_locations: [["Tech", 25], ["Norris", 15], ["Plex", 4], ["Sheridan Rd", 1], ["Annenberg", 1], ["SPAC", 1]],
     found_locations: [["Norris", 10], ["Plex", 4], ["Sheridan Rd", 1], ["SPAC", 1]],
     location_search: "",
@@ -104,57 +126,127 @@ export default function reducer(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 modal_open: !state.modal_open,
-                author: "",
-                description: "",
-                file: null,
             }
-        case CHANGE_AUTHOR:
+        // ----------------------------post form--------------------------------
+        case CHANGE_FORM_TYPE:
             return {
                 ...state,
-                author: action.payload,
+                form_type: action.payload,
+            }
+        case CHANGE_NAME:
+            return {
+                ...state,
+                name: action.payload,
+            }
+        case CHANGE_LOCATION_FORM:
+            return {
+                ...state,
+                location: action.payload,
+            }
+        case CHANGE_EMAIL:
+            return {
+                ...state,
+                email: action.payload,
             }
         case CHANGE_DESCRIPTION:
             return {
                 ...state,
                 description: action.payload,
             }
-        case LOAD_POSTS:
-        case LOAD_POSTS_SUCCESS:
+        case CHANGE_QUESTION:
+            return {
+                ...state,
+                question: action.payload,
+            }
+        case CHANGE_REWARD:
+            return {
+                ...state,
+                reward: action.payload,
+            }
+        case HANDLE_CLICK_SHOW_PASSWORD:
+            return {
+                ...state,
+                showPassword: !state.showPassword
+
+            }
+        case CHANGE_PASSWORD:
+            return {
+                ...state,
+                password: action.payload
+            }
+        case CHANGE_FORM_TYPE:
+            return {
+                ...state,
+                formType: action.payload,
+            }
+        case LOAD_FOUND_POSTS:
+        case LOAD_FOUND_POSTS_SUCCESS:
             if(action.payload) {
+                console.log(action.payload);
+                var locations = [];
+                for (var key in action.payload[1].data){
+                    locations.push([key, action.payload[1].data[key]]);
+                }
                 return {
                     ...state,
                     error_message: "",
-                    data: action.payload.data,
+                    found: action.payload[0].data,
+                    found_locations: locations
                 }
             }
             return {
                 ...state,
                 error_message: ""
             }
-        case LOAD_POSTS_FAILURE:
+        case LOAD_FOUND_POSTS_FAILURE:
             /*
             if the quiz load fails, need to lead them to a 500 page.
             */
             return {
                 ...state,
-                error_message: "Something went wrong while loading the quiz. ",
+                error_message: "Something went wrong while loading the found posts. ",
             }
-        case SUBMIT_NEW_POST:
-        case SUBMIT_NEW_POST_SUCCESS:
-            if(action.payload){
-                var prev = state.data;
-                var aut = state.author;
-                var des = state.description;
-                var img = state.image;
-                const new_data = [...prev, { "author": aut, "description": des, "image": img, _id: Date.now().toString() }];
+        case LOAD_LOST_POSTS:
+        case LOAD_LOST_POSTS_SUCCESS:
+            if(action.payload) {
+                console.log(action.payload);
+                var locations = [];
+                for (var key in action.payload[1].data){
+                    locations.push([key, action.payload[1].data[key]]);
+                }
                 return {
                     ...state,
                     error_message: "",
-                    modal_open: !state.modal_open,
-                    author: "",
+                    lost: action.payload[0].data,
+                    lost_locations: locations
+                }
+            }
+            return {
+                ...state,
+                error_message: ""
+            }
+        case LOAD_LOST_POSTS_FAILURE:
+            /*
+            if the quiz load fails, need to lead them to a 500 page.
+            */
+            return {
+                ...state,
+                error_message: "Something went wrong while loading the lost posts. ",
+            }
+        case SUBMIT_NEW_FOUND_POST:
+        case SUBMIT_NEW_FOUND_POST_SUCCESS:
+            if(action.payload){
+                return {
+                    ...state,
+                    error_message: "",
+                    name: "",
+                    location: "",
+                    email: "",
+                    reward: "",
+                    question: "",
+                    password: "",
                     description: "",
                     image: null,
-                    data: new_data
                 }
             } else {
                 return {
@@ -162,13 +254,42 @@ export default function reducer(state = INITIAL_STATE, action) {
                 }
             }
 
-        case SUBMIT_NEW_POST_FAILURE:
+        case SUBMIT_NEW_FOUND_POST_FAILURE:
             /*
             if the posting fails, need to lead them to a 500 page.
             */
             return {
                 ...state,
-                error_message: "Something went wrong while loading the result.",
+                error_message: "Something went wrong while submitting the found item post.",
+            }
+        case SUBMIT_NEW_LOST_POST:
+        case SUBMIT_NEW_LOST_POST_SUCCESS:
+            if(action.payload){
+                return {
+                    ...state,
+                    error_message: "",
+                    name: "",
+                    location: "",
+                    email: "",
+                    reward: "",
+                    question: "",
+                    password: "",
+                    description: "",
+                    image: null,
+                }
+            } else {
+                return {
+                    ...state,
+                }
+            }
+
+        case SUBMIT_NEW_LOST_POST_FAILURE:
+            /*
+            if the posting fails, need to lead them to a 500 page.
+            */
+            return {
+                ...state,
+                error_message: "Something went wrong while submitting the lost item post.",
             }
         case HANDLE_UPDATE_POST://when user clicks on "update"
             return {
@@ -232,22 +353,6 @@ export default function reducer(state = INITIAL_STATE, action) {
                 ...state,
                 error_message: "Something went wrong while loading the result.",
             }
-        case HANDLE_CLICK_SHOW_PASSWORD:
-            return {
-                ...state,
-                showPassword: !state.showPassword
-
-            }
-        case HANDLE_PASSWORD_CHANGE:
-            return {
-                ...state,
-                password: action.payload
-            }
-        case HANDLE_FORM_TYPE_CHANGE:
-            return {
-                ...state,
-                showQuestions: action.payload === "found" ? true : false
-            }
         default:
             return {
                 ...state
@@ -288,16 +393,39 @@ export const toggle_modal = () => {
         });
     };
 };
-
-export const change_author = (author) => {
+// ---------------------------------post form-----------------------------------
+export const change_form_type = (formType) => {
     return (dispatch) => {
         dispatch({
-            type: CHANGE_AUTHOR,
-            payload: author,
+            type: CHANGE_FORM_TYPE,
+            payload: formType,
+        });
+    }
+}
+export const change_name = (name) => {
+    return (dispatch) => {
+        dispatch({
+                type: CHANGE_NAME,
+            payload: name,
         })
     }
 }
-
+export const change_location_form = (loc) => {
+    return (dispatch) => {
+        dispatch({
+                type: CHANGE_LOCATION_FORM,
+            payload: loc,
+        })
+    }
+}
+export const change_email = (email) => {
+    return (dispatch) => {
+        dispatch({
+            type: CHANGE_EMAIL,
+            payload: email,
+        })
+    }
+}
 export const change_description = (desc) => {
     return (dispatch) => {
         dispatch({
@@ -306,29 +434,90 @@ export const change_description = (desc) => {
         })
     }
 }
-
-export const load_posts = () => {
-    const url = `/api/comments`;
+export const change_question = (q) => {
     return (dispatch) => {
         dispatch({
-            type: LOAD_POSTS,
+            type: CHANGE_QUESTION,
+            payload: q,
+        })
+    }
+}
+export const change_reward = (reward) => {
+    return (dispatch) => {
+        dispatch({
+            type: CHANGE_REWARD,
+            payload: reward,
+        })
+    }
+}
+export const handle_click_show_password = () => {
+    return (dispatch) => {
+        dispatch({
+            type: HANDLE_CLICK_SHOW_PASSWORD,
         });
-        axios.get(url)
-          .then((response) => load_posts_success(dispatch, response))
-          .catch((error) => load_posts_failure(dispatch, error))
     }
 }
 
-export const load_posts_success = (dispatch, response) => {
+export const change_password = (password) => {
+    return (dispatch) => {
+        dispatch({
+            type: CHANGE_PASSWORD,
+            payload: password,
+        });
+    }
+}
+export const load_found_posts = () => {
+    const url = `/api/found`;
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_FOUND_POSTS,
+        });
+        axios.all([
+            axios.get(url),
+            axios.get(url+`/locations`)
+        ])
+          .then(axios.spread((foundRes, locRes) => load_found_posts_success(dispatch, [foundRes.data, locRes.data])))
+          .catch((error) => load_found_posts_failure(dispatch, error))
+    }
+}
+
+export const load_found_posts_success = (dispatch, response) => {
     dispatch({
-        type: LOAD_POSTS_SUCCESS,
-        payload: response.data,
+        type: LOAD_FOUND_POSTS_SUCCESS,
+        payload: response,
     });
 }
 
-export const load_posts_failure = (dispatch, error) => {
+export const load_found_posts_failure = (dispatch, error) => {
     dispatch({
-        type: LOAD_POSTS_FAILURE,
+        type: LOAD_FOUND_POSTS_FAILURE,
+    });
+}
+export const load_lost_posts = () => {
+    const url = `/api/lost`;
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_LOST_POSTS,
+        });
+        axios.all([
+            axios.get(url),
+            axios.get(url+`/locations`)
+        ])
+          .then(axios.spread((lostRes, locRes) => load_lost_posts_success(dispatch, [lostRes.data, locRes.data])))
+          .catch((error) => load_lost_posts_failure(dispatch, error))
+    }
+}
+
+export const load_lost_posts_success = (dispatch, response) => {
+    dispatch({
+        type: LOAD_LOST_POSTS_SUCCESS,
+        payload: response,
+    });
+}
+
+export const load_lost_posts_failure = (dispatch, error) => {
+    dispatch({
+        type: LOAD_LOST_POSTS_FAILURE,
     });
 }
 export const submit_updated_post = (author, description, file, updateId) => {
@@ -368,11 +557,16 @@ export const submit_updated_post_failure = (dispatch, error) => {
     });
 }
 
-export const submit_new_post = (author, description, file) => {
+export const submit_new_found_post = (name, location, email, description, question, password) => {
+    console.log("new_found_post called")
     var formData = new FormData();
-    formData.append('author', author);
+    formData.append('name', name);
+    formData.append('location', location);
+    formData.append('email', email);
     formData.append('description', description);
-    formData.append('frame', file, file.name);
+    formData.append('question', question);
+    formData.append('password', password);
+    // formData.append('frame', file, file.name);
     const config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -383,24 +577,82 @@ export const submit_new_post = (author, description, file) => {
     }
     return (dispatch) => {
         dispatch({
-            type: SUBMIT_NEW_POST,
+            type: SUBMIT_NEW_FOUND_POST,
         });
-        axios.post(`/api/comments`, formData, config)
-          .then((response) => submit_new_post_success(dispatch, response))
-          .catch((error) => submit_new_post_failure(dispatch, error))
+        axios.post(`/api/found/create`, //formData, config      <-- used when image is in the json as well
+            {
+                "name": name,
+                "location": location,
+                "email": email,
+                "description": description,
+                "question": question,
+                "password": password
+            }
+        )
+          .then((response) => submit_new_found_post_success(dispatch, response))
+          .catch((error) => submit_new_found_post_failure(dispatch, error))
     }
 }
 
-export const submit_new_post_success = (dispatch, response) => {
+export const submit_new_found_post_success = (dispatch, response) => {
     dispatch({
-        type: SUBMIT_NEW_POST_SUCCESS,
+        type: SUBMIT_NEW_FOUND_POST_SUCCESS,
         payload: response.data,
     });
 }
 
-export const submit_new_post_failure = (dispatch, error) => {
+export const submit_new_found_post_failure = (dispatch, error) => {
     dispatch({
-        type: SUBMIT_NEW_POST_FAILURE,
+        type: SUBMIT_NEW_FOUND_POST_FAILURE,
+    });
+}
+export const submit_new_lost_post = (name, location, email, description, reward, password) => {
+    console.log("new_lost_post called")
+    var formData = new FormData();
+    formData.append('name', name);
+    formData.append('location', location);
+    formData.append('email', email);
+    formData.append('description', description);
+    formData.append('reward', parseFloat(reward));
+    formData.append('password', password);
+    // formData.append('frame', file, file.name);
+    const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
+    for (var pair of formData.entries()) {
+        console.log(pair[0]+ ', ' + pair[1]);
+    }
+    return (dispatch) => {
+        dispatch({
+            type: SUBMIT_NEW_LOST_POST,
+        });
+        axios.post(`/api/lost/create`, //formData, config      <-- used when image is in the json as well
+            {
+                "name": name,
+                "location": location,
+                "email": email,
+                "description": description,
+                "reward": reward,
+                "password": password
+            }
+        )
+          .then((response) => submit_new_lost_post_success(dispatch, response))
+          .catch((error) => submit_new_lost_post_failure(dispatch, error))
+    }
+}
+
+export const submit_new_lost_post_success = (dispatch, response) => {
+    dispatch({
+        type: SUBMIT_NEW_LOST_POST_SUCCESS,
+        payload: response.data,
+    });
+}
+
+export const submit_new_lost_post_failure = (dispatch, error) => {
+    dispatch({
+        type: SUBMIT_NEW_LOST_POST_FAILURE,
     });
 }
 
@@ -435,30 +687,4 @@ export const handle_delete_post_failure = (dispatch, error) => {
     dispatch({
         type: HANDLE_DELETE_POST_FAILURE,
     });
-}
-
-export const handle_click_show_password = () => {
-    return (dispatch) => {
-        dispatch({
-            type: HANDLE_CLICK_SHOW_PASSWORD,
-        });
-    }
-}
-
-export const handle_password_change = (password) => {
-    return (dispatch) => {
-        dispatch({
-            type: HANDLE_PASSWORD_CHANGE,
-            payload: password,
-        });
-    }
-}
-
-export const handle_form_type_change = (showquestion) => {
-    return (dispatch) => {
-        dispatch({
-            type: HANDLE_FORM_TYPE_CHANGE,
-            payload: showquestion,
-        });
-    }
 }
