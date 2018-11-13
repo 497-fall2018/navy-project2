@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Radio } from '@material-ui/core';
 import Input from '@material-ui/core/Input';
 import _ from 'lodash';
+import Input from '@material-ui/core/Input';
 
 import './styles.css';
 import {
@@ -25,7 +26,7 @@ class SidebarComponent extends Component {
     };
 
     populateLocations = () => {
-        return _.map(this.props.locations, (item, index)=> {
+        return _.map((this.props.lorf === "lost") ? this.props.lost_locations : this.props.found_locations, (item, index)=> {
             return (
                 <div className="locationRadio" key={index}>
                     <Radio
@@ -53,8 +54,10 @@ class SidebarComponent extends Component {
                             ref={input => this.search = input}
                             onChange={this.handleInputChange}
                         />
+
+                        <h3>Locations: </h3>
+                        {this.populateLocations()}
                     </form>
-                    {this.populateLocations()}
                 </div>
             </div>
         );
@@ -65,11 +68,12 @@ export { SidebarComponent };
 
 const mapStateToProps = (state, ownProps) => {
 	const { post } = state;
-	const { location_search, locations } = post;
+	const { location_search, found_locations, lost_locations } = post;
 	return {
 		...ownProps,
         location_search,
-		locations,
+        found_locations,
+		lost_locations,
 	};
 };
 

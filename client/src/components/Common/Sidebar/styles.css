@@ -11,3 +11,6 @@
 .locationRadio {
     line-height: 1.5rem;
 }
+.innerSidebar h3 {
+    margin-bottom: 0;
+}

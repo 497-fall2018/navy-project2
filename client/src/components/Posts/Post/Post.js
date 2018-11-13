@@ -7,6 +7,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { CardMedia } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
+import deepOrange from '@material-ui/core/colors/deepOrange';
 
 const styles = {
   card: {
@@ -17,14 +19,23 @@ const styles = {
     fontSize: 14,
   },
   pos: {
-    marginBottom: 12,
+    marginBottom: 0,
   },
   media: {
     height: 200,
   },
-  // spec: {
-  //   display: 'flex',
-  // }
+  orangeAvatar: {
+    marginTop: 10,
+    color: '#fff',
+    backgroundColor: '#3a93f2',
+    float: "right",
+    position: "relative",
+    top: "5px",
+  },
+  foundQuestion: {
+    color: 'navy',
+    marginTop: '0.5rem',
+  }
 };
 
 
@@ -44,13 +55,22 @@ class Post extends React.Component {
             {this.props.location}
           </Typography>
           <Typography color="textSecondary">
-            {this.props.date}
+            {this.props.created}
           </Typography>
           <Typography component="p">
             {this.props.description}
           </Typography>
+          {(this.props.lorf==="lost") ?
+            <Avatar className={classes.orangeAvatar} >
+              {this.props.reward}
+            </Avatar>
+          :
+            <Typography component="p" className={classes.foundQuestion}>
+              <b>Q: </b>{this.props.question}
+            </Typography>
+          }
         </CardContent>
-        <CardActions>
+        <CardActions >
           <Button size="small" >More Info</Button>
         </CardActions>
       </Card>

@@ -1,2 +1,2 @@
 export * from './Common';
-export { PostList } from './Posts';
+export * from './Posts';
