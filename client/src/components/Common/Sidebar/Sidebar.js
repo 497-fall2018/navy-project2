@@ -22,6 +22,7 @@ class SidebarComponent extends Component {
 
     handleLocationSearchChange = (event) => {
         this.props.change_location_search(event.target.value);
+        this.props.callbackFromParent(event.target.value);
     };
 
     populateLocations = () => {

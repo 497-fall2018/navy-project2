@@ -15,6 +15,21 @@ import {
 import './styles.css';
 
 class HomeComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            checked: null,
+        }
+
+    }
+
+    myCallback = (c) => {
+        console.log('reaches here')
+        this.setState({
+          checked: c
+        })
+      }
+
     componentDidMount() {
         if (this.props.lorf === "lost") {
             this.props.load_lost_posts();
@@ -35,8 +50,14 @@ class HomeComponent extends Component {
                     <a href={landingUrl} style={{color: "white"}}><Add/></a>
                 </Button>
                 <div className="bodyContainer">
-                    <Sidebar lorf={this.props.lorf}/>
-                    <PostList lorf={this.props.lorf}/>
+                    <Sidebar 
+                        lorf={this.props.lorf} 
+                        callbackFromParent = {this.myCallback}
+                    />
+                    <PostList 
+                        lorf={this.props.lorf}
+                        checked={this.state.checked}
+                    />
                 </div>
             </div>
         );

@@ -7,22 +7,32 @@ import Grid from '@material-ui/core/Grid';
 
 
 class PostListComponent extends Component {
-
-
   populateItems = () => {
-      return _.map((this.props.lorf==="lost") ? this.props.lost : this.props.found, (item, index)=> {
-          return (
-              <Grid key={index} item>
-                <Post name={item['name']} location={item['location']} created={item['created']} description={item['description']}
-                      image={item['photo']} lorf={this.props.lorf} reward={item['reward']} question={item['question']}
-                 ></Post>
-              </Grid>
-          )
-      });
+      let LF = (this.props.lorf === 'lost') ? this.props.lost : this.props.found;
+      let newList = (this.props.checked != null) ? LF.filter(x => x['location'] === this.props.checked) : LF;
+
+      return newList.map((item, index) => {
+        return (
+          <Grid key={index} item>
+            <Post 
+              name={item['name']} 
+              location={item['location']} 
+              created={item['created']} 
+              description={item['description']}
+              image={item['photo']} 
+              lorf={this.props.lorf} 
+              reward={item['reward']} 
+              question={item['question']}
+            >
+            </Post>
+          </Grid>
+      )})
+
+
+
   }
 
   render() {
-
     return (
         <div className="postlist" style={{padding:16}}>
           <Grid container spacing={16} >

@@ -1,3 +1,9 @@
 .postlist {
     width: 60vw;
 }
+.showItem {
+    
+}
+.hideItem {
+    display: none;
+}
