@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { CardMedia } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
+import { Link } from 'react-router-dom';
 import deepOrange from '@material-ui/core/colors/deepOrange';
 
 const styles = {
@@ -38,9 +39,7 @@ const styles = {
   }
 };
 
-
 class Post extends React.Component {
-
   render(){
     const {classes} = this.props;
     return (
@@ -71,7 +70,9 @@ class Post extends React.Component {
           }
         </CardContent>
         <CardActions >
-          <Button size="small" >More Info</Button>
+          <Button size="small" component={Link} to={(this.props.lorf==="lost") ?"lostitem/"+`${this.props.id}` : "founditem/"+`${this.props.id}`} id={this.props.id}>
+            More Info
+          </Button>
         </CardActions>
       </Card>
     );

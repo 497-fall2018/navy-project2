@@ -53,7 +53,7 @@ const INITIAL_STATE = {
     }],
     lost: [
         {
-            "_id": "",
+            "_id": "1",
             "name": "iPhone 5S",
             "location": "Tech",
             "email": "yulkim2019@u.northwestern.edu",
@@ -76,7 +76,7 @@ const INITIAL_STATE = {
         // }
     ],
     found: [{
-        "_id": "",
+        "_id": "2",
         "name": "Wallet",
         "location": "Norris",
         "email": "yulkim2019@u.northwestern.edu",
