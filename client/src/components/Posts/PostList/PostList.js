@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import Grid from '@material-ui/core/Grid';
 
-
-
 class PostListComponent extends Component {
 
 
@@ -13,7 +11,7 @@ class PostListComponent extends Component {
       return _.map((this.props.lorf==="lost") ? this.props.lost : this.props.found, (item, index)=> {
           return (
               <Grid key={index} item>
-                <Post name={item['name']} location={item['location']} created={item['created']} description={item['description']}
+                <Post id={item['_id']} name={item['name']} location={item['location']} created={item['created']} description={item['description']}
                       image={item['photo']} lorf={this.props.lorf} reward={item['reward']} question={item['question']}
                  ></Post>
               </Grid>
