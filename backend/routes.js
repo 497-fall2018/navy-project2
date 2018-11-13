@@ -41,7 +41,7 @@ module.exports = (app) => {
 		const item_fields = ['name', 'location', 'email', 'description', 'reward', 'password'];
 		Lost.findById(item_id, (error, item) => {
 			if (error) return res.json({ success: false, error });
-			if (item.password != password) {
+			if (item.password !== password) {
 				return res.json({ success: false, error: 'Incorrect password' });
 			}
 			//check to see which fields we got from frontend and update only those
@@ -67,13 +67,14 @@ module.exports = (app) => {
 		Lost.findById(req.params.id, (error, item) => {
 			if (error) return res.json({ success: false, error });
 			item_password = item.password;
-		});
-		if (item_password !== password) {
-			return res.json({ success: false, error: 'Incorrect password' });
-		}
-		Lost.remove({ _id: item_id }, (error, item) => {
-			if (error) return res.json({ success: false, error });
-			return res.json({ success: true });
+
+			if (item_password !== password) {
+				return res.json({ success: false, error: 'Incorrect password' });
+			}
+			Lost.remove({ _id: item_id }, (error, item) => {
+				if (error) return res.json({ success: false, error });
+				return res.json({ success: true });
+			});
 		});
 	});
 	//get list of lost items
@@ -108,7 +109,7 @@ module.exports = (app) => {
 	app.post('/api/found/create', (req, res) => {
 		const item = new Found();
 		//get found item info from the frontend
-		const { name, location, email, description,  question, password } = req.body;
+		const { name, location, email, description, question, password } = req.body;
 		//const image = req.file.filename;
 		if (!name || !location || !description || !question) { //set this later
 			return res.json({
