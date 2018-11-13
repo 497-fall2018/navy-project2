@@ -26,6 +26,7 @@ class PostListComponent extends Component {
             </Post>
           </Grid>
       )})
+  }
 
   render() {
     return (
