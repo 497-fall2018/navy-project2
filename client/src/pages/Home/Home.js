@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {Add} from '@material-ui/icons';
 import {Button} from '@material-ui/core';
+import { Link } from "react-router-dom";
 
 import {
     Header,
@@ -42,13 +43,14 @@ class HomeComponent extends Component {
     }
 
     render() {
-        const landingUrl = "postform";
         return (
             <div>
                 <Header lorf={this.props.lorf}/>
-                <Button variant="fab" style={{background: '#4054AC', color: 'white', position: 'absolute', top: '4vh', right: '2vw'}} aria-label="Add">
-                    <a href={landingUrl} style={{color: "white"}}><Add/></a>
-                </Button>
+                <Link to='/postform'>
+                    <Button variant="fab" style={{background: '#4054AC', color: 'white', position: 'absolute', top: '4vh', right: '2vw'}} aria-label="Add">
+                        <Add/>
+                    </Button>
+                </Link>
                 <div className="bodyContainer">
                     <Sidebar 
                         lorf={this.props.lorf} 

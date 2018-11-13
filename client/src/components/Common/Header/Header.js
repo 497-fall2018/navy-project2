@@ -16,10 +16,10 @@ class HeaderComponent extends Component {
             <Link to="lost" className="logo">LstnFnd</Link>
 
             <div className="headerLinks">
-                <Link to="lost" className={(this.props.lorf === "lost") ? "topRightSelected":"topRightNotSelected"}>
+                <Link to="/lost" className={(this.props.lorf === "lost") ? "topRightSelected":"topRightNotSelected"}>
                     Lost
                 </Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <Link to="found" className={(this.props.lorf === "found") ? "topRightSelected":"topRightNotSelected"}>
+                <Link to="/found" className={(this.props.lorf === "found") ? "topRightSelected":"topRightNotSelected"}>
                     Found
                 </Link>
             </div>
