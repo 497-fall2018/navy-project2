@@ -20,16 +20,13 @@ class HomeComponent extends Component {
         super(props);
         this.state = {
             checked: null,
+            searched: null,
         }
 
     }
 
-    myCallback = (c) => {
-        console.log('reaches here')
-        this.setState({
-          checked: c
-        })
-      }
+    setChecked = (c) => {this.setState({checked: c})}
+    setSearched = (s) => {this.setState({searched: s})}
 
     componentDidMount() {
         if (this.props.lorf === "lost") {
@@ -54,11 +51,13 @@ class HomeComponent extends Component {
                 <div className="bodyContainer">
                     <Sidebar 
                         lorf={this.props.lorf} 
-                        callbackFromParent = {this.myCallback}
+                        setChecked = {this.setChecked}
+                        setSearched = {this.setSearched}
                     />
                     <PostList 
                         lorf={this.props.lorf}
                         checked={this.state.checked}
+                        searched = {this.state.searched}
                     />
                 </div>
             </div>

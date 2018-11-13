@@ -7,9 +7,10 @@ import Grid from '@material-ui/core/Grid';
 class PostListComponent extends Component {
   populateItems = () => {
       let LF = (this.props.lorf === 'lost') ? this.props.lost : this.props.found;
-      let newList = (this.props.checked != null) ? LF.filter(x => x['location'] === this.props.checked) : LF;
+      let filterList = (this.props.checked != null) ? LF.filter(x => x['location'] === this.props.checked) : LF;
+      let searchList = (this.props.searched != null) ? filterList.filter(x => x.name.toUpperCase().indexOf(this.props.searched.toUpperCase()) > -1) : filterList;
 
-      return newList.map((item, index) => {
+      return searchList.map((item, index) => {
         return (
           <Grid key={index} item>
             <Post 
