@@ -12,6 +12,4 @@ const lostSchema = new Schema({
 	password: String
 });
 
-const lostItem = mongoose.model('lost', lostSchema);
-
-module.exports = lostItem;
+module.exports = mongoose.model('lost', lostSchema);
