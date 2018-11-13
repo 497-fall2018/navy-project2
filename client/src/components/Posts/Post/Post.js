@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import { CardMedia } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import { Link } from 'react-router-dom';
-import deepOrange from '@material-ui/core/colors/deepOrange';
 
 const styles = {
   card: {
@@ -44,11 +43,11 @@ class Post extends React.Component {
     const {classes} = this.props;
     return (
       <Card className={classes.card}>
-        
+
         <CardContent>
           {this.props.image &&
             (<div>
-              <img src={'/api/'+this.props.lorf+'/posts/photo/'+this.props.id} style={{width: '100%'}}/>
+              <img src={'/api/'+this.props.lorf+'/posts/photo/'+this.props.id} style={{width: '100%'}} alt={'/api/'+this.props.lorf+'/posts/photo/'+this.props.id}/>
             </div>)}
           <Typography variant="h5">
             {this.props.name}

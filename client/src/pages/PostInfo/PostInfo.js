@@ -1,17 +1,16 @@
-import React from 'react'; 
-import ReactDOM from 'react-dom'; 
-import { connect } from 'react-redux'; 
-import {} from '../../ducks/post'; 
-import './styles.css'; 
+import React from 'react';
+import { connect } from 'react-redux';
+import {} from '../../ducks/post';
+import './styles.css';
 import {Header} from '../../components';
 import { Typography } from '@material-ui/core';
- 
-class PostInfoComponent extends React.Component { 
-    
-    render() { 
-        const item = this.props.lorf=="lost" ? this.props.lost.find(item => item._id==this.props.match.params.id) :  this.props.found.find(item => item._id==this.props.match.params.id)
+
+class PostInfoComponent extends React.Component {
+
+    render() {
+        const item = this.props.lorf==="lost" ? this.props.lost.find(item => item._id===this.props.match.params.id) :  this.props.found.find(item => item._id===this.props.match.params.id)
         console.log(item);
-        return ( 
+        return (
             <div>
                 <Header />
                 <Typography>{item._id}</Typography>
@@ -22,13 +21,13 @@ class PostInfoComponent extends React.Component {
                 <Typography>{item.photo}</Typography>
                 <Typography>{item.reward}</Typography>
             </div>
-        ); 
-    } 
-} 
- 
-export {PostInfoComponent}; 
- 
-const mapStateToProps = (state, ownProps) => { 
+        );
+    }
+}
+
+export {PostInfoComponent};
+
+const mapStateToProps = (state, ownProps) => {
     const { post } = state;
     const { lost, found} = post;
     return {
@@ -36,6 +35,6 @@ const mapStateToProps = (state, ownProps) => {
         lost,
         found
     };
-}; 
+};
 
 export const PostInfo=connect(mapStateToProps,{})(PostInfoComponent);

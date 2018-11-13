@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {IconButton, Button, TextField, Grid, InputAdornment, FormControlLabel, FormControl, FormLabel, RadioGroup, Radio, Tooltip} from '@material-ui/core';
-import {AddAPhoto, Visibility, VisibilityOff} from '@material-ui/icons';
+import { IconButton, Button, TextField, Grid, InputAdornment, FormControlLabel, FormControl, FormLabel, RadioGroup, Radio } from '@material-ui/core';
+import { AddAPhoto, Visibility, VisibilityOff } from '@material-ui/icons';
 import { Link } from "react-router-dom";
 
 import {

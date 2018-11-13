@@ -10,7 +10,6 @@ class HeaderComponent extends Component {
         this.props.handle_school_change(event.target.value);
     }
     render() {
-        const landingUrl = "";
         return (
         <div className="header">
             <Link to="lost" className="logo">LstnFnd</Link>
