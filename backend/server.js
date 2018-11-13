@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === 'DEVELOPMENT') {
 	mongo_uri = `mongodb://mmoderwell.com:27018/lostnfound`;
 }
 //connect to database
-mongoose.connect('mongodb://localhost:27017/lostnfound').then(() => console.log('Connected to lostnfound database.'))
+mongoose.connect('mongodb://mmoderwell.com:27018/lostnfound').then(() => console.log('Connected to lostnfound database.'))
 	.catch((e) => {
 		console.error('Connection to mongodb failed.');
 	});
