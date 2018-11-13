@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {IconButton, Button, TextField, Grid, InputAdornment, FormControlLabel, FormControl, FormLabel, RadioGroup, Radio, Tooltip} from '@material-ui/core';
 import {AddAPhoto, Visibility, VisibilityOff} from '@material-ui/icons';
+import { Link } from "react-router-dom";
 
 import {
 	change_description,
@@ -16,6 +17,7 @@ import {
 	handle_click_show_password,
 	submit_new_found_post,
 	submit_new_lost_post,
+	handle_image_change
 } from '../../ducks/post';
 import {
     Header
@@ -48,16 +50,17 @@ class PostFormComponent extends Component {
 		this.props.change_password(event.target.value);
 	}
 
-	handleItemPreviewChange = (event) => {
+	handleImageChange = (event) => {
 		this.props.change_item_preview(URL.createObjectURL(event.target.files[0]));
+		this.props.handle_image_change(event.target.files[0]);
 	}
 
 	handlePostFormSubmit = () => {
 		if (this.props.form_type === "lost") {
-			this.props.submit_new_lost_post(this.props.name, this.props.location, this.props.email, this.props.description, this.props.reward, this.props.password);
+			this.props.submit_new_lost_post(this.props.name, this.props.location, this.props.email, this.props.description, this.props.reward, this.props.password, this.props.image, () => {this.props.history.push('/');});
 		}
 		else {
-			this.props.submit_new_found_post(this.props.name,this.props.location, this.props.email, this.props.description, this.props.question, this.props.password);
+			this.props.submit_new_found_post(this.props.name,this.props.location, this.props.email, this.props.description, this.props.question, this.props.password, this.props.image, () => {this.props.history.push('/');});
 		}
 
 
@@ -67,11 +70,10 @@ class PostFormComponent extends Component {
 	}
 
 	render() {
-		const landingUrl = "/";
 		return (
 			<div>
 				<Header />
-				<form style={{padding: "5% 20%"}}>
+				<form>
 					<FormControl component="fieldset">
 						<FormLabel component="legend">Did you find/lose the item?</FormLabel>
 						<RadioGroup
@@ -161,7 +163,7 @@ class PostFormComponent extends Component {
 							),
 						}}
 					/><br/><br/>
-					<input style={{display: 'none'}} accept="image/*" onChange={this.handleItemPreviewChange} id="icon-button-file" type="file"/>
+					<input style={{display: 'none'}} accept="image/*" onChange={this.handleImageChange} id="icon-button-file" type="file"/>
 					<Grid style={{border: "0.5px solid rgba(0, 0, 0, 0.2)", borderRadius: '4px', boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)'}}>
 						<Grid item style={{minHeight: "100px"}}>
 							<img src={this.props.file} alt={this.props.file} style={{border: '0px', width: "50%", padding: "2% 3%"}}/><br/>
@@ -178,10 +180,11 @@ class PostFormComponent extends Component {
 					<Button variant="contained" color="primary" onClick={()=>this.handlePostFormSubmit()} disabled={this.props.name==="" ||
 						this.props.location==="" || this.props.description==="" || this.props.email==="" ||
 						(this.props.reward==="" && this.props.question==="") || this.props.password==="" }>
-						<a href={landingUrl} style={{color: "white", textDecoration:"none"}}>
-							Submit
-						</a>
+						Submit
 					</Button>
+					<Link to='/'>
+						<Button style={{background: '#4054AC', color: 'white'}}>Cancle</Button>
+					</Link>
 				</form>
 			</div>
 		)
@@ -192,7 +195,7 @@ export { PostFormComponent };
 
 const mapStateToProps = (state, ownProps) => {
 	const { post } = state;
-	const { description, email, file, form_type, location, name, password, question, reward, showPassword, } = post;
+	const { description, email, file, form_type, location, name, password, question, reward, showPassword, image } = post;
 	return {
 		...ownProps,
 		description,
@@ -205,6 +208,7 @@ const mapStateToProps = (state, ownProps) => {
 		question,
 		reward,
 		showPassword,
+		image
 	};
 };
 
@@ -220,5 +224,6 @@ export const PostForm = connect(mapStateToProps, {
 	change_reward,
 	handle_click_show_password,
 	submit_new_found_post,
-	submit_new_lost_post
+	submit_new_lost_post,
+	handle_image_change
 })(PostFormComponent);
