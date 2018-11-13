@@ -51,7 +51,6 @@ const mapStateToProps = (state, ownProps) => {
     // const { } = ;
     return {
         ...ownProps,
-
     };
 };
 

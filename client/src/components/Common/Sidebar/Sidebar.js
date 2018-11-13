@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Radio } from '@material-ui/core';
 import Input from '@material-ui/core/Input';
 import _ from 'lodash';
-import Input from '@material-ui/core/Input';
 
 import './styles.css';
 import {
@@ -49,7 +48,7 @@ class SidebarComponent extends Component {
                     <form>
                         <Input
                             type="search"
-                            fullWidth="true"
+                            fullWidth={true}
                             placeholder="Search for..."
                             ref={input => this.search = input}
                             onChange={this.handleInputChange}
