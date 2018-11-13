@@ -51,7 +51,7 @@ class SidebarComponent extends Component {
                             type="search"
                             fullWidth={true}
                             placeholder="Search for..."
-                            ref={input => this.search = input}
+                            ref={input => this.state.query = input}
                             onChange={this.handleInputChange}
                         />
 
