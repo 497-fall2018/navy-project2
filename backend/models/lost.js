@@ -7,12 +7,9 @@ const lostSchema = new Schema({
 	email: String,
 	photo: String,
 	description: String,
-	school: String,
 	reward: Number,
 	created: { type: Date, default: Date.now, },
 	password: String
 });
 
-const lostItem = mongoose.model('lost', lostSchema);
-
-module.exports = lostItem;
+module.exports = mongoose.model('lost', lostSchema);

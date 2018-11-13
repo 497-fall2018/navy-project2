@@ -8,9 +8,9 @@ module.exports = (app) => {
 	app.post('/api/lost/create', (req, res) => {
 		const item = new Lost();
 		//get lost item info from the frontend
-		const { name, location, email, description, school, reward, password } = req.body;
+		const { name, location, email, description, reward, password } = req.body;
 		//const image = req.file.filename;
-		if (!name || !location || !description || !school || !reward) { //set this later
+		if (!name || !location || !description || !reward) { //set this later
 			return res.json({
 				success: false,
 				error: 'You must provide a name, caption, and image.'
@@ -21,7 +21,6 @@ module.exports = (app) => {
 		item.location = location;
 		item.email = email;
 		item.description = description;
-		item.school = school;
 		item.reward = reward;
 		item.password = password;
 
@@ -39,10 +38,10 @@ module.exports = (app) => {
 		if (!item_id) {
 			return res.json({ success: false, error: 'No id provided' });
 		}
-		const item_fields = ['name', 'location', 'email', 'description', 'school', 'reward', 'password'];
+		const item_fields = ['name', 'location', 'email', 'description', 'reward', 'password'];
 		Lost.findById(item_id, (error, item) => {
 			if (error) return res.json({ success: false, error });
-			if (item.password != password) {
+			if (item.password !== password) {
 				return res.json({ success: false, error: 'Incorrect password' });
 			}
 			//check to see which fields we got from frontend and update only those
@@ -68,13 +67,14 @@ module.exports = (app) => {
 		Lost.findById(req.params.id, (error, item) => {
 			if (error) return res.json({ success: false, error });
 			item_password = item.password;
-		});
-		if (item_password !== password) {
-			return res.json({ success: false, error: 'Incorrect password' });
-		}
-		Lost.remove({ _id: item_id }, (error, item) => {
-			if (error) return res.json({ success: false, error });
-			return res.json({ success: true });
+
+			if (item_password !== password) {
+				return res.json({ success: false, error: 'Incorrect password' });
+			}
+			Lost.remove({ _id: item_id }, (error, item) => {
+				if (error) return res.json({ success: false, error });
+				return res.json({ success: true });
+			});
 		});
 	});
 	//get list of lost items
@@ -109,9 +109,9 @@ module.exports = (app) => {
 	app.post('/api/found/create', (req, res) => {
 		const item = new Found();
 		//get found item info from the frontend
-		const { name, location, email, description, school, question, password } = req.body;
+		const { name, location, email, description, question, password } = req.body;
 		//const image = req.file.filename;
-		if (!name || !location || !description || !school || !question) { //set this later
+		if (!name || !location || !description || !question) { //set this later
 			return res.json({
 				success: false,
 				error: 'You must provide a name, caption, and image.'
@@ -122,7 +122,6 @@ module.exports = (app) => {
 		item.location = location;
 		item.email = email;
 		item.description = description;
-		item.school = school;
 		item.question = question;
 		item.password = password;
 
@@ -138,7 +137,7 @@ module.exports = (app) => {
 		const password = req.params.password;
 		const { body } = req;
 
-		const item_fields = ['name', 'location', 'email', 'description', 'school', 'question', 'password'];
+		const item_fields = ['name', 'location', 'email', 'description', 'question', 'password'];
 
 		Found.findById(req.params.id, (error, item) => {
 			if (error) return res.json({ success: false, error });

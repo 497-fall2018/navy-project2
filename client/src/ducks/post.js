@@ -174,24 +174,19 @@ export default function reducer(state = INITIAL_STATE, action) {
                 ...state,
                 password: action.payload
             }
-        case CHANGE_FORM_TYPE:
-            return {
-                ...state,
-                formType: action.payload,
-            }
         case LOAD_FOUND_POSTS:
         case LOAD_FOUND_POSTS_SUCCESS:
             if(action.payload) {
                 console.log(action.payload);
-                var locations = [];
+                let locs = [];
                 for (var key in action.payload[1].data){
-                    locations.push([key, action.payload[1].data[key]]);
+                    locs.push([key, action.payload[1].data[key]]);
                 }
                 return {
                     ...state,
                     error_message: "",
                     found: action.payload[0].data,
-                    found_locations: locations
+                    found_locations: locs
                 }
             }
             return {
@@ -211,8 +206,8 @@ export default function reducer(state = INITIAL_STATE, action) {
             if(action.payload) {
                 console.log(action.payload);
                 var locations = [];
-                for (var key in action.payload[1].data){
-                    locations.push([key, action.payload[1].data[key]]);
+                for (var key_loc in action.payload[1].data){
+                    locations.push([key_loc, action.payload[1].data[key_loc]]);
                 }
                 return {
                     ...state,

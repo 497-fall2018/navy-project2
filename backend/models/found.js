@@ -7,7 +7,6 @@ const foundSchema = new Schema({
 	email: String,
 	photo: String,
 	description: String,
-	school: String,
 	question: String,
 	created: { type: Date, default: Date.now, },
 	password: String
