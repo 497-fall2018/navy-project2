@@ -14,15 +14,16 @@ class SidebarComponent extends Component {
         query: '',
     }
 
-    handleInputChange = () => {
+    handleInputChange = (event) => {
         this.setState({
             query: this.search.value
         })
+        this.props.setSearched(event.target.value)
     }
 
     handleLocationSearchChange = (event) => {
         this.props.change_location_search(event.target.value);
-        this.props.callbackFromParent(event.target.value);
+        this.props.setChecked(event.target.value);
     };
 
     populateLocations = () => {
@@ -49,10 +50,10 @@ class SidebarComponent extends Component {
                     <form>
                         <Input
                             type="search"
+                            onChange={this.handleInputChange}
                             fullWidth={true}
                             placeholder="Search for..."
                             ref={input => this.search = input}
-                            onChange={this.handleInputChange}
                         />
 
                         <h3>Locations: </h3>
