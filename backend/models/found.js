@@ -5,7 +5,10 @@ const foundSchema = new Schema({
 	name: String,
 	location: String,
 	email: String,
-	photo: String,
+	photo: {
+		data: Buffer,
+		contentType: String
+	},
 	description: String,
 	question: String,
 	created: { type: Date, default: Date.now, },

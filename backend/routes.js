@@ -1,33 +1,58 @@
 const Lost = require('./models/lost');
 const Found = require('./models/found');
+const formidable = require('formidable');
+const fs = require('fs');
 
 module.exports = (app) => {
 
 	//route to add new lost item to DB
 	//need to add image upload at some point
 	app.post('/api/lost/create', (req, res) => {
-		const item = new Lost();
-		//get lost item info from the frontend
-		const { name, location, email, description, reward, password } = req.body;
-		//const image = req.file.filename;
-		if (!name || !location || !description || !reward) { //set this later
-			return res.json({
-				success: false,
-				error: 'You must provide a name, caption, and image.'
+		let form = new formidable.IncomingForm()
+		form.keepExtensions = true
+		form.parse(req, (err, fields, files) => {
+			if (err) {
+			  return res.status(400).json({
+			    error: "Image could not be uploaded"
+			  })
+			}
+			let item = new Lost(fields);
+			if(files.photo){
+				item.photo.data = fs.readFileSync(files.photo.path);
+				item.photo.contentType = files.photo.type;
+			}
+			item.save((err, result) => {
+				if (err) {
+					return res.status(400).json({
+						error: errorHandler.getErrorMessage(err)
+					});
+				}
+				return res.json({ success: true});
 			});
-		}
-		//set all of the fields we got from the fontend
-		item.name = name;
-		item.location = location;
-		item.email = email;
-		item.description = description;
-		item.reward = reward;
-		item.password = password;
-
-		item.save(err => {
-			if (err) return res.json({ success: false, error: err });
-			return res.json({ success: true });
 		});
+
+		// const item = new Lost();
+		// //get lost item info from the frontend
+		// const { name, location, email, description, reward, password } = req.body;
+		// //const image = req.file.filename;
+		// if (!name || !location || !description || !reward) { //set this later
+		// 	return res.json({
+		// 		success: false,
+		// 		error: 'You must provide a name, caption, and image.'
+		// 	});
+		// }
+		// //set all of the fields we got from the fontend
+		// item.name = name;
+		// item.location = location;
+		// item.email = email;
+		// item.description = description;
+		// item.reward = reward;
+		// item.password = password;
+
+		// item.save(err => {
+		// 	if (err) return res.json({ success: false, error: err });
+		// 	return res.json({ success: true });
+		// });
 
 	});
 	//update a lost item given you have the password for it
@@ -85,6 +110,30 @@ module.exports = (app) => {
 		});
 	});
 
+	//get image of lost item
+	app.get('/api/lost/posts/photo/:id', (req, res) => {
+		Lost.findById(req.params.id).exec((err, post) => {
+		    if (err || !post)
+		      return res.status('400').json({
+		        error: "Post not found"
+		      })
+		    res.set("Content-Type", post.photo.contentType)
+    		return res.send(post.photo.data)
+		  })
+	});
+
+	//get image of found item
+	app.get('/api/found/posts/photo/:id', (req, res) => {
+		Found.findById(req.params.id).exec((err, post) => {
+		    if (err || !post)
+		      return res.status('400').json({
+		        error: "Post not found"
+		      })
+		    res.set("Content-Type", post.photo.contentType)
+    		return res.send(post.photo.data)
+		  })
+	});
+
 	//get all of the lost locations in use and their frequency
 	//returns a locations object which keys being the location and value the frequency
 	app.get('/api/lost/locations', (req, res) => {
@@ -107,28 +156,50 @@ module.exports = (app) => {
 	//route to add new found item to DB
 	//need to add image upload at some point
 	app.post('/api/found/create', (req, res) => {
-		const item = new Found();
-		//get found item info from the frontend
-		const { name, location, email, description, question, password } = req.body;
-		//const image = req.file.filename;
-		if (!name || !location || !description || !question) { //set this later
-			return res.json({
-				success: false,
-				error: 'You must provide a name, caption, and image.'
+		let form = new formidable.IncomingForm()
+		form.keepExtensions = true
+		form.parse(req, (err, fields, files) => {
+			if (err) {
+			  return res.status(400).json({
+			    error: "Image could not be uploaded"
+			  })
+			}
+			let item = new Found(fields);
+			if(files.photo){
+				item.photo.data = fs.readFileSync(files.photo.path);
+				item.photo.contentType = files.photo.type;
+			}
+			item.save((err, result) => {
+				if (err) {
+					return res.status(400).json({
+						error: errorHandler.getErrorMessage(err)
+					});
+				}
+				return res.json({ success: true});
 			});
-		}
-		//set all of the fields we got from the fontend
-		item.name = name;
-		item.location = location;
-		item.email = email;
-		item.description = description;
-		item.question = question;
-		item.password = password;
-
-		item.save(err => {
-			if (err) return res.json({ success: false, error: err });
-			return res.json({ success: true });
 		});
+		// const item = new Found();
+		// //get found item info from the frontend
+		// const { name, location, email, description, question, password } = req.body;
+		// //const image = req.file.filename;
+		// if (!name || !location || !description || !question) { //set this later
+		// 	return res.json({
+		// 		success: false,
+		// 		error: 'You must provide a name, caption, and image.'
+		// 	});
+		// }
+		// //set all of the fields we got from the fontend
+		// item.name = name;
+		// item.location = location;
+		// item.email = email;
+		// item.description = description;
+		// item.question = question;
+		// item.password = password;
+
+		// item.save(err => {
+		// 	if (err) return res.json({ success: false, error: err });
+		// 	return res.json({ success: true });
+		// });
 
 	});
 	//update a found item given you have the password for it

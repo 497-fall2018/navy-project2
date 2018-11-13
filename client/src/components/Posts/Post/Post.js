@@ -45,9 +45,12 @@ class Post extends React.Component {
     const {classes} = this.props;
     return (
       <Card className={classes.card}>
-        <CardMedia className={classes.media} image={this.props.image}/>
-
+        
         <CardContent>
+          {this.props.image &&
+            (<div>
+              <img src={'/api/'+this.props.lorf+'/posts/photo/'+this.props.postid} style={{width: '100%'}}/>
+            </div>)}
           <Typography variant="h5">
             {this.props.name}
           </Typography>

@@ -552,7 +552,7 @@ export const submit_updated_post_failure = (dispatch, error) => {
     });
 }
 
-export const submit_new_found_post = (name, location, email, description, question, password) => {
+export const submit_new_found_post = (name, location, email, description, question, password, image, callback) => {
     console.log("new_found_post called")
     var formData = new FormData();
     formData.append('name', name);
@@ -561,7 +561,7 @@ export const submit_new_found_post = (name, location, email, description, questi
     formData.append('description', description);
     formData.append('question', question);
     formData.append('password', password);
-    // formData.append('frame', file, file.name);
+    formData.set('photo', image);
     const config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -574,17 +574,11 @@ export const submit_new_found_post = (name, location, email, description, questi
         dispatch({
             type: SUBMIT_NEW_FOUND_POST,
         });
-        axios.post(`/api/found/create`, //formData, config      <-- used when image is in the json as well
-            {
-                "name": name,
-                "location": location,
-                "email": email,
-                "description": description,
-                "question": question,
-                "password": password
-            }
-        )
-          .then((response) => submit_new_found_post_success(dispatch, response))
+        axios.post(`/api/found/create`, formData, config)
+          .then((response) => {
+            submit_new_found_post_success(dispatch, response);
+            callback();
+          })
           .catch((error) => submit_new_found_post_failure(dispatch, error))
     }
 }
@@ -601,7 +595,7 @@ export const submit_new_found_post_failure = (dispatch, error) => {
         type: SUBMIT_NEW_FOUND_POST_FAILURE,
     });
 }
-export const submit_new_lost_post = (name, location, email, description, reward, password) => {
+export const submit_new_lost_post = (name, location, email, description, reward, password, image, callback) => {
     console.log("new_lost_post called")
     var formData = new FormData();
     formData.append('name', name);
@@ -610,7 +604,7 @@ export const submit_new_lost_post = (name, location, email, description, reward,
     formData.append('description', description);
     formData.append('reward', parseFloat(reward));
     formData.append('password', password);
-    // formData.append('frame', file, file.name);
+    formData.set('photo', image);
     const config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -623,17 +617,11 @@ export const submit_new_lost_post = (name, location, email, description, reward,
         dispatch({
             type: SUBMIT_NEW_LOST_POST,
         });
-        axios.post(`/api/lost/create`, //formData, config      <-- used when image is in the json as well
-            {
-                "name": name,
-                "location": location,
-                "email": email,
-                "description": description,
-                "reward": reward,
-                "password": password
-            }
-        )
-          .then((response) => submit_new_lost_post_success(dispatch, response))
+        axios.post(`/api/lost/create`, formData, config)
+          .then((response) => {
+            submit_new_lost_post_success(dispatch, response);
+            callback();
+          })
           .catch((error) => submit_new_lost_post_failure(dispatch, error))
     }
 }

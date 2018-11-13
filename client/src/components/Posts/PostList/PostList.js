@@ -14,7 +14,7 @@ class PostListComponent extends Component {
           return (
               <Grid key={index} item>
                 <Post name={item['name']} location={item['location']} created={item['created']} description={item['description']}
-                      image={item['photo']} lorf={this.props.lorf} reward={item['reward']} question={item['question']}
+                      image={item['photo']} lorf={this.props.lorf} reward={item['reward']} question={item['question']} postid={item['_id']}
                  ></Post>
               </Grid>
           )
