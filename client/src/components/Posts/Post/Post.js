@@ -42,6 +42,7 @@ const styles = {
 class Post extends React.Component {
   render(){
     const {classes} = this.props;
+    
     return (
       <Card className={classes.card}>
 
@@ -57,7 +58,7 @@ class Post extends React.Component {
             {this.props.location}
           </Typography>
           <Typography color="textSecondary">
-            {this.props.created}
+            {(new Date(this.props.created)).toLocaleString()}
           </Typography>
           <Typography component="p">
             {this.props.description}

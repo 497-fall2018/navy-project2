@@ -14,7 +14,7 @@ class PostInfoComponent extends React.Component {
             <div>
                 <Header />
                 <Typography>{item._id}</Typography>
-                <Typography>{item.created}</Typography>
+                <Typography>{(new Date(item.created)).toLocaleString()}</Typography>
                 <Typography>{item.description}</Typography>
                 <Typography>{item.location}</Typography>
                 <Typography>{item.name}</Typography>

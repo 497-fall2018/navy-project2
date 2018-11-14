@@ -9,7 +9,7 @@ class PostListComponent extends Component {
       let LF = (this.props.lorf === 'lost') ? this.props.lost : this.props.found;
       let filterList = (this.props.checked != null) ? LF.filter(x => x['location'] === this.props.checked) : LF;
       let searchList = (this.props.searched != null) ? filterList.filter(x => x.name.toUpperCase().indexOf(this.props.searched.toUpperCase()) > -1) : filterList;
-
+      
       return searchList.map((item, index) => {
         return (
           <Grid key={index} item>
