@@ -31,6 +31,7 @@ const styles = {
     float: "right",
     position: "relative",
     top: "5px",
+    fontSize: "1rem"
   },
   foundQuestion: {
     color: 'navy',
@@ -63,7 +64,7 @@ class Post extends React.Component {
           </Typography>
           {(this.props.lorf==="lost") ?
             <Avatar className={classes.orangeAvatar} >
-              {this.props.reward}
+              ${this.props.reward}
             </Avatar>
           :
             <Typography component="p" className={classes.foundQuestion}>
