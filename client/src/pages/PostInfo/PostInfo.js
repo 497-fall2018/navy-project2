@@ -18,7 +18,10 @@ class PostInfoComponent extends React.Component {
                 <Typography>{item.description}</Typography>
                 <Typography>{item.location}</Typography>
                 <Typography>{item.name}</Typography>
-                <Typography>{item.photo}</Typography>
+                {item.photo && (
+                    <div>
+                        <img src={'/api/'+this.props.lorf+'/posts/photo/'+item._id} style={{width: '40%'}} alt={'/api/'+this.props.lorf+'/posts/photo/'+item._id}/>
+                    </div>)}
                 <Typography>{item.reward}</Typography>
             </div>
         );
