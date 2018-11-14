@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import {} from '../../ducks/post';
 import './styles.css';
 import {Header} from '../../components';
-import { Typography } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
+import { Delete } from '@material-ui/icons';
+import { Link } from "react-router-dom";
 
 class PostInfoComponent extends React.Component {
 
@@ -23,6 +25,9 @@ class PostInfoComponent extends React.Component {
                         <img src={'/api/'+this.props.lorf+'/posts/photo/'+item._id} style={{width: '40%'}} alt={'/api/'+this.props.lorf+'/posts/photo/'+item._id}/>
                     </div>)}
                 <Typography>{item.reward}</Typography>
+                <Link to="/">    
+                    <Delete/>
+                </Link>
             </div>
         );
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Add} from '@material-ui/icons';
-import {Button} from '@material-ui/core';
+import { Add } from '@material-ui/icons';
+import { Button } from '@material-ui/core';
 import { Link } from "react-router-dom";
 
 import {
