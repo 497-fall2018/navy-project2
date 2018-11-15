@@ -22,12 +22,8 @@ module.exports = (app) => {
 				item.photo.contentType = files.photo.type;
 			}
 			item.save((err, result) => {
-				if (err) {
-					return res.status(400).json({
-						error: errorHandler.getErrorMessage(err)
-					});
-				}
-				return res.json({ success: true});
+				if (err) return res.json({ success: false, error: err });
+				return res.json({ success: true });
 			});
 		});
 
@@ -170,12 +166,8 @@ module.exports = (app) => {
 				item.photo.contentType = files.photo.type;
 			}
 			item.save((err, result) => {
-				if (err) {
-					return res.status(400).json({
-						error: errorHandler.getErrorMessage(err)
-					});
-				}
-				return res.json({ success: true});
+				if (err) return res.json({ success: false, error: err });
+				return res.json({ success: true });
 			});
 		});
 		// const item = new Found();

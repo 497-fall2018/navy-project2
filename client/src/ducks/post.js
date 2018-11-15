@@ -34,6 +34,8 @@ export const HANDLE_DELETE_POST_SUCCESS = "lstnfnd/post/HANDLE_DELETE_POST_SUCCE
 export const HANDLE_DELETE_POST_FAILURE = "lstnfnd/post/HANDLE_DELETE_POST_FAILURE";
 export const HANDLE_UPDATE_POST = "lstnfnd/post/HANDLE_UPDATE_POST";
 export const HANDLE_CLICK_SHOW_PASSWORD = "lstnfnd/post/HANDLE_CLICK_SHOW_PASSWORD";
+export const HANDLE_FORM_CHANGE = "lstnfnd/post/HANDLE_FORM_CHANGE";
+
 
 
 
@@ -101,7 +103,7 @@ const INITIAL_STATE = {
     password: '',
     lost_locations: [["Tech", 25], ["Norris", 15], ["Plex", 4], ["Sheridan Rd", 1], ["Annenberg", 1], ["SPAC", 1]],
     found_locations: [["Norris", 10], ["Plex", 4], ["Sheridan Rd", 1], ["SPAC", 1]],
-    location_search: "",
+    location_search: ""
 };
 
 //Reducers
@@ -333,7 +335,8 @@ export default function reducer(state = INITIAL_STATE, action) {
                 ];
                 return {
                     ...state,
-                    data: new_data
+                    data: new_data,
+                    modal_open: false
                 }
             } else {
                 return {
@@ -346,7 +349,12 @@ export default function reducer(state = INITIAL_STATE, action) {
             */
             return {
                 ...state,
-                error_message: "Something went wrong while loading the result.",
+                error_message: action.payload//"Something went wrong while loading the result.",
+            }
+        case HANDLE_FORM_CHANGE:
+            return {
+                ...state,
+                ...action.payload
             }
         default:
             return {
@@ -648,15 +656,23 @@ export const handle_update_post = (author, description, file, image, id) => {
     }
 }
 
-export const handle_delete_post = (id) => {
+export const handle_delete_post = (form_type, id, value) => {
     return (dispatch) => {
         dispatch({
             type: HANDLE_DELETE_POST,
         });
-        axios.delete(`/api/comments/${id}`, {
+        axios.delete(`/api/${form_type}/delete/${id}/${value}`, {
         })
-        .then((response) => handle_delete_post_success(dispatch, response, id))
-        .catch((error) => handle_delete_post_failure(dispatch, error))
+        .then((response) => {
+            if (!response.data.success) {
+                handle_delete_post_failure(dispatch, response.data.error);
+            }
+            else {
+                handle_delete_post_success(dispatch, response, id);
+                window.location = `/${form_type}`;
+            }
+        })
+        .catch((error) => handle_delete_post_failure(dispatch, error))        
     }
 }
 export const handle_delete_post_success = (dispatch, response, id) => {
@@ -669,5 +685,15 @@ export const handle_delete_post_success = (dispatch, response, id) => {
 export const handle_delete_post_failure = (dispatch, error) => {
     dispatch({
         type: HANDLE_DELETE_POST_FAILURE,
+        payload: error
     });
+}
+
+export const handle_form_change = (name, value) => {
+    return (dispatch) => {
+        dispatch({
+            type: HANDLE_FORM_CHANGE,
+            payload: {[name]: value}
+        });
+    }
 }
