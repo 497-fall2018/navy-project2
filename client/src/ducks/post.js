@@ -56,8 +56,7 @@ const INITIAL_STATE = {
         "photo": "/posts/phone.jpeg",
         "password": "xxx0"
     }],
-    lost: [
-        {
+    lost: [{
             "_id": "1",
             "name": "iPhone 5S",
             "location": "Tech",
@@ -104,8 +103,20 @@ const INITIAL_STATE = {
     error_message: "",
     showPassword: false,
     password: '',
-    lost_locations: [["Tech", 25], ["Norris", 15], ["Plex", 4], ["Sheridan Rd", 1], ["Annenberg", 1], ["SPAC", 1]],
-    found_locations: [["Norris", 10], ["Plex", 4], ["Sheridan Rd", 1], ["SPAC", 1]],
+    lost_locations: [
+        ["Tech", 25],
+        ["Norris", 15],
+        ["Plex", 4],
+        ["Sheridan Rd", 1],
+        ["Annenberg", 1],
+        ["SPAC", 1]
+    ],
+    found_locations: [
+        ["Norris", 10],
+        ["Plex", 4],
+        ["Sheridan Rd", 1],
+        ["SPAC", 1]
+    ],
     location_search: ""
 };
 

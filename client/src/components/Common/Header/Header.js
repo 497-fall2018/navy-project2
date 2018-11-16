@@ -1,9 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './styles.css';
-import {
-} from '../../../ducks/post';
+import {} from '../../../ducks/post';
 
 class HeaderComponent extends Component {
     handleSchoolChange = (event) => {
@@ -11,7 +10,7 @@ class HeaderComponent extends Component {
     }
     render() {
         return (
-        <div className="header">
+            <div className="header">
             <Link to="/lost" className="logo">LstnFnd</Link>
 
             <div className="headerLinks">
@@ -39,5 +38,4 @@ const mapStateToProps = (state, ownProps) => {
     };
 };
 
-export const Header = connect(mapStateToProps, {
-})(HeaderComponent);
+export const Header = connect(mapStateToProps, {})(HeaderComponent);

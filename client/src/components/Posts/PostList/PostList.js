@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
-import {Post} from '../Post';
+import { Post } from '../Post';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import Grid from '@material-ui/core/Grid';
 
 class PostListComponent extends Component {
   populateItems = () => {
-      let LF = (this.props.lorf === 'lost') ? this.props.lost : this.props.found;
-      let filterList = (this.props.checked != null) ? LF.filter(x => x['location'] === this.props.checked) : LF;
-      let searchList = (this.props.searched != null) ? filterList.filter(x => x.name.toUpperCase().indexOf(this.props.searched.toUpperCase()) > -1) : filterList;
-      
-      return searchList.map((item, index) => {
-        return (
-          <Grid key={index} item>
+    let LF = (this.props.lorf === 'lost') ? this.props.lost : this.props.found;
+    let filterList = (this.props.checked !== null) ? LF.filter(x => x['location'] === this.props.checked) : LF;
+    let searchList = (this.props.searched != null) ? filterList.filter(x => x.name.toUpperCase().indexOf(this.props.searched.toUpperCase()) > -1) : filterList;
+    if (this.props.checked == "Any" || this.props.checked == null) {
+      filterList = LF;
+    }
+
+    return filterList.map((item, index) => {
+      return (
+        <Grid key={index} item>
             <Post 
               id={item['_id']}
               name={item['name']} 
@@ -26,12 +29,13 @@ class PostListComponent extends Component {
             >
             </Post>
           </Grid>
-      )})
+      )
+    })
   }
 
   render() {
     return (
-        <div className="postlist" style={{padding:16}}>
+      <div className="postlist" style={{padding:16}}>
           <Grid container spacing={16} >
             <Grid item xs={12}>
               <Grid container justify="flex-start" spacing={16}>
@@ -50,13 +54,13 @@ class PostListComponent extends Component {
 export { PostListComponent };
 
 const mapStateToProps = (state, ownProps) => {
-    const { post } = state;
-    const { lost, found} = post;
-    return {
-        ...ownProps,
-        lost,
-        found
-    };
+  const { post } = state;
+  const { lost, found } = post;
+  return {
+    ...ownProps,
+    lost,
+    found
+  };
 };
 
 export const PostList = connect(mapStateToProps, {
