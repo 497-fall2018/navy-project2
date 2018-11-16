@@ -15,7 +15,7 @@ const foundSchema = new Schema({
 	password: String,
 	expire: {
 		type: Date,
-		required: true
+		required: false
 	}
 });
 

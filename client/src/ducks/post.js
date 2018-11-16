@@ -3,6 +3,7 @@ import axios from 'axios';
 //Action Types
 export const TOGGLE_MODAL = "lstnfnd/post/TOGGLE_MODAL";
 export const TOGGLE_MODAL2 = "lstnfnd/post/TOGGLE_MODAL2";
+export const TOGGLE_UPDATE_MODAL = "lstnfnd/post/TOGGLE_UPDATE_MODAL";
 export const CHANGE_FORM_TYPE = "lstnfnd/post/CHANGE_FORM_TYPE";
 export const CHANGE_NAME = "lstnfnd/post/CHANGE_NAME";
 export const CHANGE_LOCATION_FORM = "lstnfnd/post/CHANGE_LOCATION_FORM";
@@ -41,8 +42,10 @@ export const HANDLE_FORM_CHANGE = "lstnfnd/post/HANDLE_FORM_CHANGE";
 
 
 const INITIAL_STATE = {
+    redirect: false,
     modal_open: false,
     modal2_open: false,
+    update_modal_open: false,
     file: null,
     image: null,
     data: [{
@@ -55,8 +58,7 @@ const INITIAL_STATE = {
         "photo": "/posts/phone.jpeg",
         "password": "xxx0"
     }],
-    lost: [
-        {
+    lost: [{
             "_id": "1",
             "name": "iPhone 5S",
             "location": "Tech",
@@ -135,10 +137,15 @@ export default function reducer(state = INITIAL_STATE, action) {
                 modal_open: !state.modal_open,
             }
         case TOGGLE_MODAL2:
-        return {
-            ...state,
-            modal2_open: !state.modal2_open,
-        }
+            return {
+                ...state,
+                modal2_open: !state.modal2_open,
+            }
+        case TOGGLE_UPDATE_MODAL:
+            return {
+                ...state,
+                update_modal_open: !state.update_modal_open,
+            }
         // ----------------------------post form--------------------------------
         case CHANGE_FORM_TYPE:
             return {
@@ -254,6 +261,7 @@ export default function reducer(state = INITIAL_STATE, action) {
                     password: "",
                     description: "",
                     image: null,
+                    file: null,
                 }
             } else {
                 return {
@@ -283,6 +291,7 @@ export default function reducer(state = INITIAL_STATE, action) {
                     password: "",
                     description: "",
                     image: null,
+                    file: null,
                 }
             } else {
                 return {
@@ -301,12 +310,12 @@ export default function reducer(state = INITIAL_STATE, action) {
         case HANDLE_UPDATE_POST://when user clicks on "update"
             return {
                 ...state,
-                modal_open: !state.modal_open,
-                author: action.payload.author,
-                description: action.payload.description,
-                file: action.payload.file,
-                image: action.payload.image,
-                updateId: action.payload.id,
+                ...action.payload
+                // author: action.payload.author,
+                // description: action.payload.description,
+                // file: action.payload.file,
+                // image: action.payload.image,
+                // updateId: action.payload.id,
             }
         case SUBMIT_UPDATED_POST:
         case SUBMIT_UPDATED_POST_SUCCESS://when user clicks on "submit" after edit
@@ -314,9 +323,16 @@ export default function reducer(state = INITIAL_STATE, action) {
                 return {
                     ...state,
                     error_message: "",
-                    modal_open: !state.modal_open,
-                    author: "",
+                    // modal_open: !state.modal_open,
+                    error_message: "",
+                    name: "",
+                    location: "",
+                    email: "",
+                    reward: "",
+                    question: "",
+                    password: "",
                     description: "",
+                    image: null,
                     file: null,
                     image: null,
                     updateId: null,
@@ -404,12 +420,19 @@ export const toggle_modal = () => {
         dispatch({
             type: TOGGLE_MODAL,
         });
-    };
-};
+    }
+}
 export const toggle_modal2 = () => {
     return (dispatch) => {
         dispatch({
             type: TOGGLE_MODAL2,
+        });
+    }
+}
+export const toggle_update_modal = () => {
+    return (dispatch) => {
+        dispatch({
+            type: TOGGLE_UPDATE_MODAL,
         });
     };
 };
@@ -540,12 +563,24 @@ export const load_lost_posts_failure = (dispatch, error) => {
         type: LOAD_LOST_POSTS_FAILURE,
     });
 }
-export const submit_updated_post = (author, description, file, updateId) => {
+
+export const submit_updated_post = (form_type, updateId, name, location, email, description, question, reward, password, image) => {
     console.log("x" + updateId)
     var formData = new FormData();
-    formData.append('author', author);
+    formData.append('name', name);
+    formData.append('location', location);
+    formData.append('email', email);
     formData.append('description', description);
-    formData.append('frame', file, file.name);
+    if (form_type === 'lost') {
+        formData.append('reward', parseFloat(reward));
+    }
+    else {
+        formData.append('question', question);
+    }
+    formData.append('password', password);
+    if (image !== null) {
+        formData.set('photo', image);
+    }    
     for (var pair of formData.entries()) {
         console.log(pair[0]+ ', ' + pair[1]);
     }
@@ -558,8 +593,12 @@ export const submit_updated_post = (author, description, file, updateId) => {
         dispatch({
             type: SUBMIT_UPDATED_POST,
         });
-        axios.put(`/api/comments/${updateId}`, formData, config)
-          .then((response) => submit_updated_post_success(dispatch, response))
+        axios.put(`/api/${form_type}/update/${updateId}`, formData, config)
+          .then((response) => {
+            submit_updated_post_success(dispatch, response);
+            // callback();
+            window.location = `/${form_type}`;
+        })
           .catch((error) => submit_updated_post_failure(dispatch, error))
     }
 }
@@ -587,6 +626,7 @@ export const submit_new_found_post = (name, location, email, description, questi
     formData.append('question', question);
     formData.append('password', password);
     formData.set('photo', image);
+    formData.set('expire', Date.now());
     const config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -630,6 +670,7 @@ export const submit_new_lost_post = (name, location, email, description, reward,
     formData.append('reward', parseFloat(reward));
     formData.append('password', password);
     formData.set('photo', image);
+    formData.set('expire', Date.now());
     const config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -645,7 +686,8 @@ export const submit_new_lost_post = (name, location, email, description, reward,
         axios.post(`/api/lost/create`, formData, config)
           .then((response) => {
             submit_new_lost_post_success(dispatch, response);
-            callback();
+            // callback();
+            console.log(response);
           })
           .catch((error) => submit_new_lost_post_failure(dispatch, error))
     }
@@ -664,11 +706,22 @@ export const submit_new_lost_post_failure = (dispatch, error) => {
     });
 }
 
-export const handle_update_post = (author, description, file, image, id) => {
+export const handle_update_post = (formType, item, value) => {
+    console.log(formType);
+    if (item.password && item.password === value) {
+        console.log("equal");
+        return (dispatch) => {
+            dispatch({
+                type: HANDLE_UPDATE_POST,
+                payload: {...item, form_type: formType, modal_open: false, redirect: true, file: `/api/${formType}/posts/photo/${item._id}`, updateId: item._id}
+            })
+        }
+    }
+    console.log("incorrect");
     return (dispatch) => {
         dispatch({
             type: HANDLE_UPDATE_POST,
-            payload: {"author": author, "description": description, "file": file, "image": image, "id": id}
+            payload: {error_message: 'Incorrect password'}
         })
     }
 }
@@ -689,7 +742,7 @@ export const handle_delete_post = (form_type, id, value) => {
                 window.location = `/${form_type}`;
             }
         })
-        .catch((error) => handle_delete_post_failure(dispatch, error))        
+        .catch((error) => handle_delete_post_failure(dispatch, error))
     }
 }
 export const handle_delete_post_success = (dispatch, response, id) => {

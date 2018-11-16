@@ -12,7 +12,11 @@ const lostSchema = new Schema({
 	description: String,
 	reward: Number,
 	created: { type: Date, default: Date.now, },
-	password: String
+	password: String,
+	expire: {
+		type: Date,
+		required: false
+	}
 });
 
 // Delete doc after a certain amount of time

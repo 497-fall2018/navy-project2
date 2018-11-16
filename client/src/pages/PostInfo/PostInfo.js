@@ -3,14 +3,17 @@ import { connect } from 'react-redux';
 import {
     toggle_modal,
     toggle_modal2,
+    toggle_update_modal,
     handle_delete_post,
-    handle_form_change
+    handle_form_change,
+    handle_update_post
 } from '../../ducks/post';
 import './styles.css';
 import { Header } from '../../components';
 import { Typography, Button, TextField, Paper, Grid } from '@material-ui/core';
-import { Delete, Send } from '@material-ui/icons';
+import { Delete, Send, Edit } from '@material-ui/icons';
 import Modal from 'react-responsive-modal';
+import { Redirect } from "react-router-dom";
 
 class PostInfoComponent extends React.Component {
     handleFormChange = (name) => (event) => {
@@ -22,8 +25,14 @@ class PostInfoComponent extends React.Component {
     toggleModal2 = () => {
         this.props.toggle_modal2();
     }
-    handleDeletePost = (formType, id) => {
-        this.props.handle_delete_post(formType, id, this.props.password);
+    toggleUpdateModal = () => {
+        this.props.toggle_update_modal();
+    }
+    handleDeletePost = (id) => {
+        this.props.handle_delete_post(this.props.lorf, id, this.props.password);
+    }
+    handleUpdatePost = (item) => {
+        this.props.handle_update_post(this.props.lorf, item, this.props.password);
     }
 
     send_email = (message, name,email) =>{
@@ -47,8 +56,10 @@ class PostInfoComponent extends React.Component {
 
     render() {
         const item = this.props.lorf === "lost" ? this.props.lost.find(item => item._id === this.props.match.params.id) : this.props.found.find(item => item._id === this.props.match.params.id)
-        console.log(item);
-        console.log(this.props.error_message);
+        if (this.props.redirect) {
+            return (<Redirect to='/postform' />);
+        }
+
         return (
             <div>
                 <Header />
@@ -92,9 +103,34 @@ class PostInfoComponent extends React.Component {
                         </Button>
                     </div>
                     <br/>
+                    <div id="delete_div">
+                        <div>Posted this item? You can edit it here.</div>
+                        <Button onClick={this.toggleUpdateModal}>
+                            <Edit />
+                        </Button>
+                    </div>
                 </Grid>
-
-
+                
+                <Modal
+                  open={this.props.update_modal_open}
+                  onClose={this.toggleUpdateModal}
+                  center
+                  classNames={{ overlay: 'custom-overlay', modal: 'custom-modal' }}
+                >
+                    <h2 style={{fontFamily:'monospace'}}>Please enter the password</h2>
+                    <TextField required
+                      label="Password"
+                      margin="normal"
+                      autoFocus={true}
+                      helperText={this.props.error_message}
+                      onChange={this.handleFormChange("password")}
+                    />
+                    <br/><br/><br/>
+                    <Button variant="contained" color="primary" onClick={() => {this.handleUpdatePost(item);}}>
+                        Next
+                    </Button>
+                    <Button onClick={this.toggleUpdateModal} style={{color: '#4054AC'}}>Cancel</Button>
+                </Modal>
 
                 <Modal
                   open={this.props.modal_open}
@@ -102,22 +138,21 @@ class PostInfoComponent extends React.Component {
                   center
                   classNames={{ overlay: 'custom-overlay', modal: 'custom-modal' }}
                 >
-                    <h2 style={{fontFamily:'monospace'}}>Delete Post</h2>
+                    <h2 style={{fontFamily:'monospace'}}>Please enter the password</h2>
                     <TextField required
                       label="Password"
                       margin="normal"
                       autoFocus={true}
+                      helperText={this.props.error_message}
                       onChange={this.handleFormChange("password")}
                     />
-                    <p>{this.props.error_message}</p>
                     <br/><br/><br/>
-                    <Button variant="contained" color="primary" onClick={() => {this.handleDeletePost(this.props.lorf, item._id);}}>
+                    <Button variant="contained" color="primary" onClick={() => {this.handleDeletePost(item._id);}}>
                         Delete
                     </Button>
                     <Button onClick={this.toggleModal} style={{color: '#4054AC'}}>Cancel</Button>
                 </Modal>
-
-                               
+             
                 <Modal
                   open={this.props.modal2_open}
                   onClose={this.toggleModal2}
@@ -162,7 +197,7 @@ export { PostInfoComponent };
 
 const mapStateToProps = (state, ownProps) => {
     const { post } = state;
-    const { lost, found, modal_open, modal2_open, error_message, password, email_message, responder_name, responder_email } = post;
+    const { lost, found, modal_open, modal2_open, error_message, password, email_message, responder_name, redirect, responder_emailupdate_modal_open, } = post;
     return {
         ...ownProps,
         lost,
@@ -173,13 +208,17 @@ const mapStateToProps = (state, ownProps) => {
         password, 
         email_message,
         responder_name,
-        responder_email
+        responder_email,
+        update_modal_open,
+        redirect
     };
 };
 
 export const PostInfo = connect(mapStateToProps, {
     toggle_modal,
     toggle_modal2,
+    toggle_update_modal,
     handle_delete_post,
-    handle_form_change
+    handle_form_change,
+    handle_update_post
 })(PostInfoComponent);
