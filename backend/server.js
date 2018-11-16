@@ -63,6 +63,6 @@ app.use((err, req, res, next) => {
 
 module.exports = app;
 
-app.listen(8080, () => {
+app.listen(3001, () => {
 	console.log('Listening on port 8080');
 });
