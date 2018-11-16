@@ -52,30 +52,61 @@ module.exports = (app) => {
 
 	});
 	//update a lost item given you have the password for it
-	app.put('/api/lost/update/:id/:password', (req, res) => {
-		const item_id = req.params.id;
-		const password = req.params.password;
-		const { body } = req;
-		if (!item_id) {
-			return res.json({ success: false, error: 'No id provided' });
-		}
-		const item_fields = ['name', 'location', 'email', 'description', 'reward', 'password'];
-		Lost.findById(item_id, (error, item) => {
-			if (error) return res.json({ success: false, error });
-			if (item.password !== password) {
-				return res.json({ success: false, error: 'Incorrect password' });
+	app.put('/api/lost/update/:id/', (req, res) => {
+		console.log("lost put route");
+		const id = req.params.id;
+		let form = new formidable.IncomingForm()
+		form.keepExtensions = true
+		form.parse(req, (err, fields, files) => {
+			if (err) {
+			  return res.status(400).json({
+			    error: "Image could not be uploaded"
+			  })
 			}
-			//check to see which fields we got from frontend and update only those
-			for (let i = 0; i < item_fields.length; i++) {
-				if (body[item_fields[i]]) {
-					item[item_fields[i]] = body[item_fields[i]];
-				}
-			}
-			item.save(error => {
+			console.log("in parse");
+			Lost.findById(req.params.id, (error, item) => {
 				if (error) return res.json({ success: false, error });
-				return res.json({ success: true });
+				const img = item.photo;
+				console.log(fields);
+				for (var prop in fields) {
+					item[prop] = fields[prop];
+				}
+				if(files.photo){
+					item.photo.data = fs.readFileSync(files.photo.path);
+					item.photo.contentType = files.photo.type;
+				}
+				console.log(item);
+				item.save(error => {
+					console.log(item._id);
+					if (error) return res.json({ success: false, error });
+					return res.json({ success: true });
+				});
 			});
 		});
+
+		// const item_id = req.params.id;
+		// const password = req.params.password;
+		// const { body } = req;
+		// if (!item_id) {
+		// 	return res.json({ success: false, error: 'No id provided' });
+		// }
+		// const item_fields = ['name', 'location', 'email', 'description', 'reward', 'password'];
+		// Lost.findById(item_id, (error, item) => {
+		// 	if (error) return res.json({ success: false, error });
+		// 	if (item.password !== password) {
+		// 		return res.json({ success: false, error: 'Incorrect password' });
+		// 	}
+		// 	//check to see which fields we got from frontend and update only those
+		// 	for (let i = 0; i < item_fields.length; i++) {
+		// 		if (body[item_fields[i]]) {
+		// 			item[item_fields[i]] = body[item_fields[i]];
+		// 		}
+		// 	}
+		// 	item.save(error => {
+		// 		if (error) return res.json({ success: false, error });
+		// 		return res.json({ success: true });
+		// 	});
+		// });
 	});
 	//delete a lost item post given you have the password for it
 	app.delete('/api/lost/delete/:id/:password', (req, res) => {
@@ -195,29 +226,60 @@ module.exports = (app) => {
 
 	});
 	//update a found item given you have the password for it
-	app.put('/api/found/update/:id/:password', (req, res) => {
+	app.put('/api/found/update/:id/', (req, res) => { // :password
+		console.log("put route");
 		const id = req.params.id;
-		const password = req.params.password;
-		const { body } = req;
-
-		const item_fields = ['name', 'location', 'email', 'description', 'question', 'password'];
-
-		Found.findById(req.params.id, (error, item) => {
-			if (error) return res.json({ success: false, error });
-			if (item.password !== password) {
-				return res.json({ success: false, error: 'Incorrect password' });
+		let form = new formidable.IncomingForm()
+		form.keepExtensions = true
+		form.parse(req, (err, fields, files) => {
+			if (err) {
+			  return res.status(400).json({
+			    error: "Image could not be uploaded"
+			  })
 			}
-			//check to see which fields we got from frontend and update only those
-			for (let i = 0; i < item_fields.length; i++) {
-				if (body[item_fields[i]]) {
-					item[item_fields[i]] = body[item_fields[i]];
-				}
-			}
-			item.save(error => {
+			console.log("in parse");
+			Found.findById(req.params.id, (error, item) => {
 				if (error) return res.json({ success: false, error });
-				return res.json({ success: true });
+				const img = item.photo;
+				console.log(fields);
+				for (var prop in fields) {
+					item[prop] = fields[prop];
+				}
+				if(files.photo){
+					item.photo.data = fs.readFileSync(files.photo.path);
+					item.photo.contentType = files.photo.type;
+				}
+				console.log(item);
+				item.save(error => {
+					console.log(item._id);
+					if (error) return res.json({ success: false, error });
+					return res.json({ success: true });
+				});
 			});
 		});
+
+		// const id = req.params.id;
+		// // const password = req.params.password;
+		// const { body } = req;
+
+		// const item_fields = ['name', 'location', 'email', 'description', 'question', 'password'];
+
+		// Found.findById(req.params.id, (error, item) => {
+		// 	if (error) return res.json({ success: false, error });
+		// 	// if (item.password !== password) {
+		// 	// 	return res.json({ success: false, error: 'Incorrect password' });
+		// 	// }
+		// 	//check to see which fields we got from frontend and update only those
+		// 	for (let i = 0; i < item_fields.length; i++) {
+		// 		if (body[item_fields[i]]) {
+		// 			item[item_fields[i]] = body[item_fields[i]];
+		// 		}
+		// 	}
+		// 	item.save(error => {
+		// 		if (error) return res.json({ success: false, error });
+		// 		return res.json({ success: true });
+		// 	});
+		// });
 	});
 	//delete a found item post given you have the password for it
 	app.delete('/api/found/delete/:id/:password', (req, res) => {

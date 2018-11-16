@@ -17,7 +17,8 @@ import {
 	handle_click_show_password,
 	submit_new_found_post,
 	submit_new_lost_post,
-	handle_image_change
+	handle_image_change,
+	submit_updated_post
 } from '../../ducks/post';
 import {
     Header
@@ -56,14 +57,27 @@ class PostFormComponent extends Component {
 	}
 
 	handlePostFormSubmit = () => {
-		if (this.props.form_type === "lost") {
+		if (this.props.updateId) {
+			console.log(this.props.updateId);
+			this.props.submit_updated_post(
+				this.props.form_type,
+				this.props.updateId,
+				this.props.name,
+				this.props.location,
+				this.props.email,
+				this.props.description,
+				this.props.question,
+				this.props.reward,
+				this.props.password,
+				this.props.image
+			);
+		}
+		else if (this.props.form_type === "lost") {
 			this.props.submit_new_lost_post(this.props.name, this.props.location, this.props.email, this.props.description, this.props.reward, this.props.password, this.props.image, () => {this.props.history.push('/');});
 		}
 		else {
-			this.props.submit_new_found_post(this.props.name,this.props.location, this.props.email, this.props.description, this.props.question, this.props.password, this.props.image, () => {this.props.history.push('/');});
+			this.props.submit_new_found_post(this.props.name, this.props.location, this.props.email, this.props.description, this.props.question, this.props.password, this.props.image, () => {this.props.history.push('/');});
 		}
-
-
 	}
 	handleClickShowPassword = () => {
 		this.props.handle_click_show_password();
@@ -182,9 +196,9 @@ class PostFormComponent extends Component {
 						(this.props.reward==="" && this.props.question==="") || this.props.password==="" }>
 						Submit
 					</Button>
-					<Link to='/'>
+					<a href='/'>
 						<Button style={{background: '#4054AC', color: 'white'}}>Cancle</Button>
-					</Link>
+					</a>
 				</form>
 			</div>
 		)
@@ -195,7 +209,7 @@ export { PostFormComponent };
 
 const mapStateToProps = (state, ownProps) => {
 	const { post } = state;
-	const { description, email, file, form_type, location, name, password, question, reward, showPassword, image } = post;
+	const { description, email, file, form_type, location, name, password, question, reward, showPassword, image, updateId } = post;
 	return {
 		...ownProps,
 		description,
@@ -208,7 +222,8 @@ const mapStateToProps = (state, ownProps) => {
 		question,
 		reward,
 		showPassword,
-		image
+		image,
+		updateId
 	};
 };
 
@@ -225,5 +240,6 @@ export const PostForm = connect(mapStateToProps, {
 	handle_click_show_password,
 	submit_new_found_post,
 	submit_new_lost_post,
-	handle_image_change
+	handle_image_change,
+	submit_updated_post
 })(PostFormComponent);
