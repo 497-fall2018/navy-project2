@@ -17,7 +17,7 @@
 }
 
 #text-content {
-	padding: 4% 10%;
+	padding: 4% 3% 3.2rem 10%;
 	font-size: 1.5em;
 }
 
@@ -25,4 +25,8 @@
 	display: inline-flex;
 	line-height: 38px;
 	padding: 30px;
+}
+
+.custom-modal {
+	width: 60vw;
 }

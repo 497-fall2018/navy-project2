@@ -2,6 +2,7 @@ import axios from 'axios';
 
 //Action Types
 export const TOGGLE_MODAL = "lstnfnd/post/TOGGLE_MODAL";
+export const TOGGLE_MODAL2 = "lstnfnd/post/TOGGLE_MODAL2";
 export const TOGGLE_UPDATE_MODAL = "lstnfnd/post/TOGGLE_UPDATE_MODAL";
 export const CHANGE_FORM_TYPE = "lstnfnd/post/CHANGE_FORM_TYPE";
 export const CHANGE_NAME = "lstnfnd/post/CHANGE_NAME";
@@ -43,6 +44,7 @@ export const HANDLE_FORM_CHANGE = "lstnfnd/post/HANDLE_FORM_CHANGE";
 const INITIAL_STATE = {
     redirect: false,
     modal_open: false,
+    modal2_open: false,
     update_modal_open: false,
     file: null,
     image: null,
@@ -103,21 +105,12 @@ const INITIAL_STATE = {
     error_message: "",
     showPassword: false,
     password: '',
-    lost_locations: [
-        ["Tech", 25],
-        ["Norris", 15],
-        ["Plex", 4],
-        ["Sheridan Rd", 1],
-        ["Annenberg", 1],
-        ["SPAC", 1]
-    ],
-    found_locations: [
-        ["Norris", 10],
-        ["Plex", 4],
-        ["Sheridan Rd", 1],
-        ["SPAC", 1]
-    ],
-    location_search: ""
+    lost_locations: [["Tech", 25], ["Norris", 15], ["Plex", 4], ["Sheridan Rd", 1], ["Annenberg", 1], ["SPAC", 1]],
+    found_locations: [["Norris", 10], ["Plex", 4], ["Sheridan Rd", 1], ["SPAC", 1]],
+    location_search: "",
+    email_message: "",
+    responder_name : "",
+    responder_email : ""
 };
 
 //Reducers
@@ -142,6 +135,14 @@ export default function reducer(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 modal_open: !state.modal_open,
+            }
+        case TOGGLE_MODAL2:
+            return {
+                ...state,
+                email_message: "",
+                responder_name: "",
+                responder_email: "",
+                modal2_open: !state.modal2_open,
             }
         case TOGGLE_UPDATE_MODAL:
             return {
@@ -422,8 +423,15 @@ export const toggle_modal = () => {
         dispatch({
             type: TOGGLE_MODAL,
         });
-    };
-};
+    }
+}
+export const toggle_modal2 = () => {
+    return (dispatch) => {
+        dispatch({
+            type: TOGGLE_MODAL2,
+        });
+    }
+}
 export const toggle_update_modal = () => {
     return (dispatch) => {
         dispatch({
@@ -575,7 +583,7 @@ export const submit_updated_post = (form_type, updateId, name, location, email, 
     formData.append('password', password);
     if (image !== null) {
         formData.set('photo', image);
-    }    
+    }
     for (var pair of formData.entries()) {
         console.log(pair[0]+ ', ' + pair[1]);
     }
