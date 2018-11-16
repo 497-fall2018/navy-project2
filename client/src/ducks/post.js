@@ -244,6 +244,7 @@ export default function reducer(state = INITIAL_STATE, action) {
                     password: "",
                     description: "",
                     image: null,
+                    file: null,
                 }
             } else {
                 return {
@@ -273,6 +274,7 @@ export default function reducer(state = INITIAL_STATE, action) {
                     password: "",
                     description: "",
                     image: null,
+                    file: null,
                 }
             } else {
                 return {
@@ -570,6 +572,7 @@ export const submit_new_found_post = (name, location, email, description, questi
     formData.append('question', question);
     formData.append('password', password);
     formData.set('photo', image);
+    formData.set('expire', Date.now());
     const config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -613,6 +616,7 @@ export const submit_new_lost_post = (name, location, email, description, reward,
     formData.append('reward', parseFloat(reward));
     formData.append('password', password);
     formData.set('photo', image);
+    formData.set('expire', Date.now());
     const config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -672,7 +676,7 @@ export const handle_delete_post = (form_type, id, value) => {
                 window.location = `/${form_type}`;
             }
         })
-        .catch((error) => handle_delete_post_failure(dispatch, error))        
+        .catch((error) => handle_delete_post_failure(dispatch, error))
     }
 }
 export const handle_delete_post_success = (dispatch, response, id) => {
