@@ -255,32 +255,11 @@ export default function reducer(state = INITIAL_STATE, action) {
                 password: "",
                 description: "",
                 image: null,
+                file: null,
             }
         } else {
             return {
                 ...state,
-                error_message: "Something went wrong while loading the lost posts. ",
-            }
-        case SUBMIT_NEW_FOUND_POST:
-        case SUBMIT_NEW_FOUND_POST_SUCCESS:
-            if(action.payload){
-                return {
-                    ...state,
-                    error_message: "",
-                    name: "",
-                    location: "",
-                    email: "",
-                    reward: "",
-                    question: "",
-                    password: "",
-                    description: "",
-                    image: null,
-                    file: null,
-                }
-            } else {
-                return {
-                    ...state,
-                }
             }
         }
 
@@ -297,34 +276,18 @@ export default function reducer(state = INITIAL_STATE, action) {
         if (action.payload) {
             return {
                 ...state,
-                error_message: "Something went wrong while submitting the found item post.",
+                error_message: "",
+                name: "",
+                location: "",
+                email: "",
+                reward: "",
+                question: "",
+                password: "",
+                description: "",
+                image: null,
+                file: null,
             }
-        case SUBMIT_NEW_LOST_POST:
-        case SUBMIT_NEW_LOST_POST_SUCCESS:
-            if(action.payload){
-                return {
-                    ...state,
-                    error_message: "",
-                    name: "",
-                    location: "",
-                    email: "",
-                    reward: "",
-                    question: "",
-                    password: "",
-                    description: "",
-                    image: null,
-                    file: null,
-                }
-            } else {
-                return {
-                    ...state,
-                }
-            }
-
-        case SUBMIT_NEW_LOST_POST_FAILURE:
-            /*
-            if the posting fails, need to lead them to a 500 page.
-            */
+        } else {
             return {
                 ...state,
             }
@@ -713,18 +676,16 @@ export const handle_delete_post = (form_type, id, value) => {
         dispatch({
             type: HANDLE_DELETE_POST,
         });
-        axios.delete(`/api/${form_type}/delete/${id}/${value}`, {
-        })
-        .then((response) => {
-            if (!response.data.success) {
-                handle_delete_post_failure(dispatch, response.data.error);
-            }
-            else {
-                handle_delete_post_success(dispatch, response, id);
-                window.location = `/${form_type}`;
-            }
-        })
-        .catch((error) => handle_delete_post_failure(dispatch, error))
+        axios.delete(`/api/${form_type}/delete/${id}/${value}`, {})
+            .then((response) => {
+                if (!response.data.success) {
+                    handle_delete_post_failure(dispatch, response.data.error);
+                } else {
+                    handle_delete_post_success(dispatch, response, id);
+                    window.location = `/${form_type}`;
+                }
+            })
+            .catch((error) => handle_delete_post_failure(dispatch, error))
     }
 }
 export const handle_delete_post_success = (dispatch, response, id) => {
@@ -746,7 +707,8 @@ export const handle_form_change = (name, value) => {
         dispatch({
             type: HANDLE_FORM_CHANGE,
             payload: {
-                [name]: value }
+                [name]: value
+            }
         });
     }
 }
