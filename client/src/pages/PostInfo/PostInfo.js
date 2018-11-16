@@ -47,7 +47,12 @@ class PostInfoComponent extends React.Component {
                                 <Typography><b>Posted:</b> {(new Date(item.created)).toLocaleString()}</Typography>
                                 <Typography><b>Description:</b> {item.description}</Typography>
                                 <Typography><b>Location:</b> {item.location}</Typography>
-                                <Typography><b>Reward:</b> ${item.reward}</Typography>
+                                {
+                                    this.props.lorf == "lost" ?
+                                    <Typography><b>Reward:</b> ${item.reward}</Typography>
+                                    :
+                                    <Typography><b>Question:</b> {item.question}</Typography>
+                                }
                             </div>
                         </Paper>
                     </Grid>
@@ -58,9 +63,9 @@ class PostInfoComponent extends React.Component {
                         </Button>
                     </div>
                 </Grid>
-                
-                  
-               
+
+
+
                 <Modal
                   open={this.props.modal_open}
                   onClose={this.toggleModal}
