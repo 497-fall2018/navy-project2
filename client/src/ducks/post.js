@@ -681,8 +681,7 @@ export const submit_new_lost_post = (name, location, email, description, reward,
         axios.post(`/api/lost/create`, formData, config)
           .then((response) => {
             submit_new_lost_post_success(dispatch, response);
-            // callback();
-            console.log(response);
+            callback();
           })
           .catch((error) => submit_new_lost_post_failure(dispatch, error))
     }
