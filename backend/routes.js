@@ -161,6 +161,7 @@ module.exports = (app) => {
 			  })
 			}
 			let item = new Found(fields);
+			item.expire = item.created + new Date(2592000);
 			if(files.photo){
 				item.photo.data = fs.readFileSync(files.photo.path);
 				item.photo.contentType = files.photo.type;
