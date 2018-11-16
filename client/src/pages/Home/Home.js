@@ -25,15 +25,14 @@ class HomeComponent extends Component {
 
     }
 
-    setChecked = (c) => {this.setState({checked: c})}
-    setSearched = (s) => {this.setState({searched: s})}
+    setChecked = (c) => { this.setState({ checked: c }) }
+    setSearched = (s) => { this.setState({ searched: s }) }
 
     componentDidMount() {
         if (this.props.lorf === "lost") {
             this.props.load_lost_posts();
             this.props.load_found_posts();
-        }
-        else {
+        } else {
             this.props.load_found_posts();
             this.props.load_lost_posts();
         }
@@ -44,7 +43,7 @@ class HomeComponent extends Component {
             <div>
                 <Header lorf={this.props.lorf}/>
                 <Link to='/postform'>
-                    <Button variant="fab" style={{background: '#4054AC', color: 'white', position: 'absolute', top: '4vh', right: '2vw'}} aria-label="Add">
+                    <Button variant="fab" style={{background: '#546bcd', color: 'white', position: 'absolute', top: '2vh', right: '2vw'}} aria-label="Add">
                         <Add/>
                     </Button>
                 </Link>

@@ -27,7 +27,7 @@ const styles = {
   orangeAvatar: {
     marginTop: 10,
     color: '#fff',
-    backgroundColor: '#3a93f2',
+    backgroundColor: '#6f96e0',
     float: "right",
     position: "relative",
     top: "5px",
@@ -40,9 +40,9 @@ const styles = {
 };
 
 class Post extends React.Component {
-  render(){
-    const {classes} = this.props;
-    
+  render() {
+    const { classes } = this.props;
+
     return (
       <Card className={classes.card}>
 
