@@ -196,7 +196,7 @@ class PostFormComponent extends Component {
 						(this.props.reward==="" && this.props.question==="") || this.props.password==="" }>
 						Submit
 					</Button>
-					<a href='/'>
+					<a href='/lost'>
 						<Button style={{background: '#4054AC', color: 'white'}}>Cancle</Button>
 					</a>
 				</form>

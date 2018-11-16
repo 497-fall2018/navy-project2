@@ -12,12 +12,12 @@ module.exports = (app) => {
 		form.keepExtensions = true
 		form.parse(req, (err, fields, files) => {
 			if (err) {
-			  return res.status(400).json({
-			    error: "Image could not be uploaded"
-			  })
+				return res.status(400).json({
+					error: "Image could not be uploaded"
+				})
 			}
 			let item = new Lost(fields);
-			if(files.photo){
+			if (files.photo) {
 				item.photo.data = fs.readFileSync(files.photo.path);
 				item.photo.contentType = files.photo.type;
 			}
@@ -140,25 +140,25 @@ module.exports = (app) => {
 	//get image of lost item
 	app.get('/api/lost/posts/photo/:id', (req, res) => {
 		Lost.findById(req.params.id).exec((err, post) => {
-		    if (err || !post)
-		      return res.status('400').json({
-		        error: "Post not found"
-		      })
-		    res.set("Content-Type", post.photo.contentType)
-    		return res.send(post.photo.data)
-		  })
+			if (err || !post)
+				return res.status('400').json({
+					error: "Post not found"
+				})
+			res.set("Content-Type", post.photo.contentType)
+			return res.send(post.photo.data)
+		})
 	});
 
 	//get image of found item
 	app.get('/api/found/posts/photo/:id', (req, res) => {
 		Found.findById(req.params.id).exec((err, post) => {
-		    if (err || !post)
-		      return res.status('400').json({
-		        error: "Post not found"
-		      })
-		    res.set("Content-Type", post.photo.contentType)
-    		return res.send(post.photo.data)
-		  })
+			if (err || !post)
+				return res.status('400').json({
+					error: "Post not found"
+				})
+			res.set("Content-Type", post.photo.contentType)
+			return res.send(post.photo.data)
+		})
 	});
 
 	//get all of the lost locations in use and their frequency
@@ -167,6 +167,7 @@ module.exports = (app) => {
 		Lost.find((err, items) => {
 			if (err) return res.json({ success: false, error: err });
 			let locations = {}
+			locations["Any"] = items.length;
 			for (let i = 0; i < items.length; i++) {
 				if (!(items[i].location in locations)) {
 					locations[items[i].location] = 1;
@@ -187,12 +188,12 @@ module.exports = (app) => {
 		form.keepExtensions = true
 		form.parse(req, (err, fields, files) => {
 			if (err) {
-			  return res.status(400).json({
-			    error: "Image could not be uploaded"
-			  })
+				return res.status(400).json({
+					error: "Image could not be uploaded"
+				})
 			}
 			let item = new Found(fields);
-			if(files.photo){
+			if (files.photo) {
 				item.photo.data = fs.readFileSync(files.photo.path);
 				item.photo.contentType = files.photo.type;
 			}
@@ -315,7 +316,8 @@ module.exports = (app) => {
 		Found.find((err, items) => {
 			if (err) return res.json({ success: false, error: err });
 			let locations = {}
-			console.log(items)
+			locations["Any"] = items.length;
+			//console.log(items)
 			for (let i = 0; i < items.length; i++) {
 				if (!(items[i].location in locations)) {
 					locations[items[i].location] = 1;
@@ -323,7 +325,7 @@ module.exports = (app) => {
 					locations[items[i].location] += 1;
 				}
 			}
-			console.log(locations);
+			//console.log(locations);
 			return res.json({ success: true, data: locations });
 		});
 	});
