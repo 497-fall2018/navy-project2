@@ -7,7 +7,7 @@ import {
 } from '../../ducks/post';
 import './styles.css';
 import { Header } from '../../components';
-import { Typography, Button, TextField } from '@material-ui/core';
+import { Typography, Button, TextField, Paper, Grid } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import Modal from 'react-responsive-modal';
 
@@ -23,26 +23,44 @@ class PostInfoComponent extends React.Component {
     }
 
     render() {
-        const item = this.props.lorf==="lost" ? this.props.lost.find(item => item._id===this.props.match.params.id) :  this.props.found.find(item => item._id===this.props.match.params.id)
+        const item = this.props.lorf === "lost" ? this.props.lost.find(item => item._id === this.props.match.params.id) : this.props.found.find(item => item._id === this.props.match.params.id)
         console.log(item);
         console.log(this.props.error_message);
         return (
             <div>
                 <Header />
-                <Typography>{item._id}</Typography>
-                <Typography>{(new Date(item.created)).toLocaleString()}</Typography>
-                <Typography>{item.description}</Typography>
-                <Typography>{item.location}</Typography>
-                <Typography>{item.name}</Typography>
-                {item.photo && (
-                    <div>
-                        <img src={'/api/'+this.props.lorf+'/posts/photo/'+item._id} style={{width: '200px'}} alt={'/api/'+this.props.lorf+'/posts/photo/'+item._id}/>
-                    </div>)}
-                <Typography>{item.reward}</Typography>
+                <br></br>
+                <br></br>
+                <Grid container spacing={24} id="grid">
+                    <Grid item xs={12}>
+                        <Paper className={{padding: 24 * 2,textAlign: 'center',}}>
+                            {item.photo && (
+                            <div>
+                            <img src={`/api/${this.props.lorf}/posts/photo/${item._id}`} id={"item_img"} alt={'/api/'+this.props.lorf+'/posts/photo/'+item._id}/>
+                            </div>)}
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Paper className={{padding: 24 * 2,textAlign: 'center',}}>
+                            <div id="text-content">
+                                <Typography id="title">{item.name}</Typography>
+                                <Typography><b>Posted:</b> {(new Date(item.created)).toLocaleString()}</Typography>
+                                <Typography><b>Description:</b> {item.description}</Typography>
+                                <Typography><b>Location:</b> {item.location}</Typography>
+                                <Typography><b>Reward:</b> ${item.reward}</Typography>
+                            </div>
+                        </Paper>
+                    </Grid>
+                    <div id="delete_div">
+                        <div>Posted this item? You can delete it here.</div>
+                        <Button onClick={this.toggleModal}>
+                            <Delete />
+                        </Button>
+                    </div>
+                </Grid>
+                
                   
-                <Button onClick={this.toggleModal}>
-                    <Delete />
-                </Button>
+               
                 <Modal
                   open={this.props.modal_open}
                   onClose={this.toggleModal}
@@ -68,7 +86,7 @@ class PostInfoComponent extends React.Component {
     }
 }
 
-export {PostInfoComponent};
+export { PostInfoComponent };
 
 const mapStateToProps = (state, ownProps) => {
     const { post } = state;
@@ -83,7 +101,7 @@ const mapStateToProps = (state, ownProps) => {
     };
 };
 
-export const PostInfo=connect(mapStateToProps,{
+export const PostInfo = connect(mapStateToProps, {
     toggle_modal,
     handle_delete_post,
     handle_form_change
