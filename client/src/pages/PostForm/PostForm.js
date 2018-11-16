@@ -196,7 +196,9 @@ class PostFormComponent extends Component {
 					<Button variant="contained" color="primary" onClick={()=>this.handlePostFormSubmit()} disabled={this.props.name==="" ||
 						this.props.location==="" || this.props.description==="" || this.props.email==="" ||
 						(this.props.reward==="" && this.props.question==="") || this.props.password==="" }>
-						Submit
+						<a href='/lost' style={{color: 'white', textDecoration: 'none'}}>
+							Submit
+						</a>
 					</Button>
 					<a href='/lost'>
 						<Button style={{background: '#4054AC', color: 'white'}}>Cancel</Button>
