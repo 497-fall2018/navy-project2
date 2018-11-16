@@ -139,6 +139,9 @@ export default function reducer(state = INITIAL_STATE, action) {
         case TOGGLE_MODAL2:
             return {
                 ...state,
+                email_message: "",
+                responder_name: "",
+                responder_email: "",
                 modal2_open: !state.modal2_open,
             }
         case TOGGLE_UPDATE_MODAL:
@@ -580,7 +583,7 @@ export const submit_updated_post = (form_type, updateId, name, location, email, 
     formData.append('password', password);
     if (image !== null) {
         formData.set('photo', image);
-    }    
+    }
     for (var pair of formData.entries()) {
         console.log(pair[0]+ ', ' + pair[1]);
     }

@@ -47,10 +47,11 @@ class PostInfoComponent extends React.Component {
             "responder_email": email,
             "message_html": message
          }
-         
+
          var service_id = "default_service";
          var template_id = "template_vJpvxmHX";
          window.emailjs.send(service_id,template_id,template_params);
+         this.props.toggle_modal2();
     }
 
 
@@ -87,12 +88,12 @@ class PostInfoComponent extends React.Component {
                                     :
                                     <Typography><b>Question:</b> {item.question}</Typography>
                                 }
-                                
+
                                 <Button onClick={this.toggleModal2} style={{float: "right"}}>
                                     Contact Poster&nbsp;
                                     <Send />
                                 </Button>
-                                
+
                             </div>
                         </Paper>
                     </Grid>
@@ -110,7 +111,7 @@ class PostInfoComponent extends React.Component {
                         </Button>
                     </div>
                 </Grid>
-                
+
                 <Modal
                   open={this.props.update_modal_open}
                   onClose={this.toggleUpdateModal}
@@ -152,13 +153,13 @@ class PostInfoComponent extends React.Component {
                     </Button>
                     <Button onClick={this.toggleModal} style={{color: '#4054AC'}}>Cancel</Button>
                 </Modal>
-             
+
                 <Modal
                   open={this.props.modal2_open}
                   onClose={this.toggleModal2}
                   center
                   classNames={{ overlay: 'custom-overlay', modal: 'custom-modal' }}
-                  style={{width: "1000px"}}    
+                  style={{width: "1000px"}}
                 >
                     <h2 style={{fontFamily:'monospace'}}>Send Email</h2>
                     <TextField required
@@ -176,17 +177,20 @@ class PostInfoComponent extends React.Component {
                     <br/>
                     <TextField
                         id="filled-textarea"
-                        label="Type Message Here"
-                        placeholder="Placeholder"
+                        label="Message"
+                        placeholder="Further description to confirm the item lost or found"
                         multiline
                         margin="normal"
+                        style={{width: "80%"}}
                         onChange={this.handleFormChange("email_message")}
                     />
                     <br/>
                     <Button variant="contained" color="primary" onClick={() => {this.send_email(this.props.email_message, this.props.responder_name, this.props.responder_email);}}>
-                        Send
+                        <a href='/lost' style={{textDecoration: 'none', color: 'white'}}>Send</a>
                     </Button>
-                    <Button onClick={this.toggleModal2} style={{color: '#4054AC'}}>Cancel</Button>
+                    <Button onClick={this.toggleModal2} style={{color: '#4054AC'}}>
+                        Cancel
+                    </Button>
                 </Modal>
             </div>
         );
@@ -197,7 +201,7 @@ export { PostInfoComponent };
 
 const mapStateToProps = (state, ownProps) => {
     const { post } = state;
-    const { lost, found, modal_open, modal2_open, error_message, password, email_message, responder_name, redirect, responder_emailupdate_modal_open, } = post;
+    const { lost, found, modal_open, modal2_open, error_message, password, email_message, responder_name, redirect, responder_email, update_modal_open, } = post;
     return {
         ...ownProps,
         lost,
@@ -205,7 +209,7 @@ const mapStateToProps = (state, ownProps) => {
         modal_open,
         modal2_open,
         error_message,
-        password, 
+        password,
         email_message,
         responder_name,
         responder_email,

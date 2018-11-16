@@ -199,7 +199,7 @@ class PostFormComponent extends Component {
 						Submit
 					</Button>
 					<a href='/lost'>
-						<Button style={{background: '#4054AC', color: 'white'}}>Cancle</Button>
+						<Button style={{background: '#4054AC', color: 'white'}}>Cancel</Button>
 					</a>
 				</form>
 			</div>
