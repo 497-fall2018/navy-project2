@@ -2,6 +2,7 @@ import axios from 'axios';
 
 //Action Types
 export const TOGGLE_MODAL = "lstnfnd/post/TOGGLE_MODAL";
+export const TOGGLE_MODAL2 = "lstnfnd/post/TOGGLE_MODAL2";
 export const CHANGE_FORM_TYPE = "lstnfnd/post/CHANGE_FORM_TYPE";
 export const CHANGE_NAME = "lstnfnd/post/CHANGE_NAME";
 export const CHANGE_LOCATION_FORM = "lstnfnd/post/CHANGE_LOCATION_FORM";
@@ -41,6 +42,7 @@ export const HANDLE_FORM_CHANGE = "lstnfnd/post/HANDLE_FORM_CHANGE";
 
 const INITIAL_STATE = {
     modal_open: false,
+    modal2_open: false,
     file: null,
     image: null,
     data: [{
@@ -103,7 +105,10 @@ const INITIAL_STATE = {
     password: '',
     lost_locations: [["Tech", 25], ["Norris", 15], ["Plex", 4], ["Sheridan Rd", 1], ["Annenberg", 1], ["SPAC", 1]],
     found_locations: [["Norris", 10], ["Plex", 4], ["Sheridan Rd", 1], ["SPAC", 1]],
-    location_search: ""
+    location_search: "",
+    email_message: "",
+    responder_name : "",
+    responder_email : ""
 };
 
 //Reducers
@@ -129,6 +134,11 @@ export default function reducer(state = INITIAL_STATE, action) {
                 ...state,
                 modal_open: !state.modal_open,
             }
+        case TOGGLE_MODAL2:
+        return {
+            ...state,
+            modal2_open: !state.modal2_open,
+        }
         // ----------------------------post form--------------------------------
         case CHANGE_FORM_TYPE:
             return {
@@ -393,6 +403,13 @@ export const toggle_modal = () => {
     return (dispatch) => {
         dispatch({
             type: TOGGLE_MODAL,
+        });
+    };
+};
+export const toggle_modal2 = () => {
+    return (dispatch) => {
+        dispatch({
+            type: TOGGLE_MODAL2,
         });
     };
 };
