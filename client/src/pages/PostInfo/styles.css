@@ -1,0 +1,28 @@
+#item_img {
+	display: block;
+	width: 80%;
+	padding: 10%;
+	border-radius: 11%;
+}
+
+#grid {
+	max-width: 52rem;
+	margin: auto;
+	display: flex;
+	padding: 0 10%;
+}
+
+#title {
+	font-size: 2em;
+}
+
+#text-content {
+	padding: 4% 10%;
+	font-size: 1.5em;
+}
+
+#delete_div {
+	display: inline-flex;
+	line-height: 38px;
+	padding: 30px;
+}
