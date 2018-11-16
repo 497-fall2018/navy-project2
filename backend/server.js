@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const routes = require('./routes');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 mongoose.Promise = global.Promise;
 
@@ -31,6 +32,7 @@ app.use(function (req, res, next) {
 });
 
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "../client/build")));
 routes(app);
 
 // catch 404 and forward to error handler
