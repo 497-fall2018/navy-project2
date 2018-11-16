@@ -158,7 +158,7 @@ class PostInfoComponent extends React.Component {
                   open={this.props.modal2_open}
                   onClose={this.toggleModal2}
                   center
-                  classNames={{ overlay: 'custom-overlay', modal: 'custom-modal' }}
+                  classNames={{ overlay: 'custom-overlay', modal: 'custom-modal-send-email' }}
                   style={{width: "1000px"}}
                 >
                     <h2 style={{fontFamily:'monospace'}}>Send Email</h2>
