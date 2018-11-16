@@ -15,4 +15,7 @@ const lostSchema = new Schema({
 	password: String
 });
 
+// Delete doc after a certain amount of time
+lostSchema.index({ createdAt: 1 }, { expireAfterSeconds: 2592000 }); //expires in 30 days
+
 module.exports = mongoose.model('lost', lostSchema);
