@@ -73,9 +73,11 @@ class PostFormComponent extends Component {
 			);
 		}
 		else if (this.props.form_type === "lost") {
+			console.log("submit lost");
 			this.props.submit_new_lost_post(this.props.name, this.props.location, this.props.email, this.props.description, this.props.reward, this.props.password, this.props.image, () => {this.props.history.push('/');});
 		}
 		else {
+			console.log("submit found");
 			this.props.submit_new_found_post(this.props.name, this.props.location, this.props.email, this.props.description, this.props.question, this.props.password, this.props.image, () => {this.props.history.push('/');});
 		}
 	}
