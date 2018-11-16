@@ -595,7 +595,6 @@ export const submit_new_found_post = (name, location, email, description, questi
 }
 
 export const submit_new_found_post_success = (dispatch, response) => {
-    console.log(response);
     dispatch({
         type: SUBMIT_NEW_FOUND_POST_SUCCESS,
         payload: response.data,
